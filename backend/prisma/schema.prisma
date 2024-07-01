@@ -1,0 +1,35 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+model Produto {
+  id         Int     @id @default(autoincrement())
+  nome       String
+  categoria  String
+  tipo       String
+  imagemPath String?  
+  descricao  Des?     @relation(fields: [descricaoId], references: [id]) 
+  descricaoId Int?    @unique
+  armazen    Post?    @relation(fields: [armazenId], references: [id])  
+  armazenId  Int?     @unique
+}
+
+model Des {
+  id       Int      @id @default(autoincrement())
+  content  String
+  produto  Produto? 
+}
+
+model Post {
+  id       Int      @id @default(autoincrement())
+  content  String
+  produto  Produto? 
+}
+
