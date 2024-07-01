@@ -1,1 +1,0 @@
-Shinobi no seu fone passando a visão
