@@ -7,7 +7,12 @@ const router = Router();
 // Criar produto
 
 router.post('/produtos', async (req: Request, res: Response) => {
-    const { nome, categoria, tipo, imagemPath, descricaoContent, armazenContent } = req.body;
+    const {
+      nome, categoria, tipo, imagemPath, descricaoContent, armazenContent,
+      vegano, sustentavel, semGluten, semLactose, organico, semAcucar,
+      producaoArtesanal, proximoAoVencimento, seloIBD, agroflorestal, artesanal, semAdicaoDeAcucar,
+      preco, desconto, precoNovo
+    } = req.body;
 
     try {
       const novaDescricao = await prisma.des.create({
@@ -29,7 +34,10 @@ router.post('/produtos', async (req: Request, res: Response) => {
           tipo,
           imagemPath,
           descricao: { connect: { id: novaDescricao.id } },
-          armazen: { connect: { id: novoArmazen.id } }
+          armazen: { connect: { id: novoArmazen.id } },
+          vegano, sustentavel, semGluten, semLactose, organico, semAcucar,
+          producaoArtesanal, proximoAoVencimento, seloIBD, agroflorestal, artesanal, semAdicaoDeAcucar,
+          preco, desconto, precoNovo
         }
       });
         res.status(201).json({
@@ -102,7 +110,12 @@ router.delete('/produtos/:id', async (req: Request, res: Response) => {
 
 router.put('/produtos/:id', async (req: Request, res: Response) => {
     const { id } = req.params; 
-    const { nome, categoria, tipo, imagemPath, descricaoContent, armazenContent } = req.body;
+    const { 
+      nome, categoria, tipo, imagemPath, descricaoContent, armazenContent,
+      vegano, sustentavel, semGluten, semLactose, organico, semAcucar,
+      producaoArtesanal, proximoAoVencimento, seloIBD, agroflorestal, artesanal, semAdicaoDeAcucar,
+      preco, desconto, precoNovo
+    } = req.body;
   
     try {
       let descricaoAtualizada = undefined;
@@ -131,7 +144,10 @@ router.put('/produtos/:id', async (req: Request, res: Response) => {
           tipo,
           imagemPath,
           descricao: descricaoAtualizada ? { connect: { id: descricaoAtualizada.id } } : undefined,
-          armazen: armazenAtualizado ? { connect: { id: armazenAtualizado.id } } : undefined
+          armazen: armazenAtualizado ? { connect: { id: armazenAtualizado.id } } : undefined,
+          vegano, sustentavel, semGluten, semLactose, organico, semAcucar,
+          producaoArtesanal, proximoAoVencimento, seloIBD, agroflorestal, artesanal, semAdicaoDeAcucar,
+          preco, desconto, precoNovo
         }
       });
       return res.json({

@@ -9,6 +9,7 @@ datasource db {
   provider = "sqlite"
   url      = env("DATABASE_URL")
 }
+
 model Produto {
   id         Int     @id @default(autoincrement())
   nome       String
@@ -19,6 +20,21 @@ model Produto {
   descricaoId Int?    @unique
   armazen    Post?    @relation(fields: [armazenId], references: [id])  
   armazenId  Int?     @unique
+  vegano                  Boolean @default(false)
+  sustentavel             Boolean @default(false)
+  semGluten               Boolean @default(false)
+  semLactose              Boolean @default(false)
+  organico                Boolean @default(false)
+  semAcucar               Boolean @default(false)
+  producaoArtesanal       Boolean @default(false)
+  proximoAoVencimento     Boolean @default(false)
+  seloIBD                 Boolean @default(false)
+  agroflorestal           Boolean @default(false)
+  artesanal               Boolean @default(false)
+  semAdicaoDeAcucar       Boolean @default(false)
+  preco       Float   @default(0.0)  
+  desconto    Float   @default(0.0)  
+  precoNovo   Float   @default(0.0)
 }
 
 model Des {
