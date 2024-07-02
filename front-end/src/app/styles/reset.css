@@ -44,3 +44,7 @@ table {
 a {
 	text-decoration: none;
 }
+
+input[type="text"], button {
+	all: unset;
+}

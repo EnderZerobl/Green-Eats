@@ -1,0 +1,94 @@
+header{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.topContentContainer{
+    margin-top: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    height: 55px;
+    width: 90%;
+}
+
+.logo{
+    width: 318px;
+}
+
+.logo h1{
+    color: var(--main-green);
+    font-weight: 600;
+    font-size: 40px;
+    text-align: center;
+}
+
+.searchContainer{
+    display: flex;
+}
+
+.searchContainer input{
+    box-sizing: border-box;
+    width: 710px;
+    height: 55px;
+    border: 2px solid var(--main-green);
+    text-indent: 16px;
+}
+
+.searchIconContainer {
+    height: 55px;
+    width: 64px;
+    background-color: var(--main-green);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.pagesContainer{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.pagesIconContainer{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 90px;
+    height: 50px;
+}
+
+nav{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 32px;
+}
+
+.navContainer{
+    display: flex;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 90%;
+}
+
+.navTextContainer{
+    width: 204px;
+    height: 29px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.navTextContainer.bigger{
+    width: 318px;
+}
+
+.navTextContainer p{
+    font-weight: 400;
+    font-size: 24px;
+    color: var(--main-green);
+    text-align: center;
+}
