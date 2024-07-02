@@ -1,9 +1,13 @@
+import "@/app/styles/reset.css";
 import Header from "@/components/Header";
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
-import "@/app/styles/reset.css"
+import { Montserrat } from "next/font/google";
 
-const inter = Inter({ subsets: ["latin"] });
+const montserrat = Montserrat({
+  weight: ['300', '400', '500', '700'],
+  subsets: ['latin'],
+  display: 'swap',
+});
 
 export const metadata: Metadata = {
   title: "Green-eats",
@@ -16,9 +20,11 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={inter.className}>{children}</body>
-      <Header></Header>
+    <html lang="pt-br">
+      <body className={montserrat.className}>
+        <Header />
+        {children}
+      </body>
     </html>
   );
 }
