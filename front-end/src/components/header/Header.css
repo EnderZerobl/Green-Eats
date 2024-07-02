@@ -36,6 +36,10 @@ header{
     text-indent: 16px;
 }
 
+.searchContainer input:focus{
+    border: 2px solid var(--dark-green);
+}
+
 .searchIconContainer {
     height: 55px;
     width: 64px;
@@ -43,6 +47,11 @@ header{
     display: flex;
     align-items: center;
     justify-content: center;
+    cursor: pointer;
+}
+
+.searchIconContainer:hover{
+    background-color: var(--black-green);
 }
 
 .pagesContainer{
