@@ -14,3 +14,17 @@
     --white-green: #74C03A;
     --whiter-green: #8DEA47;
 }
+
+.flexer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.generic-button {
+    border: 1px solid var(--main-green);
+    font-size: 2.5rem;
+    font-weight: bold;
+    text-align: center;
+    color: var(--main-green);
+}

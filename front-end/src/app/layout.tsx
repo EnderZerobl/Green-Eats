@@ -6,6 +6,7 @@ import { createClient, repositoryName } from "@/prismicio";
 import { PrismicPreview } from "@prismicio/next";
 import type { Metadata, ResolvingMetadata } from "next";
 import { Montserrat } from "next/font/google";
+import Footer from "@/components/footer/Footer";
 
 const montserrat = Montserrat({
   weight: ['300', '400', '500', '700'],
@@ -44,6 +45,7 @@ export default async function RootLayout({
       <body className={montserrat.className}>
         <Header />
         {children}
+        <Footer />
         <PrismicPreview repositoryName={repositoryName}/>
       </body>
     </html>

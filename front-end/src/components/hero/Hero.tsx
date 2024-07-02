@@ -31,7 +31,7 @@ export default async function Hero() {
                 </h2>
 
                 <PrismicNextLink
-                className='hero__content__button'
+                className='hero__content__button generic-button'
                 field={data?.link}>
                     {data?.link_label}
                 </PrismicNextLink>

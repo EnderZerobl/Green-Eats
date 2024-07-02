@@ -1,0 +1,58 @@
+.footer {
+    width: 100vw;
+}
+
+.footer__section {
+    width: 100%;
+    padding: 2% 5%;
+}
+
+.newsletter {
+    background-color: #FFFFFF;
+    width: 100%;
+    padding: 2% 10%;
+}  
+
+.footer__section__title {
+    font-size: 2rem;
+    color: var(--main-green);
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+}
+
+.footer__section__text {
+    font-size: 1.2rem;
+    color: var(--main-green);
+    margin-bottom: 1rem;
+}
+
+.footer__section__form {
+    width: 100%;
+}
+
+.footer__section__form__input {
+    width: 100%;
+    padding: 1rem;
+    border: 1px solid var(--main-green);
+    margin-bottom: 1rem;
+}
+
+.footer__section__form__button {
+    width: 40%;
+    font-size: 2rem;
+}
+
+.real-footer {
+    background-color: var(--strong-green);
+    color: white;
+}
+
+.real-footer__social-title {
+    padding: 1rem 0;
+}
+
+.real-footer__social {
+    display: flex;
+    justify-content: space-evenly;
+    width: 50%;
+}
