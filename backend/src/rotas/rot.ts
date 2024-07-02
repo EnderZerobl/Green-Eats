@@ -11,10 +11,11 @@ router.post('/produtos', async (req: Request, res: Response) => {
       nome, categoria, tipo, imagemPath, descricaoContent, armazenContent,
       vegano, sustentavel, semGluten, semLactose, organico, semAcucar,
       producaoArtesanal, proximoAoVencimento, seloIBD, agroflorestal, artesanal, semAdicaoDeAcucar,
-      preco, desconto, precoNovo
+      preco, desconto
     } = req.body;
 
     try {
+      const precoNovo = preco - (preco * (desconto / 100))
       const novaDescricao = await prisma.des.create({
         data: {
           content: descricaoContent
@@ -37,7 +38,8 @@ router.post('/produtos', async (req: Request, res: Response) => {
           armazen: { connect: { id: novoArmazen.id } },
           vegano, sustentavel, semGluten, semLactose, organico, semAcucar,
           producaoArtesanal, proximoAoVencimento, seloIBD, agroflorestal, artesanal, semAdicaoDeAcucar,
-          preco, desconto, precoNovo
+          preco, desconto, 
+          precoNovo
         }
       });
         res.status(201).json({
@@ -114,10 +116,12 @@ router.put('/produtos/:id', async (req: Request, res: Response) => {
       nome, categoria, tipo, imagemPath, descricaoContent, armazenContent,
       vegano, sustentavel, semGluten, semLactose, organico, semAcucar,
       producaoArtesanal, proximoAoVencimento, seloIBD, agroflorestal, artesanal, semAdicaoDeAcucar,
-      preco, desconto, precoNovo
+      preco, desconto
     } = req.body;
   
     try {
+      
+      const precoNovo = preco - (preco * (desconto / 100))
       let descricaoAtualizada = undefined;
       if (descricaoContent) {
         descricaoAtualizada = await prisma.des.upsert({
