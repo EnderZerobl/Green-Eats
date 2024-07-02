@@ -1,6 +1,10 @@
 import "@/app/styles/reset.css";
+import "@/app/styles/global.css"
 import Header from "@/components/Header";
-import type { Metadata } from "next";
+import Hero from "@/components/hero/Hero";
+import { createClient, repositoryName } from "@/prismicio";
+import { PrismicPreview } from "@prismicio/next";
+import type { Metadata, ResolvingMetadata } from "next";
 import { Montserrat } from "next/font/google";
 
 const montserrat = Montserrat({
@@ -9,10 +13,26 @@ const montserrat = Montserrat({
   display: 'swap',
 });
 
-export const metadata: Metadata = {
-  title: "Green-eats",
-  description: "",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  
+  const client = createClient();
+
+  const page = await client.getSingle("metadata");
+
+  const product = page.data;
+
+  return {
+    title: product.meta_title || "Green Eats",
+    description: product.meta_description || "Seu site natural!",
+    openGraph: {
+      images: [product.meta_image.url || ""],
+    },
+    icons:{
+      icon: product.icon.url || ""
+    }
+  }
+}
+ 
 
 export default async function RootLayout({
   children,
@@ -24,6 +44,7 @@ export default async function RootLayout({
       <body className={montserrat.className}>
         <Header />
         {children}
+        <PrismicPreview repositoryName={repositoryName}/>
       </body>
     </html>
   );

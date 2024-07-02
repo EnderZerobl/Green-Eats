@@ -1,0 +1,45 @@
+.hero {
+    position: relative;
+    margin-top: 10vh;
+    max-width: 100vw;
+    height: 90vh;
+    overflow: hidden;
+}
+
+.hero__image {
+    position: absolute;
+    object-fit: cover;
+    width: 100%;
+}
+
+.hero__content {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 60%;
+    padding-left: 5%;
+}
+
+.hero__content__text {
+    margin-bottom: 5%;
+    text-align: justify;
+    font-size: 3rem;
+}
+
+.hero__content__button {
+    background-color: inherit;
+    width: 100%;
+    padding: 2% 0;
+    border: 1px solid var(--main-green);
+    font-size: 2.5rem;
+    font-weight: bold;
+    text-align: center;
+    color: var(--main-green);
+}
+
+.green {
+    color: var(--main-green);
+}
