@@ -35,19 +35,30 @@ export default function Header() {
         <nav>
             <div className="navContainer">
                 <div className="navTextContainer">
-                    <p>Promoções</p>
+                    <Link href="/">
+                        <p>Promoções</p>
+                    </Link>
                 </div>
                 <div className="navTextContainer">
-                    <p>Green Horta</p>
+                    <Link href="/">
+                        <p>Green Horta</p>
+                    </Link>
                 </div>
                 <div className="navTextContainer bigger">
-                    <p>Green Mercearia</p>
+                    <Link href="/">
+                        <p>Green Mercearia</p>
+                    </Link>
+                    
                 </div>
                 <div className="navTextContainer bigger">
-                    <p>Bebidas e Laticínios</p>
+                    <Link href="/">
+                        <p>Bebidas e Laticínios</p>
+                    </Link>
                 </div>
                 <div className="navTextContainer">
-                    <p>Ovos e Carnes</p>
+                    <Link href="/">
+                        <p>Ovos e Carnes</p>
+                    </Link>
                 </div>
 
             </div>
