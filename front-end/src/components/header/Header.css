@@ -1,0 +1,112 @@
+header{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.topContentContainer{
+    margin-top: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    height: 55px;
+    width: 90%;
+}
+
+.logo{
+    width: 318px;
+    cursor: pointer;
+}
+
+.logo h1{
+    color: var(--main-green);
+    font-weight: 600;
+    font-size: 40px;
+    text-align: center;
+}
+
+.logo h1:hover{
+    color: var(--dark-green)
+}
+
+.searchContainer{
+    display: flex;
+}
+
+.searchContainer input{
+    box-sizing: border-box;
+    width: 710px;
+    height: 55px;
+    border: 2px solid var(--main-green);
+    text-indent: 16px;
+}
+
+.searchContainer input:focus{
+    border: 2px solid var(--dark-green);
+}
+
+.searchIconContainer {
+    height: 55px;
+    width: 64px;
+    background-color: var(--main-green);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.searchIconContainer:hover{
+    background-color: var(--black-green);
+}
+
+.pagesContainer{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.pagesIconContainer{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 90px;
+    height: 50px;
+}
+
+nav{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 32px;
+}
+
+.navContainer{
+    display: flex;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 90%;
+}
+
+.navTextContainer{
+    width: 204px;
+    height: 29px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.navTextContainer.bigger{
+    width: 318px;
+}
+
+.navTextContainer p{
+    font-weight: 400;
+    font-size: 24px;
+    color: var(--main-green);
+    text-align: center;
+}
+
+.navTextContainer p:hover{
+    color: var(--dark-green);
+}
