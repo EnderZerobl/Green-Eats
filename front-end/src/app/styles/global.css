@@ -13,6 +13,11 @@
     --blackest-green: #0D1506;
     --white-green: #74C03A;
     --whiter-green: #8DEA47;
+    --background: #F1F1F1;
+}
+
+body {
+    background-color: var(--background);
 }
 
 .flexer {
