@@ -1,9 +1,3 @@
-.sectionProductCard{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
 .productCardContainer{
     width: 90%;
 }

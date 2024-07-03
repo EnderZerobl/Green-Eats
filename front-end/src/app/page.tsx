@@ -6,7 +6,9 @@ export default function Home() {
   return (
     <main>
       <Hero />
-      <ProductSection />
+      <ProductSection title="Green Horta"/>
+      <ProductSection title="Green Mercearia"/>
+      <ProductSection title="Bebidas e Laticinios"/>
     </main>
   );
 }

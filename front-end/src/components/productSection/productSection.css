@@ -11,6 +11,7 @@
 .productSectionText h1{
     font-weight: 500;
     font-size: 40px;
+    margin-top: 152px;
 }
 
 .productLinkContainer{
@@ -27,7 +28,8 @@
 .productSectionText a span{
     font-weight: 500;
     font-size: 24px;
-    color: var(--main-green)
+    color: var(--main-green);
+    margin-bottom: 24px;
 }
 
 .productSectionText a span:hover{
