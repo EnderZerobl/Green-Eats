@@ -6,10 +6,15 @@ export default function ProductSection() {
     return(
         <>
             <section className="productSection">
-                <div className="productSectionText">
-                    <h1>Green Horta</h1>
-                    <Link href="/"><span>ver mais</span></Link>
+                <div className="headerProductSection">
+                    <div className="productSectionText">
+                        <h1>Green Horta</h1>
+                        <div className="productLinkContainer">
+                            <Link href="/"><span>ver mais</span></Link>
+                        </div>
+                    </div>
                 </div>
+                
                 <ProductList />
             </section>
         </>
