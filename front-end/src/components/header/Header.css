@@ -45,6 +45,11 @@ header{
     border: 2px solid var(--dark-green);
 }
 
+.searchContainer input::placeholder{
+    font-weight: 300;
+    font-size: 24px;
+}
+
 .searchIconContainer {
     height: 55px;
     width: 64px;
