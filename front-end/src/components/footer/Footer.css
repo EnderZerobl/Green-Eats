@@ -1,5 +1,5 @@
 .footer {
-    width: 100vw;
+    width: 100%;
 }
 
 .footer__section {
@@ -9,7 +9,6 @@
 
 .newsletter {
     background-color: #FFFFFF;
-    width: 100%;
     padding: 2% 10%;
 }  
 

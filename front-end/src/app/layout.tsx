@@ -1,7 +1,6 @@
 import "@/app/styles/reset.css";
-import "@/app/styles/global.css"
+import "@/app/styles/global.css";
 import Header from "@/components/header/Header";
-import Hero from "@/components/hero/Hero";
 import { createClient, repositoryName } from "@/prismicio";
 import { PrismicPreview } from "@prismicio/next";
 import type { Metadata, ResolvingMetadata } from "next";
