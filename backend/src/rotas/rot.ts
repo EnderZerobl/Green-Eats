@@ -196,4 +196,40 @@ router.get('/banco', async(req:Request, res:Response) => {
 
 })
 
+//Busca por booleano ex: Vegano, semgluten
+
+router.get('/produtos/busca/filtrados', async (req:Request, res:Response) =>{
+  const {
+    vegano, sustentavel, semGluten, semLactose, organico, semAcucar,
+    producaoArtesanal, proximoAoVencimento, seloIBD, agroflorestal, artesanal, semAdicaoDeAcucar
+  } = req.query;
+  
+  try{
+    const filtrados : { [key: string]: boolean } = {};
+
+    if (vegano !== undefined) filtrados.vegano = vegano === 'true';
+    if (sustentavel !== undefined) filtrados.sustentavel = sustentavel === 'true';
+    if (semGluten !== undefined) filtrados.semGluten = semGluten === 'true';
+    if (semLactose !== undefined) filtrados.semLactose = semLactose === 'true';
+    if (organico !== undefined) filtrados.organico = organico === 'true';
+    if (semAcucar !== undefined) filtrados.semAcucar = semAcucar === 'true';
+    if (producaoArtesanal !== undefined) filtrados.producaoArtesanal = producaoArtesanal === 'true';
+    if (proximoAoVencimento !== undefined) filtrados.proximoAoVencimento = proximoAoVencimento === 'true';
+    if (seloIBD !== undefined) filtrados.seloIBD = seloIBD === 'true';
+    if (agroflorestal !== undefined) filtrados.agroflorestal = agroflorestal === 'true';
+    if (artesanal !== undefined) filtrados.artesanal = artesanal === 'true';
+    if (semAdicaoDeAcucar !== undefined) filtrados.semAdicaoDeAcucar = semAdicaoDeAcucar === 'true';
+
+    const produtos = await prisma.produto.findMany({where:filtrados})
+    if(produtos.length > 0){
+      return res.json(produtos)
+    }
+    else{
+      return res.status(404).json("Sem produto com esse filtro")
+    }
+  }
+  catch(error) {
+    res.status(500).json("Sem nada no filtro")
+  }
+})
 export default router;
