@@ -1,0 +1,29 @@
+.productSection{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.productSectionText{
+    width: 90%;
+}
+
+.productSectionText h1{
+    font-weight: 500;
+    font-size: 40px;
+}
+
+.productSectionText a{
+    display: flex;
+    justify-content: flex-end;
+}
+
+.productSectionText a span{
+    font-weight: 500;
+    font-size: 24px;
+    color: var(--main-green)
+}
+
+.productSectionText a span:hover{
+    color: var(--dark-green)
+}

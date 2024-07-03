@@ -53,6 +53,7 @@ ul, ol, li {
 	text-decoration: none;
 }
 
-input[type="text"], button {
+input[type="text"], button, a {
 	all: unset;
+	cursor: pointer;
 }
