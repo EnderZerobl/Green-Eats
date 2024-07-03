@@ -1,6 +1,7 @@
 import { Router, Request, Response } from 'express';
 import { request } from 'http';
-import { prisma } from '../app';
+import { prisma } from '../database/data';
+
 
 const router = Router();
 
@@ -178,7 +179,7 @@ router.get('/produtos/categorias/:categoria', async(req:Request, res:Response) =
         }
     }
     catch(error){
-        res.status(500).json("Erro ao procurar nome")
+        res.status(500).json("Erro ao procurar produto")
     }
 });
 
@@ -203,7 +204,7 @@ router.get('/produtos/busca/filtrados', async (req:Request, res:Response) =>{
     vegano, sustentavel, semGluten, semLactose, organico, semAcucar,
     producaoArtesanal, proximoAoVencimento, seloIBD, agroflorestal, artesanal, semAdicaoDeAcucar
   } = req.query;
-  
+
   try{
     const filtrados : { [key: string]: boolean } = {};
 
@@ -232,4 +233,63 @@ router.get('/produtos/busca/filtrados', async (req:Request, res:Response) =>{
     res.status(500).json("Sem nada no filtro")
   }
 })
+
+//Buscar produto por mais de uma categoria
+
+router.get('/produtos/busca/categorias', async(req:Request,res:Response)=>{
+  const {categorias} = req.query;
+
+  try{
+
+    let categoriaslista: string[];
+    if (Array.isArray(categorias)) {
+      categoriaslista = categorias.map(cat => String(cat));
+    } else {
+      categoriaslista = [String(categorias)];
+    }
+
+    const produto = await prisma.produto.findMany({where: {categoria: {in: categoriaslista}}});
+    if (produto.length > 0){
+      res.json(produto)
+    }
+    else{
+      res.status(404).json("Nada nessas categorias")
+    }
+  }
+  catch(error){
+    res.status(500).json("Categorias não encontradas")
+  }
+
+})
+
+//Buscar produto por mais de um tipo
+
+router.get('/produtos/busca/tipos', async(req:Request,res:Response)=>{
+  const {tipos} = req.query;
+
+  try{
+    
+    let tiposlista: string[];
+    if (Array.isArray(tipos)) {
+      tiposlista = tipos.map(cat => String(cat));
+    } else {
+      tiposlista = [String(tipos)];
+    }
+
+    const produto = await prisma.produto.findMany({where: {tipo: {in: tiposlista}}});
+    if (produto.length > 0){
+      res.json(produto)
+    }
+    else{
+      res.status(404).json("Nada nesses tipos")
+    }
+  }
+  catch(error){
+    res.status(500).json("Tipos não encontradas")
+  }
+})
+
+
+
+
 export default router;
