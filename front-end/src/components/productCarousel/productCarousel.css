@@ -1,0 +1,20 @@
+.productCarousel .slick-prev, 
+.productCarousel .slick-next {
+  z-index: 1;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.productCarousel .slick-prev {
+  left: -25px;
+}
+
+.productCarousel .slick-next {
+  right: -25px;
+}
+
+.productCarousel{
+    width: 90%;
+    margin: 0 auto;
+}
+

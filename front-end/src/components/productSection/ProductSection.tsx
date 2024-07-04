@@ -1,6 +1,6 @@
-// components/ProductSection.tsx
-import ProductList from "../productList/ProductList";
-import Link from "next/link";
+"use client"
+import ProductCarousel from '../productCarousel/ProductCarousel';
+import Link from 'next/link';
 import "../../components/productSection/productSection.css";
 
 interface ProductSectionProps {
@@ -18,7 +18,7 @@ const ProductSection: React.FC<ProductSectionProps> = ({ title }) => {
           </div>
         </div>
       </div>
-      <ProductList />
+      <ProductCarousel />
     </section>
   );
 };
