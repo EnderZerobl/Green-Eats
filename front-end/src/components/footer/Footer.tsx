@@ -62,7 +62,7 @@ export default function Footer () {
                     <input type="text"
                      className="footer__section__form__input"
                      placeholder="Seu email?" />
-                    <input type="text"
+                    <input type="button"
                      className="footer__section__form__button generic-button"
                      value="CADASTRAR" />
                 </form>

@@ -39,6 +39,7 @@
 .footer__section__form__button {
     width: 40%;
     font-size: 2rem;
+    cursor: pointer;
 }
 
 .real-footer {

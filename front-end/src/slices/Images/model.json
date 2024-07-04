@@ -1,12 +1,12 @@
 {
   "id": "hero_image",
   "type": "SharedSlice",
-  "name": "HeroImage",
+  "name": "Images",
   "description": "HeroImage",
   "variations": [
     {
       "id": "default",
-      "name": "Default",
+      "name": "Hero",
       "docURL": "...",
       "version": "initial",
       "description": "Default",
@@ -48,6 +48,39 @@
           "type": "Text",
           "config": {
             "label": "Descrição do link",
+            "placeholder": ""
+          }
+        }
+      },
+      "items": {}
+    },
+    {
+      "id": "discovery",
+      "name": "Conheça também",
+      "docURL": "...",
+      "version": "initial",
+      "description": "Default",
+      "imageUrl": "",
+      "primary": {
+        "imagem": {
+          "type": "Image",
+          "config": {
+            "label": "Imagem",
+            "constraint": {},
+            "thumbnails": []
+          }
+        },
+        "title": {
+          "type": "Text",
+          "config": {
+            "label": "Título",
+            "placeholder": ""
+          }
+        },
+        "text": {
+          "type": "Text",
+          "config": {
+            "label": "Texto",
             "placeholder": ""
           }
         }

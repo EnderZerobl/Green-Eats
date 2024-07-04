@@ -216,11 +216,11 @@ export type MetadataDocument<Lang extends string = string> =
 export type AllDocumentTypes = DataDocument | MetadataDocument;
 
 /**
- * Item in *HeroImage → Default → Primary → Texto*
+ * Item in *Images → Hero → Primary → Texto*
  */
 export interface HeroImageSliceDefaultPrimaryTextoItem {
   /**
-   * parte do texto field in *HeroImage → Default → Primary → Texto*
+   * parte do texto field in *Images → Hero → Primary → Texto*
    *
    * - **Field Type**: Text
    * - **Placeholder**: *None*
@@ -231,11 +231,11 @@ export interface HeroImageSliceDefaultPrimaryTextoItem {
 }
 
 /**
- * Primary content in *HeroImage → Default → Primary*
+ * Primary content in *Images → Hero → Primary*
  */
 export interface HeroImageSliceDefaultPrimary {
   /**
-   * Imagem field in *HeroImage → Default → Primary*
+   * Imagem field in *Images → Hero → Primary*
    *
    * - **Field Type**: Image
    * - **Placeholder**: *None*
@@ -245,7 +245,7 @@ export interface HeroImageSliceDefaultPrimary {
   imagem: prismic.ImageField<never>;
 
   /**
-   * Texto field in *HeroImage → Default → Primary*
+   * Texto field in *Images → Hero → Primary*
    *
    * - **Field Type**: Group
    * - **Placeholder**: *None*
@@ -255,7 +255,7 @@ export interface HeroImageSliceDefaultPrimary {
   texto: prismic.GroupField<Simplify<HeroImageSliceDefaultPrimaryTextoItem>>;
 
   /**
-   * Link field in *HeroImage → Default → Primary*
+   * Link field in *Images → Hero → Primary*
    *
    * - **Field Type**: Link
    * - **Placeholder**: *None*
@@ -265,7 +265,7 @@ export interface HeroImageSliceDefaultPrimary {
   link: prismic.LinkField;
 
   /**
-   * Descrição do link field in *HeroImage → Default → Primary*
+   * Descrição do link field in *Images → Hero → Primary*
    *
    * - **Field Type**: Text
    * - **Placeholder**: *None*
@@ -276,7 +276,7 @@ export interface HeroImageSliceDefaultPrimary {
 }
 
 /**
- * Default variation for HeroImage Slice
+ * Hero variation for Images Slice
  *
  * - **API ID**: `default`
  * - **Description**: Default
@@ -289,12 +289,60 @@ export type HeroImageSliceDefault = prismic.SharedSliceVariation<
 >;
 
 /**
- * Slice variation for *HeroImage*
+ * Primary content in *Images → Conheça também → Primary*
  */
-type HeroImageSliceVariation = HeroImageSliceDefault;
+export interface HeroImageSliceDiscoveryPrimary {
+  /**
+   * Imagem field in *Images → Conheça também → Primary*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: hero_image.discovery.primary.imagem
+   * - **Documentation**: https://prismic.io/docs/field#image
+   */
+  imagem: prismic.ImageField<never>;
+
+  /**
+   * Título field in *Images → Conheça também → Primary*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: hero_image.discovery.primary.title
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  title: prismic.KeyTextField;
+
+  /**
+   * Texto field in *Images → Conheça também → Primary*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: hero_image.discovery.primary.text
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  text: prismic.KeyTextField;
+}
 
 /**
- * HeroImage Shared Slice
+ * Conheça também variation for Images Slice
+ *
+ * - **API ID**: `discovery`
+ * - **Description**: Default
+ * - **Documentation**: https://prismic.io/docs/slice
+ */
+export type HeroImageSliceDiscovery = prismic.SharedSliceVariation<
+  "discovery",
+  Simplify<HeroImageSliceDiscoveryPrimary>,
+  never
+>;
+
+/**
+ * Slice variation for *Images*
+ */
+type HeroImageSliceVariation = HeroImageSliceDefault | HeroImageSliceDiscovery;
+
+/**
+ * Images Shared Slice
  *
  * - **API ID**: `hero_image`
  * - **Description**: HeroImage
@@ -327,8 +375,10 @@ declare module "@prismicio/client" {
       HeroImageSlice,
       HeroImageSliceDefaultPrimaryTextoItem,
       HeroImageSliceDefaultPrimary,
+      HeroImageSliceDiscoveryPrimary,
       HeroImageSliceVariation,
       HeroImageSliceDefault,
+      HeroImageSliceDiscovery,
     };
   }
 }
