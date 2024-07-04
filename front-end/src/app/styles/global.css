@@ -1,3 +1,6 @@
+@import "~slick-carousel/slick/slick.css";
+@import "~slick-carousel/slick/slick-theme.css";
+
 :root {
     --darkest-green: #1C4200;
     --darker-green: #245600;

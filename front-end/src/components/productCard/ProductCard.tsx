@@ -1,13 +1,21 @@
+// components/ProductCard.tsx
 "use client"
 
 import React, { useState } from 'react';
 import Image from 'next/image';
 import "../productCard/productCard.css";
-import productImage from "../../../public/appleProduct.svg";
 import favoriteIcon from "../../../public/favoriteIcon.svg";
 import marketCarIcon from "../../../public/marketProductCard.svg";
 
-const ProductCard: React.FC = () => {
+interface ProductCardProps {
+  name: string;
+  oldPrice: number;
+  currentPrice: number;
+  discount: number;
+  imageUrl: string;
+}
+
+const ProductCard: React.FC<ProductCardProps> = ({ name, oldPrice, currentPrice, discount, imageUrl }) => {
   const [quantity, setQuantity] = useState(0);
 
   const handleIncrement = () => {
@@ -26,7 +34,7 @@ const ProductCard: React.FC = () => {
             <div className="cardImage">
               <div className="headerCardImage">
                 <div className="discount">
-                  <span>-20%</span>
+                  <span>-{discount}%</span>
                 </div>
                 <div className="favoriteIcon">
                   <button>
@@ -35,21 +43,21 @@ const ProductCard: React.FC = () => {
                 </div>
               </div>
               <div className="productImage">
-                <Image src={productImage} alt="Imagem do produto a venda" width={286} height={196} />
+                <Image src={imageUrl} alt="Imagem do produto a venda" width={286} height={196} />
               </div>
             </div>
             <div className="cardText">
               <div className="productText">
-                <p>Maça gala importada Orgânica - 500g</p>
+                <p>{name}</p>
               </div>
             </div>
           </div>
           <div className="cardProductPrice">
             <div className="oldPrice">
-              <p>R$ 20,00</p>
+              <p>R$ {oldPrice.toFixed(2)}</p>
             </div>
             <div className="currentPrice">
-              <p>R$ 16,90</p>
+              <p>R$ {currentPrice.toFixed(2)}</p>
             </div>
           </div>
           <div className="productPurchase">

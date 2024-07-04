@@ -1,7 +1,7 @@
-.productCardContainer{
-    width: 90%;
+.sectionProductCard{
+    display: flex;
+    justify-content: space-around;
 }
-
 .productCard{
     width: 319px;
     height: 589px;
