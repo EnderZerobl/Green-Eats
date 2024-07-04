@@ -1,3 +1,4 @@
+import { ResponseFromApi } from '@/lib/types';
 import axios from 'axios';
 
 type requisitionParams = {
@@ -13,7 +14,9 @@ const getAllProducts = async () => {
 };
 
 const getProductById = async (id: string) => {
-    const response = axios(`http://localhost:3001/produtos/${id}`)
+    const response = await axios(`http://localhost:3001/produtos/${id}`);
+
+    return response;
 }
 
 const getProductByType = async ({ type, category }: requisitionParams) => {
@@ -30,12 +33,12 @@ export async function getProducts ({
     type,
     category,
     id,
-}: requisitionParams) {
+}: requisitionParams): Promise<ResponseFromApi> {
     if (id) {
-        return await getProductById(id.toString());
+        return (await getProductById(id.toString())).data;
     };
     if ( type || category) {
-        return await getProductByType({ type, category });
+        return (await getProductByType({ type, category })).data;
     };
-    return await getAllProducts();
+    return (await getAllProducts()).data;
 };
