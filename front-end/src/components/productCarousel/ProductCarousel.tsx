@@ -4,16 +4,19 @@ import Slider from 'react-slick';
 import ProductCard from '../productCard/ProductCard';
 import "../productCarousel/productCarousel.css";
 import { NextArrow, PrevArrow } from '../arrowCarousel/Arrow';
+import { ResponseFromApi } from '@/lib/types';
 
-const products = [
-  { id: 1, name: 'Maça gala importada Orgânica - 500g', oldPrice: 20.00, currentPrice: 16.90, discount: 20, imageUrl: "/appleProduct.svg" },
-  { id: 2, name: 'Maça gala importada Orgânica - 500g', oldPrice: 20.00, currentPrice: 16.90, discount: 20, imageUrl: "/appleProduct.svg" },
-  { id: 3, name: 'Maça gala importada Orgânica - 500g', oldPrice: 20.00, currentPrice: 16.90, discount: 20, imageUrl: "/appleProduct.svg" },
-  { id: 4, name: 'Maça gala importada Orgânica - 500g', oldPrice: 20.00, currentPrice: 16.90, discount: 20, imageUrl: "/appleProduct.svg" },
-  { id: 5, name: 'Maça gala importada Orgânica - 500g', oldPrice: 20.00, currentPrice: 16.90, discount: 20, imageUrl: "/appleProduct.svg" },
-];
+//const products = [
+//  { id: 1, name: 'Maça gala importada Orgânica - 500g', oldPrice: 20.00, currentPrice: 16.90, discount: 20, imageUrl: "/appleProduct.svg" },
+//  { id: 2, name: 'Maça gala importada Orgânica - 500g', oldPrice: 20.00, currentPrice: 16.90, discount: 20, imageUrl: "/appleProduct.svg" },
+//  { id: 3, name: 'Maça gala importada Orgânica - 500g', oldPrice: 20.00, currentPrice: 16.90, discount: 20, imageUrl: "/appleProduct.svg" },
+//  { id: 4, name: 'Maça gala importada Orgânica - 500g', oldPrice: 20.00, currentPrice: 16.90, discount: 20, imageUrl: "/appleProduct.svg" },
+//  { id: 5, name: 'Maça gala importada Orgânica - 500g', oldPrice: 20.00, currentPrice: 16.90, discount: 20, imageUrl: "/appleProduct.svg" },
+//];
 
-const ProductCarousel: React.FC = () => {
+const ProductCarousel: React.FC<{
+  products: ResponseFromApi[]
+}> = ({ products }) => {
   const settings = {
     dots: true,
     infinite: true,
@@ -47,17 +50,18 @@ const ProductCarousel: React.FC = () => {
     ],
   };
 
+
   return (
     <div className="productCarousel">
       <Slider {...settings}>
         {products.map((product) => (
           <div key={product.id}>
             <ProductCard
-              name={product.name}
-              oldPrice={product.oldPrice}
-              currentPrice={product.currentPrice}
-              discount={product.discount}
-              imageUrl={product.imageUrl}
+              name={product.nome}
+              oldPrice={product.preco}
+              currentPrice={product.precoNovo}
+              discount={product.desconto}
+              imageUrl={"/appleProduct.svg"}
             />
           </div>
         ))}

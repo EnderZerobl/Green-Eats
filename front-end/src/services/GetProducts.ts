@@ -7,38 +7,38 @@ type requisitionParams = {
     id?: number;
 };
 
-const getAllProducts = async () => {
+const getAllProducts = async (): Promise<ResponseFromApi[]> => {
     const response = await axios("http://localhost:3001/banco")
 
-    return response;
+    return response.data;
 };
 
-const getProductById = async (id: string) => {
+const getProductById = async (id: string): Promise<ResponseFromApi[]> => {
     const response = await axios(`http://localhost:3001/produtos/${id}`);
 
-    return response;
+    return [response.data];
 }
 
-const getProductByType = async ({ type, category }: requisitionParams) => {
+const getProductByType = async ({ type, category }: requisitionParams): Promise<ResponseFromApi[]>  => {
     const params = type?
     `tipo/${type}`
     :`categorias/${category}`;
 
-    const response = axios(`http://localhost:3001/produtos/${params}`);
+    const response = await axios(`http://localhost:3001/produtos/${params}`);
 
-    return response;
+    return response.data;
 };
 
 export async function getProducts ({
     type,
     category,
     id,
-}: requisitionParams): Promise<ResponseFromApi> {
+}: requisitionParams): Promise<ResponseFromApi[]> {
     if (id) {
-        return (await getProductById(id.toString())).data;
+        return (await getProductById(id.toString()));
     };
     if ( type || category) {
-        return (await getProductByType({ type, category })).data;
+        return (await getProductByType({ type, category }));
     };
-    return (await getAllProducts()).data;
+    return (await getAllProducts());
 };
