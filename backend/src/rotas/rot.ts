@@ -1,6 +1,8 @@
 import { Router, Request, Response } from 'express';
 import { request } from 'http';
 import { prisma } from '../database/data';
+import fs from 'fs';
+import path from 'path';
 
 
 const router = Router();
@@ -285,10 +287,57 @@ router.get('/produtos/busca/tipos', async(req:Request,res:Response)=>{
     }
   }
   catch(error){
-    res.status(500).json("Tipos não encontradas")
+    res.status(500).json("Tipos não encontrados")
   }
 })
 
+//Produto buscado por nome
+
+router.get('/produtos/nomes/:nome',  async (req: Request, res: Response)=> {
+  const { nome } = req.params;
+
+  const us = await prisma.produto.findMany({where: {nome}});
+
+  try {
+      if (us) {
+          return res.json(us);
+      } else {
+          res.status(400).json({ error: 'Produto não encontrado' });
+      }
+  } catch (error) {
+      res.status(400).json({ error: 'Erro para achar Produto' });
+  }
+});
+
+//Conversão da imagem, I guess
+
+router.get('/produtos/:id/image', async (req: Request, res: Response) => {
+  const { id } = req.params;
+
+  try {
+    const produto = await prisma.produto.findUnique({ where: { id: parseInt(id) }});
+
+    if (!produto || !produto.imagemPath) {
+      return res.status(404).json({ error: 'Imagem não encontrada' });
+    }
+
+    const Fotostringada = produto.imagemPath.replace(/^data:image\/\w+;base64,/, '');
+    const buffer = Buffer.from(Fotostringada, 'base64');
+    const imagemconvertida = path.join(__dirname, 'images', `produto_${id}.png`);
+    const dir = path.dirname(imagemconvertida);
+    if (!fs.existsSync(dir)) {
+      fs.mkdirSync(dir, { recursive: true });
+    }
+    fs.writeFileSync(imagemconvertida, buffer);
+
+
+    res.sendFile(imagemconvertida);
+    
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Erro ao processar a imagem' });
+  }
+});
 
 
 
