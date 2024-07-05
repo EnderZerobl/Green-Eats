@@ -38,7 +38,7 @@ export default function Header() {
             <header>
                 <div className="topContentContainer">
                     <div className="logo">
-                        <h1>Green Eats</h1>
+                        <Link href={"/"} className='logo__link'>Green Eats</Link>
                     </div>
                     <div className="searchContainer">
                         <input type="text" name="" id="" placeholder="Nome do produto" className="searchInput"/>

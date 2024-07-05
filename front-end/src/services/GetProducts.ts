@@ -1,11 +1,7 @@
-import { ResponseFromApi } from '@/lib/types';
+import { RequisitionParams, ResponseFromApi } from '@/lib/types';
 import axios from 'axios';
 
-type requisitionParams = {
-    type?: string;
-    category?: string;
-    id?: number;
-};
+
 
 const getAllProducts = async (): Promise<ResponseFromApi[]> => {
     const response = await axios("http://localhost:3001/banco")
@@ -13,27 +9,39 @@ const getAllProducts = async (): Promise<ResponseFromApi[]> => {
     return response.data;
 };
 
+const getProductByName = async (name: string): Promise<ResponseFromApi[]> => {
+    const response = await axios(``)
+
+    return [response.data]
+}
+
 const getProductById = async (id: string): Promise<ResponseFromApi[]> => {
     const response = await axios(`http://localhost:3001/produtos/${id}`);
 
     return [response.data];
 }
 
-const getProductByType = async ({ type, category }: requisitionParams): Promise<ResponseFromApi[]>  => {
+const getProductByType = async ({ type, category }: RequisitionParams): Promise<ResponseFromApi[]>  => {
     const params = type?
-    `tipo/${type}`
-    :`categorias/${category}`;
-
-    const response = await axios(`http://localhost:3001/produtos/${params}`);
-
-    return response.data;
+    `tipos?tipos=${type}`
+    :`categorias?categorias=${category}`;
+    try{
+        const response = await axios(`http://localhost:3001/produtos/busca/${params}`);
+        return response.data
+    } catch (error: any) {
+        return []
+    }
 };
 
 export async function getProducts ({
+    name,
     type,
     category,
     id,
-}: requisitionParams): Promise<ResponseFromApi[]> {
+}: RequisitionParams): Promise<ResponseFromApi[]> {
+    //if (name){
+    //    return (await getProductByName(name))
+    //};
     if (id) {
         return (await getProductById(id.toString()));
     };

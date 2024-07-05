@@ -39,12 +39,11 @@ export type FullParamsToCreate = {
     producaoArtesanal: boolean;
     proximoAoVencimento: boolean;
     seloIBD: boolean;
-    agroFlorestal: boolean;
+    agroflorestal: boolean;
     artesanal: boolean;
     semAdicaoDeAcucar: boolean;
     preco: number;
     desconto: number;
-    precoNovo: number;
 };
 
 export type PartialParamsToCreate = {
@@ -63,10 +62,16 @@ export type PartialParamsToCreate = {
     producaoArtesanal?: boolean;
     proximoAoVencimento?: boolean;
     seloIBD?: boolean;
-    agroFlorestal?: boolean;
+    agroflorestal?: boolean;
     artesanal?: boolean;
     semAdicaoDeAcucar?: boolean;
-    preco?: number;
-    desconto?: number;
-    precoNovo?: number;
+    preco: number;
+    desconto: number;
+};
+
+export type RequisitionParams = {
+    name?: string;
+    type?: string;
+    category?: string;
+    id?: number;
 };
