@@ -20,7 +20,6 @@
 }
 
 .productSectionText a{
-    width: 8%;
     display: flex;
     justify-content: flex-end;
 }
