@@ -285,9 +285,27 @@ router.get('/produtos/busca/tipos', async(req:Request,res:Response)=>{
     }
   }
   catch(error){
-    res.status(500).json("Tipos não encontradas")
+    res.status(500).json("Tipos não encontrados")
   }
 })
+
+//Produto buscado por nome
+
+router.get('/produtos/nomes/:nome',  async (req: Request, res: Response)=> {
+  const { nome } = req.params;
+
+  const us = await prisma.produto.findMany({where: {nome}});
+
+  try {
+      if (us) {
+          return res.json(us);
+      } else {
+          res.status(400).json({ error: 'Produto não encontrado' });
+      }
+  } catch (error) {
+      res.status(400).json({ error: 'Erro para achar Produto' });
+  }
+});
 
 
 
