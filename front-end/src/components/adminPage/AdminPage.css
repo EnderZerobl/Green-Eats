@@ -1,0 +1,145 @@
+
+.modal__title {
+    margin: 1rem;
+    font-size: 3rem;
+    text-align: center;
+    font-weight: bold;
+}
+
+.modal__form {
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.form-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    width: 100%;
+
+}
+
+.modal__form__left {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-right: 20px;
+}
+
+.modal__form__image-preview {
+    width: 100%;
+    height: 300px;
+    background-color: #f0f0f0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #ccc;
+}
+
+.modal__form__image-preview img {
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.modal__form__image-button {
+    margin-top: 10px;
+}
+
+.modal__form__right {
+    flex: 1;
+    padding: 0 1rem;
+}
+
+.modal__form__right label {
+    display: block;
+    margin-top: 10px;
+    margin-bottom: 5px;
+}
+
+.modal__form__right input:not(.modal__form__price-input input, .modal__form__discount-price input),
+.modal__form__right select,
+.modal__form__right textarea {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border-radius: 4px;
+}
+
+.modal__form__discount-price {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modal__form__discount, .modal__form__price {
+    display: flex;
+    flex-direction: column;
+    width: 48%;
+}
+
+.modal__form__price {
+    padding-left: 25%;
+}
+
+.modal__form__discount-input,
+.modal__form__price-input {
+    display: flex;
+    align-items: center;
+    background-color: white;
+    width: 50%;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.modal__form__discount-input {
+    padding-right: 1rem;
+}
+
+.modal__form__price-input {
+    width: 100%;
+    padding-left: 1rem;
+}
+
+.modal__form__discount-input input,
+.modal__form__price-input input {
+    width: 100%;
+    height: 100%;
+}
+
+.modal__form__discount-sign,
+.modal__form__price-currency {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    padding: 10% 8px;
+}
+
+.modal__form__discount-sign {
+    border-left: 1px solid black;
+}
+
+.modal__form__price-currency {
+    border-right: 1px solid black;
+
+}
+
+
+.modal__form__right input[type="submit"]:hover {
+    background-color: #0056b3;
+}
+
+.modal__form__submit-button {
+    background-color: var(--main-green);
+    color: white;
+    border: none;
+    cursor: pointer;
+    display: block;
+    margin: 0 auto;
+    padding: 10px 20px;
+    margin-top: 20px;
+}
+
+.modal__form__submit-button:hover {
+    background-color: var(--dark-green);
+}

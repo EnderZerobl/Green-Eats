@@ -57,3 +57,9 @@ button{
 	all: unset;
 	cursor: pointer;
 }
+
+input, select, textarea{
+	border: none;
+}
+
+
