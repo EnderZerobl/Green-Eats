@@ -42,7 +42,7 @@ const ProductCarousel: React.FC<{
         },
       },
       {
-        breakpoint: 730,
+        breakpoint: 800,
         settings: {
           slidesToShow: 1,
           slidesToScroll: 1,
