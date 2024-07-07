@@ -29,7 +29,7 @@ footer, header, hgroup, menu, nav, section {
 body {
 	line-height: 1;
 }
-ol, ul {
+ol, ul:not(.filter__option__list) {
 	list-style: none;
 }
 blockquote, q {
@@ -48,7 +48,7 @@ a {
 	text-decoration: none;
 }
 
-ul, ol, li {
+ul:not(.filter__option__list), ol, li:not(.filter__option__list__element) {
 	list-style: none;
 	text-decoration: none;
 }
@@ -57,3 +57,9 @@ button{
 	all: unset;
 	cursor: pointer;
 }
+
+input, select, textarea{
+	border: none;
+}
+
+

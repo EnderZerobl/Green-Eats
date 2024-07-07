@@ -1,6 +1,9 @@
 import { Router, Request, Response } from 'express';
 import { request } from 'http';
-import { prisma } from '../app';
+import { prisma } from '../database/data';
+import fs from 'fs';
+import path from 'path';
+
 
 const router = Router();
 
@@ -178,7 +181,7 @@ router.get('/produtos/categorias/:categoria', async(req:Request, res:Response) =
         }
     }
     catch(error){
-        res.status(500).json("Erro ao procurar nome")
+        res.status(500).json("Erro ao procurar produto")
     }
 });
 
@@ -195,5 +198,147 @@ router.get('/banco', async(req:Request, res:Response) => {
     }
 
 })
+
+//Busca por booleano ex: Vegano, semgluten
+
+router.get('/produtos/busca/filtrados', async (req:Request, res:Response) =>{
+  const {
+    vegano, sustentavel, semGluten, semLactose, organico, semAcucar,
+    producaoArtesanal, proximoAoVencimento, seloIBD, agroflorestal, artesanal, semAdicaoDeAcucar
+  } = req.query;
+
+  try{
+    const filtrados : { [key: string]: boolean } = {};
+
+    if (vegano !== undefined) filtrados.vegano = vegano === 'true';
+    if (sustentavel !== undefined) filtrados.sustentavel = sustentavel === 'true';
+    if (semGluten !== undefined) filtrados.semGluten = semGluten === 'true';
+    if (semLactose !== undefined) filtrados.semLactose = semLactose === 'true';
+    if (organico !== undefined) filtrados.organico = organico === 'true';
+    if (semAcucar !== undefined) filtrados.semAcucar = semAcucar === 'true';
+    if (producaoArtesanal !== undefined) filtrados.producaoArtesanal = producaoArtesanal === 'true';
+    if (proximoAoVencimento !== undefined) filtrados.proximoAoVencimento = proximoAoVencimento === 'true';
+    if (seloIBD !== undefined) filtrados.seloIBD = seloIBD === 'true';
+    if (agroflorestal !== undefined) filtrados.agroflorestal = agroflorestal === 'true';
+    if (artesanal !== undefined) filtrados.artesanal = artesanal === 'true';
+    if (semAdicaoDeAcucar !== undefined) filtrados.semAdicaoDeAcucar = semAdicaoDeAcucar === 'true';
+
+    const produtos = await prisma.produto.findMany({where:filtrados})
+    if(produtos.length > 0){
+      return res.json(produtos)
+    }
+    else{
+      return res.status(404).json("Sem produto com esse filtro")
+    }
+  }
+  catch(error) {
+    res.status(500).json("Sem nada no filtro")
+  }
+})
+
+//Buscar produto por mais de uma categoria
+
+router.get('/produtos/busca/categorias', async(req:Request,res:Response)=>{
+  const {categorias} = req.query;
+
+  try{
+
+    let categoriaslista: string[];
+    if (Array.isArray(categorias)) {
+      categoriaslista = categorias.map(cat => String(cat));
+    } else {
+      categoriaslista = [String(categorias)];
+    }
+
+    const produto = await prisma.produto.findMany({where: {categoria: {in: categoriaslista}}});
+    if (produto.length > 0){
+      res.json(produto)
+    }
+    else{
+      res.status(404).json("Nada nessas categorias")
+    }
+  }
+  catch(error){
+    res.status(500).json("Categorias não encontradas")
+  }
+
+})
+
+//Buscar produto por mais de um tipo
+
+router.get('/produtos/busca/tipos', async(req:Request,res:Response)=>{
+  const {tipos} = req.query;
+
+  try{
+    
+    let tiposlista: string[];
+    if (Array.isArray(tipos)) {
+      tiposlista = tipos.map(cat => String(cat));
+    } else {
+      tiposlista = [String(tipos)];
+    }
+
+    const produto = await prisma.produto.findMany({where: {tipo: {in: tiposlista}}});
+    if (produto.length > 0){
+      res.json(produto)
+    }
+    else{
+      res.status(404).json("Nada nesses tipos")
+    }
+  }
+  catch(error){
+    res.status(500).json("Tipos não encontrados")
+  }
+})
+
+//Produto buscado por nome
+
+router.get('/produtos/nomes/:nome',  async (req: Request, res: Response)=> {
+  const { nome } = req.params;
+
+  const us = await prisma.produto.findMany({where: {nome}});
+
+  try {
+      if (us) {
+          return res.json(us);
+      } else {
+          res.status(400).json({ error: 'Produto não encontrado' });
+      }
+  } catch (error) {
+      res.status(400).json({ error: 'Erro para achar Produto' });
+  }
+});
+
+//Conversão da imagem, I guess
+
+router.get('/produtos/:id/image', async (req: Request, res: Response) => {
+  const { id } = req.params;
+
+  try {
+    const produto = await prisma.produto.findUnique({ where: { id: parseInt(id) }});
+
+    if (!produto || !produto.imagemPath) {
+      return res.status(404).json({ error: 'Imagem não encontrada' });
+    }
+
+    const Fotostringada = produto.imagemPath.replace(/^data:image\/\w+;base64,/, '');
+    const buffer = Buffer.from(Fotostringada, 'base64');
+    const imagemconvertida = path.join(__dirname, 'images', `produto_${id}.png`);
+    const dir = path.dirname(imagemconvertida);
+    if (!fs.existsSync(dir)) {
+      fs.mkdirSync(dir, { recursive: true });
+    }
+    fs.writeFileSync(imagemconvertida, buffer);
+
+
+    res.sendFile(imagemconvertida);
+    
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Erro ao processar a imagem' });
+  }
+});
+
+
 
 export default router;

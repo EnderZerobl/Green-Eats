@@ -2,12 +2,14 @@
 import ProductCarousel from '../productCarousel/ProductCarousel';
 import Link from 'next/link';
 import "../../components/productSection/productSection.css";
+import { ResponseFromApi } from '@/lib/types';
 
 interface ProductSectionProps {
   title: string;
+  products: ResponseFromApi[];
 }
 
-const ProductSection: React.FC<ProductSectionProps> = ({ title }) => {
+const ProductSection: React.FC<ProductSectionProps> = ({ title, products }) => {
   return (
     <section className="productSection">
       <div className="headerProductSection">
@@ -18,7 +20,7 @@ const ProductSection: React.FC<ProductSectionProps> = ({ title }) => {
           </div>
         </div>
       </div>
-      <ProductCarousel />
+      <ProductCarousel products={products} />
     </section>
   );
 };

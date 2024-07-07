@@ -1,0 +1,56 @@
+.filter {
+    position: sticky;
+    top: 0;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    width: 25vw;
+    overflow-y: scroll;
+    padding: 2%;
+}
+
+.filter::-webkit-scrollbar{
+    background: transparent;
+    
+}
+
+.filter::-webkit-scrollbar-thumb {
+    background-color: grey;
+    border: 4px solid transparent;
+    border-radius: 1rem;
+    background-clip: content-box;
+}
+
+.filter__title {
+    margin-bottom: 1rem;
+    font-size: 2.5rem;
+    font-weight: 500;
+}
+
+.filter__option__label {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    padding: .5rem 0;
+    font-size: 1.5rem;
+}
+
+.filter__option__category__title {
+    color: var(--main-green);
+
+}
+
+.dot {
+    margin: 1rem;
+    border-radius: 50%;
+    background-color: black;
+    width: 3px;
+    height: 3px;
+}
+
+.filter__option__list__element {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: 0.1rem 0;
+}

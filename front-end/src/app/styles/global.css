@@ -31,8 +31,14 @@ body {
 
 .generic-button {
     border: 1px solid var(--main-green);
+    background-color: white;
     font-size: 2.5rem;
     font-weight: bold;
     text-align: center;
     color: var(--main-green);
+}
+
+.generic-button:hover {
+    background-color: var(--main-green);
+    color: white;
 }

@@ -1,5 +1,7 @@
 .footer {
+    position: relative;
     width: 100%;
+    z-index: 4;
 }
 
 .footer__section {
@@ -30,6 +32,7 @@
 }
 
 .footer__section__form__input {
+    background-color: transparent;
     width: 100%;
     padding: 1rem;
     border: 1px solid var(--main-green);

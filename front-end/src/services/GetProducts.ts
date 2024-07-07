@@ -1,41 +1,52 @@
+import { RequisitionParams, ResponseFromApi } from '@/lib/types';
 import axios from 'axios';
 
-type requisitionParams = {
-    type?: string;
-    category?: string;
-    id?: number;
-};
 
-const getAllProducts = async () => {
+
+const getAllProducts = async (): Promise<ResponseFromApi[]> => {
     const response = await axios("http://localhost:3001/banco")
 
-    return response;
+    return response.data;
 };
 
-const getProductById = async (id: string) => {
-    const response = axios(`http://localhost:3001/produtos/${id}`)
+const getProductByName = async (name: string): Promise<ResponseFromApi[]> => {
+    const response = await axios(``)
+
+    return [response.data]
 }
 
-const getProductByType = async ({ type, category }: requisitionParams) => {
+const getProductById = async (id: string): Promise<ResponseFromApi[]> => {
+    const response = await axios(`http://localhost:3001/produtos/${id}`);
+
+    return [response.data];
+}
+
+const getProductByType = async ({ type, category }: RequisitionParams): Promise<ResponseFromApi[]>  => {
     const params = type?
-    `tipo/${type}`
-    :`categorias/${category}`;
-
-    const response = axios(`http://localhost:3001/produtos/${params}`);
-
-    return response;
+    `tipos?tipos=${type}`
+    :`categorias?categorias=${category}`;
+    try{
+        const response = await axios(`http://localhost:3001/produtos/busca/${params}`);
+        return response.data
+    } catch (error: any) {
+        return []
+    }
 };
 
 export async function getProducts ({
+    name,
     type,
     category,
     id,
-}: requisitionParams) {
+}: RequisitionParams): Promise<ResponseFromApi[]> {
+    //if (name){
+    //    return (await getProductByName(name))
+    //};
     if (id) {
-        return await getProductById(id.toString());
+        return (await getProductById(id.toString()));
     };
     if ( type || category) {
-        return await getProductByType({ type, category });
+        return (await getProductByType({ type, category }));
     };
-    return await getAllProducts();
+    return (await getAllProducts());
 };

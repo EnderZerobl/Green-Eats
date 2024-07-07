@@ -3,7 +3,7 @@
     justify-content: space-around;
 }
 .productCard{
-    width: 319px;
+    width: 100%;
     height: 589px;
     border-radius: 5px;
     border: 2px solid var(--main-green);
