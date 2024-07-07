@@ -46,6 +46,7 @@ table {
 }
 a {
 	text-decoration: none;
+	color: black;
 }
 
 ul:not(.filter__option__list), ol, li:not(.filter__option__list__element) {

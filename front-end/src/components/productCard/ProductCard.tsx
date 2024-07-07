@@ -6,8 +6,10 @@ import Image from 'next/image';
 import "../productCard/productCard.css";
 import favoriteIcon from "../../../public/favoriteIcon.svg";
 import marketCarIcon from "../../../public/marketProductCard.svg";
+import Link from 'next/link';
 
 interface ProductCardProps {
+  id: number;
   name: string;
   oldPrice: number;
   currentPrice: number;
@@ -15,7 +17,7 @@ interface ProductCardProps {
   imageUrl: string;
 }
 
-const ProductCard: React.FC<ProductCardProps> = ({ name, oldPrice, currentPrice, discount, imageUrl }) => {
+const ProductCard: React.FC<ProductCardProps> = ({ id, name, oldPrice, currentPrice, discount, imageUrl }) => {
   const [quantity, setQuantity] = useState(0);
 
   const handleIncrement = () => {
@@ -42,14 +44,14 @@ const ProductCard: React.FC<ProductCardProps> = ({ name, oldPrice, currentPrice,
                   </button>
                 </div>
               </div>
-              <div className="productImage">
+              <Link href={"/produtos/"+id} className="productImage">
                 <Image src={imageUrl} alt="Imagem do produto a venda" width={286} height={196} />
-              </div>
+              </Link>
             </div>
             <div className="cardText">
-              <div className="productText">
+              <Link href={"/produtos/"+id} className="productText">
                 <p>{name}</p>
-              </div>
+              </Link>
             </div>
           </div>
           <div className="cardProductPrice">

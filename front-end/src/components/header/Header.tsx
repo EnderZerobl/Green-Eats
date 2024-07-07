@@ -52,7 +52,7 @@ export default function Header() {
                             <Link href="/"><Image src={marketIcon} width={0} height={0} alt="Ícone de carrinho" /></Link>
                         </div>
                         <div className="pagesIconContainer">
-                            <Link href="/"><Image src={profileIcon} width={0} height={0} alt="Ícone de perfil" /></Link>
+                            <Link href="/admin/add"><Image src={profileIcon} width={0} height={0} alt="Ícone de perfil" /></Link>
                         </div>
                     </div>
                 </div>
@@ -60,27 +60,27 @@ export default function Header() {
             <nav>
                 <div className="navContainer">
                     <div className="navTextContainer">
-                        <Link href="/">
+                        <Link href="/produtos">
                             <p>Promoções</p>
                         </Link>
                     </div>
                     <div className="navTextContainer">
-                        <Link href="/">
+                        <Link href="/produtos?category=Green+Horta">
                             <p>Green Horta</p>
                         </Link>
                     </div>
                     <div className="navTextContainer bigger">
-                        <Link href="/">
+                        <Link href="/produtos?category=Green+Mercearia">
                             <p>Green Mercearia</p>
                         </Link>
                     </div>
                     <div className="navTextContainer bigger">
-                        <Link href="/">
+                        <Link href="/produtos?category=Bebidas+e+Lacticinios">
                             <p>Bebidas e Laticínios</p>
                         </Link>
                     </div>
                     <div className="navTextContainer">
-                        <Link href="/">
+                        <Link href="/produtos?category=Ovos+e+Carnes">
                             <p>Ovos e Carnes</p>
                         </Link>
                     </div>

@@ -10,7 +10,7 @@ export default function ProductCatalogue ({ data }: {
             <h2 className="catalogue__title">Todos os Produtos</h2>
             <div className="catalogue__container">
                 {data.map((cardData)=>(
-                    <ProductCard key={cardData.nome} name={cardData.nome}
+                    <ProductCard key={cardData.nome} id={cardData.id} name={cardData.nome}
                      oldPrice={cardData.preco} currentPrice={cardData.precoNovo}
                      discount={cardData.desconto} imageUrl='/appleProduct.svg' />
                 ))}

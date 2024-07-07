@@ -1,4 +1,5 @@
 // components/ProductCarousel.tsx
+'use client';
 import React from 'react';
 import Slider from 'react-slick';
 import ProductCard from '../productCard/ProductCard';
@@ -57,6 +58,7 @@ const ProductCarousel: React.FC<{
         {products.map((product) => (
           <div key={product.id}>
             <ProductCard
+              id={product.id}
               name={product.nome}
               oldPrice={product.preco}
               currentPrice={product.precoNovo}

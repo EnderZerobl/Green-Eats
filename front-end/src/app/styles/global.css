@@ -23,6 +23,10 @@ body {
     background-color: var(--background);
 }
 
+.page {
+    width: 100%;
+}
+
 .flexer {
     display: flex;
     flex-direction: column;
