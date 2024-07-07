@@ -27,7 +27,7 @@ export type FullParamsToCreate = {
     nome: string;
     categoria: string;
     tipo: string;
-    imagemPath: string;
+    imagemPath: File;
     descricaoContent: string;
     armazenContent: string;
     vegano: boolean;
@@ -50,7 +50,7 @@ export type PartialParamsToCreate = {
     nome: string;
     categoria: string;
     tipo: string;
-    imagemPath: string;
+    imagemPath: File;
     descricaoContent: string;
     armazenContent: string;
     vegano?: boolean;

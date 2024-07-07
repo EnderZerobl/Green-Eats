@@ -2,10 +2,7 @@ import { FullParamsToCreate, PartialParamsToCreate } from "@/lib/types";
 import axios from "axios";
 
 const createProduct = async (data: FullParamsToCreate) => {
-    const response = await axios("http://localhost:3001/produtos", {
-        method: "post",
-        data
-    });
+    const response = await axios.post("http://localhost:3001/produtos", data);
 
     return response
 }
