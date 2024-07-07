@@ -12,7 +12,7 @@ const atualizar =  multer({ dest: 'uploads/' });
 
 router.post('/produtos',atualizar.single('image'),  async (req: Request, res: Response) => {
     const {
-      nome, categoria, tipo, imagemPath, descricaoContent, armazenContent,
+      nome, categoria, tipo, descricaoContent, armazenContent,
       vegano, sustentavel, semGluten, semLactose, organico, semAcucar,
       producaoArtesanal, proximoAoVencimento, seloIBD, agroflorestal, artesanal, semAdicaoDeAcucar,
       preco, desconto
@@ -123,16 +123,30 @@ router.delete('/produtos/:id', async (req: Request, res: Response) => {
 
 //Atualizar produto por Id
 
-router.put('/produtos/:id', async (req: Request, res: Response) => {
+router.put('/produtos/:id', atualizar.single('image'), async (req: Request, res: Response) => {
     const { id } = req.params; 
     const { 
-      nome, categoria, tipo, imagemPath, descricaoContent, armazenContent,
+      nome, categoria, tipo, descricaoContent, armazenContent,
       vegano, sustentavel, semGluten, semLactose, organico, semAcucar,
       producaoArtesanal, proximoAoVencimento, seloIBD, agroflorestal, artesanal, semAdicaoDeAcucar,
       preco, desconto
     } = req.body;
   
     try {
+      const produtoExistente = await prisma.produto.findUnique({ where: { id: Number(id) } });
+
+      if (!produtoExistente) {
+          return res.status(404).json({ error: 'Produto não encontrado' });
+      }
+      let imagemPath = produtoExistente.imagemPath; 
+
+      const documento = req.file;
+
+      if (documento) {
+          const fileContent = fs.readFileSync(documento.path);
+          imagemPath = `data:${documento.mimetype};base64,${fileContent.toString('base64')}`;
+          fs.unlinkSync(documento.path);
+      }
       
       const precoNovo = preco - (preco * (desconto / 100))
       let descricaoAtualizada = undefined;
