@@ -2,6 +2,7 @@
     display: flex;
     justify-content: space-around;
 }
+
 .productCard{
     width: 120%;
     height: 589px;
