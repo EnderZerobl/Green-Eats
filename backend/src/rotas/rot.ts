@@ -3,13 +3,14 @@ import { request } from 'http';
 import { prisma } from '../database/data';
 import fs from 'fs';
 import path from 'path';
+import multer from 'multer';
 
 
 const router = Router();
-
+const atualizar =  multer({ dest: 'uploads/' });
 // Criar produto
 
-router.post('/produtos', async (req: Request, res: Response) => {
+router.post('/produtos',atualizar.single('image'),  async (req: Request, res: Response) => {
     const {
       nome, categoria, tipo, imagemPath, descricaoContent, armazenContent,
       vegano, sustentavel, semGluten, semLactose, organico, semAcucar,
@@ -18,6 +19,15 @@ router.post('/produtos', async (req: Request, res: Response) => {
     } = req.body;
 
     try {
+      const documento = req.file;
+      let imagemPath = null;
+    
+        if (documento) {
+          const fileContent = fs.readFileSync(documento.path);
+          imagemPath = `data:${documento.mimetype};base64,${fileContent.toString('base64')}`;
+          fs.unlinkSync(documento.path);
+        }
+
       const precoNovo = preco - (preco * (desconto / 100))
       const novaDescricao = await prisma.des.create({
         data: {
