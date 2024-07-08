@@ -38,7 +38,7 @@ export default function Header() {
             <header>
                 <div className="topContentContainer">
                     <div className="logo">
-                        <Link href={"/"} className='logo__link'>Green Eats</Link>
+                        <Link href="/" className='logo__link'>Green Eats</Link>
                     </div>
                     <div className="searchContainer">
                         <input type="text" name="" id="" placeholder="Nome do produto" className="searchInput"/>
@@ -49,7 +49,7 @@ export default function Header() {
 
                     <div className="pagesContainer">
                         <div className="pagesIconContainer">
-                            <Link href="/"><Image src={marketIcon} width={0} height={0} alt="Ícone de carrinho" /></Link>
+                            <Link href="/carrinho"><Image src={marketIcon} width={0} height={0} alt="Ícone de carrinho" /></Link>
                         </div>
                         <div className="pagesIconContainer">
                             <Link href="/admin/add"><Image src={profileIcon} width={0} height={0} alt="Ícone de perfil" /></Link>
