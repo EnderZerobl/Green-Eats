@@ -5,6 +5,8 @@
     width: 660px;
     height: 190px;
     border-radius: 5px;
+
+    margin-bottom: 24px;
 }
 
 .productCartCardImage{
@@ -52,7 +54,7 @@
     color: var(--main-green)
 }
 
-.discount{
+.discountCart{
     width: 66px;
     height: 40px;
     padding: 8px;
@@ -60,7 +62,7 @@
     margin-top: 16px;
 }
 
-.discount span{
+.discountCart span{
     font-weight: 600;
     color: white;
 }

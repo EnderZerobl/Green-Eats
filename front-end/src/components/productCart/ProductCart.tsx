@@ -9,7 +9,7 @@ export default function ProductCart() {
         <>
             <div className="productCartCard">
                 <div className="productCartCardImage">
-                    <div className="discount">
+                    <div className="discountCart">
                         <span>- 20%</span>
                     </div>
                         <Image src={appleProduct} alt="Imagem do produto a venda" width={190} height={0} />
