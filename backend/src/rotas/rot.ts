@@ -3,21 +3,35 @@ import { request } from 'http';
 import { prisma } from '../database/data';
 import fs from 'fs';
 import path from 'path';
+import multer from 'multer';
 
 
 const router = Router();
+const atualizar =  multer({ dest: 'uploads/' });
+
 
 // Criar produto
 
-router.post('/produtos', async (req: Request, res: Response) => {
-    const {
-      nome, categoria, tipo, imagemPath, descricaoContent, armazenContent,
-      vegano, sustentavel, semGluten, semLactose, organico, semAcucar,
-      producaoArtesanal, proximoAoVencimento, seloIBD, agroflorestal, artesanal, semAdicaoDeAcucar,
-      preco, desconto
-    } = req.body;
 
-    try {
+router.post('/produtos',atualizar.single('image'),  async (req: Request, res: Response) => {
+  const {
+    nome, categoria, tipo, descricaoContent, armazenContent,
+    vegano, sustentavel, semGluten, semLactose, organico, semAcucar,
+    producaoArtesanal, proximoAoVencimento, seloIBD, agroflorestal, artesanal, semAdicaoDeAcucar,
+    preco, desconto
+} = req.body;
+
+try {
+    let imagemPath = null;
+
+    if (req.file) {
+        const fileContent = fs.readFileSync(req.file.path);
+        const imagemBase64 = `data:${req.file.mimetype};base64,${fileContent.toString('base64')}`;
+        imagemPath = imagemBase64;
+        const targetPath = path.join(__dirname, 'images', req.file.originalname);
+        fs.renameSync(req.file.path, targetPath);
+    }
+
       const precoNovo = preco - (preco * (desconto / 100))
       const novaDescricao = await prisma.des.create({
         data: {
@@ -113,16 +127,30 @@ router.delete('/produtos/:id', async (req: Request, res: Response) => {
 
 //Atualizar produto por Id
 
-router.put('/produtos/:id', async (req: Request, res: Response) => {
+router.put('/produtos/:id', atualizar.single('image'), async (req: Request, res: Response) => {
     const { id } = req.params; 
     const { 
-      nome, categoria, tipo, imagemPath, descricaoContent, armazenContent,
+      nome, categoria, tipo, descricaoContent, armazenContent,
       vegano, sustentavel, semGluten, semLactose, organico, semAcucar,
       producaoArtesanal, proximoAoVencimento, seloIBD, agroflorestal, artesanal, semAdicaoDeAcucar,
       preco, desconto
     } = req.body;
   
     try {
+      const produtoExistente = await prisma.produto.findUnique({ where: { id: Number(id) } });
+
+      if (!produtoExistente) {
+          return res.status(404).json({ error: 'Produto não encontrado' });
+      }
+      let imagemPath = produtoExistente.imagemPath; 
+
+      const documento = req.file;
+
+      if (documento) {
+          const fileContent = fs.readFileSync(documento.path);
+          imagemPath = `data:${documento.mimetype};base64,${fileContent.toString('base64')}`;
+          fs.unlinkSync(documento.path);
+      }
       
       const precoNovo = preco - (preco * (desconto / 100))
       let descricaoAtualizada = undefined;
@@ -338,6 +366,28 @@ router.get('/produtos/:id/image', async (req: Request, res: Response) => {
     res.status(500).json({ error: 'Erro ao processar a imagem' });
   }
 });
+
+router.get('/produtos/:id/img', async (req: Request, res: Response) => {
+  const { id } = req.params;
+
+  try {
+    const produto = await prisma.produto.findUnique({ where: { id: parseInt(id) } });
+
+    if (!produto || !produto.imagemPath) {
+      return res.status(404).json({ error: 'Imagem não encontrada' });
+    }
+    
+    const Fotostringada = produto.imagemPath.replace(/^data:image\/\w+;base64,/, '');
+
+    const buffer = Buffer.from(Fotostringada, 'base64');
+    res.setHeader('Content-Type', 'image/png'); 
+    res.send(buffer);
+    
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Erro ao processar a imagem' });
+  }
+})
 
 
 
