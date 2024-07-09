@@ -9,6 +9,7 @@ const cors = require('cors');
 
 app.use(express.urlencoded({ extended: true }));
 
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 app.use(cors());
 
@@ -18,7 +19,7 @@ app.use('/', router);
 
 app.use('/', carro)
 
-const PORT = 3000;
+const PORT = 3001;
 
 app.listen(PORT, () => {
     console.log(`Servidor ${PORT}`);

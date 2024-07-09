@@ -4,28 +4,27 @@ import { prisma } from '../database/data';
 import fs from 'fs';
 import path from 'path';
 import multer from 'multer';
+import express from 'express'
 
 const router = Router();
 
-const uploadDir = path.join(__dirname, '..', '..', 'public', 'uploads');
-if (!fs.existsSync(uploadDir)) {
-  fs.mkdirSync(uploadDir, { recursive: true });
-}
+const uploadDir = path.join(__dirname, 'uploads');
 
-const storage = multer.diskStorage({
+
+const guardar = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, uploadDir);
+    cb(null, uploadDir); 
   },
   filename: function (req, file, cb) {
-    cb(null, `${Date.now()}-${file.originalname}`);
+    cb(null, file.originalname); 
   }
 });
 
-const atualizar = multer({ storage: storage });
+const atualizar = multer({ storage: guardar });
 
 // Criar produto
 
-router.post('/produtos', async (req: Request, res: Response) => {
+router.post('/produtos', atualizar.single('image'), async (req: Request, res: Response) => {
   const {
     nome, categoria, tipo, descricaoContent, armazenContent,
     vegano, sustentavel, semGluten, semLactose, organico, semAcucar,
@@ -49,11 +48,14 @@ router.post('/produtos', async (req: Request, res: Response) => {
       }
     });
 
+    const imagemPath = req.file ? path.join('uploads', req.file.filename) : null;
+
     const novoProduto = await prisma.produto.create({
       data: {
         nome,
         categoria,
         tipo,
+        imagemPath,
         descricao: { connect: { id: novaDescricao.id } },
         armazen: { connect: { id: novoArmazen.id } },
         vegano, sustentavel, semGluten, semLactose, organico, semAcucar,
@@ -147,12 +149,7 @@ router.put('/produtos/:id', atualizar.single('image'), async (req: Request, res:
       return res.status(404).json({ error: 'Produto não encontrado' });
     }
 
-    let imagemPath = produtoExistente.imagemPath;
-    const documento = req.file;
-
-    if (documento) {
-      imagemPath = `/uploads/${documento.filename}`;
-    }
+    const imagemPath = req.file ? path.join('uploads', req.file.filename) : produtoExistente.imagemPath;
 
     const precoNovo = preco - (preco * (desconto / 100));
     
@@ -197,7 +194,7 @@ router.put('/produtos/:id', atualizar.single('image'), async (req: Request, res:
     console.error(error);
     return res.status(500).json({ error: 'Erro ao atualizar o produto' });
   }
-});
+}); 
 
 //Buscar Produtos por categoria
 
@@ -342,27 +339,6 @@ router.get('/produtos/nomes/:nome',  async (req: Request, res: Response)=> {
 });
 
 
-router.post('/upload', atualizar.single('image'), (req, res) => {
-  try {
-    if (!req.file) {
-      throw new Error('Nenhuma imagem recebida');
-    }
-
-    const imagePath = path.join(__dirname, 'temp', req.file.filename);
-
-    // Lê a imagem como base64
-    const base64 = fs.readFileSync(imagePath, { encoding: 'base64' });
-
-    // Exclui a imagem temporária
-    fs.unlinkSync(imagePath);
-
-    res.json({ base64 });
-  } catch (error) {
-    console.error('Erro ao processar upload:', error);
-    res.status(500).json({ error: 'Erro ao processar upload' });
-  }
-});
-
-
+router.use('/uploads', express.static(uploadDir));
 
 export default router;
