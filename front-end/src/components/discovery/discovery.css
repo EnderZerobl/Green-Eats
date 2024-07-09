@@ -1,7 +1,7 @@
 .discovery-section__content {
     position: relative;
     max-width: 100%;
-    height: 70vh;
+    height: 625px;
     margin: 3rem 0;
     overflow: hidden;
 }
@@ -20,28 +20,23 @@
     justify-content: center;
     align-items: flex-end;
     height: 100%;
-    width: 95%;
-    padding-left: 45%;
+    width: 100%;
+    padding-left: 56%;
     text-align: justify;
 }
 
 .discovery-section__content__content__title {
-    box-sizing: content-box;
-    background-color: var(--light-green);
     opacity: 80%;
     width: 100%;
-    padding: 1rem 0.5rem;
-    border-radius: 1rem 1rem 0 0;
-    font-size: 3rem;
+    padding-bottom: .6rem;
+    font-size: 2.5rem;
+    font-weight: 500;
 }
 
 .discovery-section__content__content__text {
-    box-sizing: content-box;
-    background-color: var(--light-green);
     opacity: 80%;
-    width: 100%;
-    padding: 0.5rem 0.5rem 1rem 0.5rem;
-    border-radius: 0 0 1rem 1rem;
+    width: 95%;
+    margin-right: auto;
     font-size: 2rem;
 }
 
