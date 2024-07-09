@@ -3,7 +3,7 @@ import FullCart from "@/components/fullCart/FullCart";
 
 export default function page() {
   return(
-    <FullCart />
+    <EmptyCart />
 
   )
 };
