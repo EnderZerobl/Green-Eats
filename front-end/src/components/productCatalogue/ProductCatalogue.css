@@ -2,6 +2,7 @@
     position: relative;
     top: -100vh;
     width: 75%;
+    min-height: 100vh;
     padding: 1rem;
     margin-left: 25%;
     margin-bottom: -100vh;
