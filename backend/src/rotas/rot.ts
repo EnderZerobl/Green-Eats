@@ -25,7 +25,7 @@ const atualizar = multer({ storage: storage });
 
 // Criar produto
 
-router.post('/produtos', atualizar.single('image'), async (req: Request, res: Response) => {
+router.post('/produtos', async (req: Request, res: Response) => {
   const {
     nome, categoria, tipo, descricaoContent, armazenContent,
     vegano, sustentavel, semGluten, semLactose, organico, semAcucar,
@@ -34,12 +34,6 @@ router.post('/produtos', atualizar.single('image'), async (req: Request, res: Re
   } = req.body;
 
   try {
-    const documento = req.file;
-    let imagemPath = null;
-
-    if (documento) {
-      imagemPath = `/uploads/${documento.filename}`;
-    }
 
     const precoNovo = preco - (preco * (desconto / 100));
 
@@ -60,7 +54,6 @@ router.post('/produtos', atualizar.single('image'), async (req: Request, res: Re
         nome,
         categoria,
         tipo,
-        imagemPath,
         descricao: { connect: { id: novaDescricao.id } },
         armazen: { connect: { id: novoArmazen.id } },
         vegano, sustentavel, semGluten, semLactose, organico, semAcucar,
@@ -348,57 +341,27 @@ router.get('/produtos/nomes/:nome',  async (req: Request, res: Response)=> {
   }
 });
 
-//Conversão da imagem, I guess
 
-router.get('/produtos/:id/image', async (req: Request, res: Response) => {
-  const { id } = req.params;
-
+router.post('/upload', atualizar.single('image'), (req, res) => {
   try {
-    const produto = await prisma.produto.findUnique({ where: { id: parseInt(id) }});
-
-    if (!produto || !produto.imagemPath) {
-      return res.status(404).json({ error: 'Imagem não encontrada' });
+    if (!req.file) {
+      throw new Error('Nenhuma imagem recebida');
     }
 
-    const Fotostringada = produto.imagemPath.replace(/^data:image\/\w+;base64,/, '');
-    const buffer = Buffer.from(Fotostringada, 'base64');
-    const imagemconvertida = path.join(__dirname, 'images', `produto_${id}.png`);
-    const dir = path.dirname(imagemconvertida);
-    if (!fs.existsSync(dir)) {
-      fs.mkdirSync(dir, { recursive: true });
-    }
-    fs.writeFileSync(imagemconvertida, buffer);
+    const imagePath = path.join(__dirname, 'temp', req.file.filename);
 
+    // Lê a imagem como base64
+    const base64 = fs.readFileSync(imagePath, { encoding: 'base64' });
 
-    res.sendFile(imagemconvertida);
-    
+    // Exclui a imagem temporária
+    fs.unlinkSync(imagePath);
+
+    res.json({ base64 });
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: 'Erro ao processar a imagem' });
+    console.error('Erro ao processar upload:', error);
+    res.status(500).json({ error: 'Erro ao processar upload' });
   }
 });
-
-router.get('/produtos/:id/img', async (req: Request, res: Response) => {
-  const { id } = req.params;
-
-  try {
-    const produto = await prisma.produto.findUnique({ where: { id: parseInt(id) } });
-
-    if (!produto || !produto.imagemPath) {
-      return res.status(404).json({ error: 'Imagem não encontrada' });
-    }
-    
-    const Fotostringada = produto.imagemPath.replace(/^data:image\/\w+;base64,/, '');
-
-    const buffer = Buffer.from(Fotostringada, 'base64');
-    res.setHeader('Content-Type', 'image/png'); 
-    res.send(buffer);
-    
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: 'Erro ao processar a imagem' });
-  }
-})
 
 
 
