@@ -4,72 +4,89 @@ import { prisma } from '../database/data';
 
 const carro = Router();
 
-const carrinho: { [produtoId: string]: number } = {};
+// Adicionar produto ao carrinho
 
 carro.post('/carrinho', async (req: Request, res: Response) => {
     const { produtoId, quantidade } = req.body;
-
-    if (!produtoId || quantidade == null) {
-        return res.status(400).json({ error: 'Produto ID e quantidade são necessários' });
-    }
-
+  
     try {
-        const produto = await prisma.produto.findUnique({
-            where: { id: Number(produtoId) },
-        });
-
-        if (!produto) {
-            return res.status(404).json({ error: 'Produto não encontrado' });
+      const produto = await prisma.produto.findUnique({ where: { id: produtoId } });
+  
+      if (!produto) {
+        return res.status(404).json({ error: 'Produto não encontrado' });
+      }
+  
+      const carrinhoItem = await prisma.carrinho.create({
+        data: {
+          quantidade,
+          produto: {
+            connect: { id: produtoId }
+          }
         }
-
-        if (carrinho[produtoId]) {
-            carrinho[produtoId] += Number(quantidade);
-        } else {
-            carrinho[produtoId] = Number(quantidade);
-        }
-
-        res.status(200).json({ message: 'Produto adicionado ao carrinho', carrinho });
+      });
+  
+      res.status(201).json(carrinhoItem);
     } catch (error) {
-        res.status(500).json({ error: 'Erro ao verificar produto' });
+      res.status(400).json({ error: 'Erro ao adicionar produto ao carrinho' });
     }
-});
+  });
+  
+// Buscar itens do carrinho
 
-carro.get('/carrinho', (req: Request, res: Response) => {
-    res.status(200).json({ carrinho });
-});
+carro.get('/carrinho', async (req: Request, res: Response) => {
+    try {
+      const carrinho = await prisma.carrinho.findMany({
+        include: {
+          produto: {
+            select: {
+              nome: true,
+              preco: true,
+              precoNovo: true,
+              imagemPath: true,
+            }
+          }
+        }
+      });
+  
+      res.json(carrinho);
+    } catch (error) {
+      res.status(500).json({ error: 'Erro ao buscar itens do carrinho' });
+    }
+  });
+  
+// Atualizar quantidade de um item do carrinho
 
-carro.put('/carrinho/:produtoId', (req: Request, res: Response) => {
-    const { produtoId } = req.params;
+carro.put('/carrinho/:id', async (req: Request, res: Response) => {
+    const { id } = req.params;
     const { quantidade } = req.body;
-
-    if (!produtoId || quantidade == null) {
-        return res.status(400).json({ error: 'Produto ID e nova quantidade são necessários' });
+  
+    try {
+      const carrinhoItem = await prisma.carrinho.update({
+        where: { id: Number(id) },
+        data: { quantidade }
+      });
+  
+      res.json(carrinhoItem);
+    } catch (error) {
+      res.status(400).json({ error: 'Erro ao atualizar item do carrinho' });
     }
+  });
+  
+// Remover item do carrinho
 
-    if (carrinho[produtoId]) {
-        carrinho[produtoId] = Number(quantidade);
-        return res.status(200).json({ message: 'Quantidade atualizada', carrinho });
-    } else {
-        return res.status(404).json({ error: 'Produto não encontrado no carrinho' });
+carro.delete('/carrinho/:id', async (req: Request, res: Response) => {
+    const { id } = req.params;
+  
+    try {
+      const carrinhoItem = await prisma.carrinho.delete({
+        where: { id: Number(id) }
+      });
+  
+      res.json(carrinhoItem);
+    } catch (error) {
+      res.status(400).json({ error: 'Erro ao remover item do carrinho' });
     }
-});
+  });
 
-carro.delete('/carrinho/:produtoId', (req: Request, res: Response) => {
-    const { produtoId } = req.params;
 
-    if (carrinho[produtoId]) {
-        delete carrinho[produtoId];
-        return res.status(200).json({ message: 'Produto removido do carrinho', carrinho });
-    } else {
-        return res.status(404).json({ error: 'Produto não encontrado no carrinho' });
-    }
-});
-
-carro.delete('/carrinho', (req: Request, res: Response) => {
-    for (const produtoId in carrinho) {
-        delete carrinho[produtoId];
-    }
-    res.status(200).json({ message: 'Carrinho limpo', carrinho });
-});
-
-export default carro
+export default carro;

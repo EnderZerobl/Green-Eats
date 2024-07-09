@@ -4,24 +4,23 @@ import { prisma } from '../database/data';
 import fs from 'fs';
 import path from 'path';
 import multer from 'multer';
+import express from 'express'
 
 const router = Router();
 
-const uploadDir = path.join(__dirname, '..', '..', 'public', 'uploads');
-if (!fs.existsSync(uploadDir)) {
-  fs.mkdirSync(uploadDir, { recursive: true });
-}
+const uploadDir = path.join(__dirname, 'uploads');
 
-const storage = multer.diskStorage({
+
+const guardar = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, uploadDir);
+    cb(null, uploadDir); 
   },
   filename: function (req, file, cb) {
-    cb(null, `${Date.now()}-${file.originalname}`);
+    cb(null, file.originalname); 
   }
 });
 
-const atualizar = multer({ storage: storage });
+const atualizar = multer({ storage: guardar });
 
 // Criar produto
 
@@ -34,12 +33,6 @@ router.post('/produtos', atualizar.single('image'), async (req: Request, res: Re
   } = req.body;
 
   try {
-    const documento = req.file;
-    let imagemPath = null;
-
-    if (documento) {
-      imagemPath = `/uploads/${documento.filename}`;
-    }
 
     const precoNovo = preco - (preco * (desconto / 100));
 
@@ -54,6 +47,8 @@ router.post('/produtos', atualizar.single('image'), async (req: Request, res: Re
         content: armazenContent
       }
     });
+
+    const imagemPath = req.file ? path.join('uploads', req.file.filename) : null;
 
     const novoProduto = await prisma.produto.create({
       data: {
@@ -154,12 +149,7 @@ router.put('/produtos/:id', atualizar.single('image'), async (req: Request, res:
       return res.status(404).json({ error: 'Produto não encontrado' });
     }
 
-    let imagemPath = produtoExistente.imagemPath;
-    const documento = req.file;
-
-    if (documento) {
-      imagemPath = `/uploads/${documento.filename}`;
-    }
+    const imagemPath = req.file ? path.join('uploads', req.file.filename) : produtoExistente.imagemPath;
 
     const precoNovo = preco - (preco * (desconto / 100));
     
@@ -204,7 +194,7 @@ router.put('/produtos/:id', atualizar.single('image'), async (req: Request, res:
     console.error(error);
     return res.status(500).json({ error: 'Erro ao atualizar o produto' });
   }
-});
+}); 
 
 //Buscar Produtos por categoria
 
@@ -348,58 +338,7 @@ router.get('/produtos/nomes/:nome',  async (req: Request, res: Response)=> {
   }
 });
 
-//Conversão da imagem, I guess
 
-router.get('/produtos/:id/image', async (req: Request, res: Response) => {
-  const { id } = req.params;
-
-  try {
-    const produto = await prisma.produto.findUnique({ where: { id: parseInt(id) }});
-
-    if (!produto || !produto.imagemPath) {
-      return res.status(404).json({ error: 'Imagem não encontrada' });
-    }
-
-    const Fotostringada = produto.imagemPath.replace(/^data:image\/\w+;base64,/, '');
-    const buffer = Buffer.from(Fotostringada, 'base64');
-    const imagemconvertida = path.join(__dirname, 'images', `produto_${id}.png`);
-    const dir = path.dirname(imagemconvertida);
-    if (!fs.existsSync(dir)) {
-      fs.mkdirSync(dir, { recursive: true });
-    }
-    fs.writeFileSync(imagemconvertida, buffer);
-
-
-    res.sendFile(imagemconvertida);
-    
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: 'Erro ao processar a imagem' });
-  }
-});
-
-router.get('/produtos/:id/img', async (req: Request, res: Response) => {
-  const { id } = req.params;
-
-  try {
-    const produto = await prisma.produto.findUnique({ where: { id: parseInt(id) } });
-
-    if (!produto || !produto.imagemPath) {
-      return res.status(404).json({ error: 'Imagem não encontrada' });
-    }
-    
-    const Fotostringada = produto.imagemPath.replace(/^data:image\/\w+;base64,/, '');
-
-    const buffer = Buffer.from(Fotostringada, 'base64');
-    res.setHeader('Content-Type', 'image/png'); 
-    res.send(buffer);
-    
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: 'Erro ao processar a imagem' });
-  }
-})
-
-
+router.use('/uploads', express.static(uploadDir));
 
 export default router;

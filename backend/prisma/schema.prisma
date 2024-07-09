@@ -35,6 +35,7 @@ model Produto {
   preco       Float   @default(0.0)  
   desconto    Float   @default(0.0)  
   precoNovo   Float   @default(0.0)
+  Carrinho   Carrinho[]
 }
 
 model Des {
@@ -47,5 +48,12 @@ model Post {
   id       Int      @id @default(autoincrement())
   content  String
   produto  Produto? 
+}
+
+model Carrinho {
+  id          Int      @id @default(autoincrement())
+  quantidade  Int
+  produto     Produto  @relation(fields: [produtoId], references: [id])
+  produtoId   Int
 }
 

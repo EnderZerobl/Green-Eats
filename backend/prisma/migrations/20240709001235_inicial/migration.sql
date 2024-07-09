@@ -1,7 +1,5 @@
--- RedefineTables
-PRAGMA defer_foreign_keys=ON;
-PRAGMA foreign_keys=OFF;
-CREATE TABLE "new_Produto" (
+-- CreateTable
+CREATE TABLE "Produto" (
     "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
     "nome" TEXT NOT NULL,
     "categoria" TEXT NOT NULL,
@@ -27,10 +25,29 @@ CREATE TABLE "new_Produto" (
     CONSTRAINT "Produto_descricaoId_fkey" FOREIGN KEY ("descricaoId") REFERENCES "Des" ("id") ON DELETE SET NULL ON UPDATE CASCADE,
     CONSTRAINT "Produto_armazenId_fkey" FOREIGN KEY ("armazenId") REFERENCES "Post" ("id") ON DELETE SET NULL ON UPDATE CASCADE
 );
-INSERT INTO "new_Produto" ("armazenId", "categoria", "descricaoId", "id", "imagemPath", "nome", "tipo") SELECT "armazenId", "categoria", "descricaoId", "id", "imagemPath", "nome", "tipo" FROM "Produto";
-DROP TABLE "Produto";
-ALTER TABLE "new_Produto" RENAME TO "Produto";
+
+-- CreateTable
+CREATE TABLE "Des" (
+    "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    "content" TEXT NOT NULL
+);
+
+-- CreateTable
+CREATE TABLE "Post" (
+    "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    "content" TEXT NOT NULL
+);
+
+-- CreateTable
+CREATE TABLE "Carrinho" (
+    "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    "quantidade" INTEGER NOT NULL,
+    "produtoId" INTEGER NOT NULL,
+    CONSTRAINT "Carrinho_produtoId_fkey" FOREIGN KEY ("produtoId") REFERENCES "Produto" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
+);
+
+-- CreateIndex
 CREATE UNIQUE INDEX "Produto_descricaoId_key" ON "Produto"("descricaoId");
+
+-- CreateIndex
 CREATE UNIQUE INDEX "Produto_armazenId_key" ON "Produto"("armazenId");
-PRAGMA foreign_keys=ON;
-PRAGMA defer_foreign_keys=OFF;
