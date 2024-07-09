@@ -8,7 +8,7 @@ export default async function Discovery () {
     
     return (
         <section className="discovery-section">
-            <h2 className="discovery-section__title"></h2>
+            <h2 className="discovery-section__title">Conheça também</h2>
             <div className="discovery-section__content">
                 <Image
                 className='discovery-section__content__image'
