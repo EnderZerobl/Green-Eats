@@ -48,9 +48,9 @@ const Upload: NextPage = () => {
     formData.append("desconto", "10");
 
     const response = await fetch("/api/your-upload-endpoint", {
-      method: "POST",
-      body: formData,
-    });
+        method: "POST",
+        body: formData,
+      });
 
     const data = await response.json();
     setImagePath(data.produto.imagemPath);
