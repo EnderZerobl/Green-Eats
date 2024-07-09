@@ -59,3 +59,14 @@
     justify-content: space-evenly;
     width: 50%;
 }
+
+.real-footer__social__icon {
+    width: 3rem;
+    height: 3rem;
+}
+
+.real-footer__social__icon__image {
+    object-fit: fill;
+    height: 100%;
+    width: 100%;
+}

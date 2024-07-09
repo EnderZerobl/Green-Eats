@@ -2,6 +2,14 @@
 import { useState } from "react";
 import "./Footer.css";
 import "./dropdown-animation.css"
+import youtubeIcon from "@public/youtube.svg";
+import facebookIcon from "@public/facebook.svg";
+import linkedinIcon from "@public/linkedin.svg";
+import twitterIcon from "@public/twitter.svg";
+import whatsappIcon from "@public/whatsapp.svg";
+import instagramIcon from "@public/instagram.svg";
+import Link from "next/link";
+import Image from "next/image";
 
 type DropdownProps = {
     title: string,
@@ -71,12 +79,30 @@ export default function Footer () {
                 {dropdownList}
                 <span className="real-footer__social-title">Midias Sociais</span>
                 <ul className="real-footer__social">
-                    <li className="real-footer__social__icon">🕊️</li>
-                    <li className="real-footer__social__icon">🕊️</li>
-                    <li className="real-footer__social__icon">🕊️</li>
-                    <li className="real-footer__social__icon">🕊️</li>
-                    <li className="real-footer__social__icon">🕊️</li>
-                    <li className="real-footer__social__icon">🕊️</li>
+                    <li className="real-footer__social__icon">
+                        <Link href={"https://youtube.com"}>
+                    <Image className="real-footer__social__icon__image" src={youtubeIcon} alt="Ícone do Yotube" />
+                    </Link></li>
+                    <li className="real-footer__social__icon">
+                        <Link href={"https://youtube.com"}>
+                    <Image className="real-footer__social__icon__image" src={facebookIcon} alt="Ícone do Facebook" />
+                    </Link></li>
+                    <li className="real-footer__social__icon">
+                        <Link href={"https://youtube.com"}>
+                    <Image className="real-footer__social__icon__image" src={linkedinIcon} alt="Ícone do Linkedin" />
+                    </Link></li>
+                    <li className="real-footer__social__icon">
+                        <Link href={"https://youtube.com"}>
+                    <Image className="real-footer__social__icon__image" src={twitterIcon} alt="Ícone do Twitter" />
+                    </Link></li>
+                    <li className="real-footer__social__icon">
+                        <Link href={"https://youtube.com"}>
+                    <Image className="real-footer__social__icon__image" src={whatsappIcon} alt="Ícone do Whatsapp" />
+                    </Link></li>
+                    <li className="real-footer__social__icon">
+                        <Link href={"https://youtube.com"}>
+                    <Image className="real-footer__social__icon__image" src={instagramIcon} alt="Ícone do Instagram" />
+                    </Link></li>
                 </ul>
             </section>
         </footer>
