@@ -289,57 +289,9 @@ export type HeroImageSliceDefault = prismic.SharedSliceVariation<
 >;
 
 /**
- * Primary content in *Images → Conheça também → Primary*
- */
-export interface HeroImageSliceDiscoveryPrimary {
-  /**
-   * Imagem field in *Images → Conheça também → Primary*
-   *
-   * - **Field Type**: Image
-   * - **Placeholder**: *None*
-   * - **API ID Path**: hero_image.discovery.primary.imagem
-   * - **Documentation**: https://prismic.io/docs/field#image
-   */
-  imagem: prismic.ImageField<never>;
-
-  /**
-   * Título field in *Images → Conheça também → Primary*
-   *
-   * - **Field Type**: Text
-   * - **Placeholder**: *None*
-   * - **API ID Path**: hero_image.discovery.primary.title
-   * - **Documentation**: https://prismic.io/docs/field#key-text
-   */
-  title: prismic.KeyTextField;
-
-  /**
-   * Texto field in *Images → Conheça também → Primary*
-   *
-   * - **Field Type**: Text
-   * - **Placeholder**: *None*
-   * - **API ID Path**: hero_image.discovery.primary.text
-   * - **Documentation**: https://prismic.io/docs/field#key-text
-   */
-  text: prismic.KeyTextField;
-}
-
-/**
- * Conheça também variation for Images Slice
- *
- * - **API ID**: `discovery`
- * - **Description**: Default
- * - **Documentation**: https://prismic.io/docs/slice
- */
-export type HeroImageSliceDiscovery = prismic.SharedSliceVariation<
-  "discovery",
-  Simplify<HeroImageSliceDiscoveryPrimary>,
-  never
->;
-
-/**
  * Slice variation for *Images*
  */
-type HeroImageSliceVariation = HeroImageSliceDefault | HeroImageSliceDiscovery;
+type HeroImageSliceVariation = HeroImageSliceDefault;
 
 /**
  * Images Shared Slice
@@ -375,10 +327,8 @@ declare module "@prismicio/client" {
       HeroImageSlice,
       HeroImageSliceDefaultPrimaryTextoItem,
       HeroImageSliceDefaultPrimary,
-      HeroImageSliceDiscoveryPrimary,
       HeroImageSliceVariation,
       HeroImageSliceDefault,
-      HeroImageSliceDiscovery,
     };
   }
 }
