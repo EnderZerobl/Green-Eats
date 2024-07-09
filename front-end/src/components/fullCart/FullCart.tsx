@@ -1,4 +1,4 @@
-import "../fullCart/fullCart.css"
+import "./fullCart.css"
 import ProductCart from "../productCart/ProductCart"
 
 
