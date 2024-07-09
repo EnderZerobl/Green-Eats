@@ -350,6 +350,8 @@ router.get('/produtos/nomes/:nome',  async (req: Request, res: Response)=> {
   }
 });
 
+// Rota para pegar descrição e as informações de armazenamento
+
 router.get('/produtos/armazen/:id', async (req: Request, res: Response) => {
   const { id } = req.params;
 
