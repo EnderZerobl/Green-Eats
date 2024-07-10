@@ -63,4 +63,8 @@ input, select, textarea{
 	border: none;
 }
 
+input:focus {
+	border: none;
+}
+
 

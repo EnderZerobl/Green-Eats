@@ -5,6 +5,7 @@ import React, { useState } from 'react';
 import Image from 'next/image';
 import "../productCard/productCard.css";
 import favoriteIcon from "../../../public/favoriteIcon.svg";
+import filledFavoriteIcon from "@public/filledFavoriteIcon.svg"
 import marketCarIcon from "../../../public/marketProductCard.svg";
 import Link from 'next/link';
 
@@ -19,6 +20,7 @@ interface ProductCardProps {
 
 const ProductCard: React.FC<ProductCardProps> = ({ id, name, oldPrice, currentPrice, discount, imageUrl }) => {
   const [quantity, setQuantity] = useState(0);
+  const [ favorite, setFavorite ] = useState(false);
 
   const handleIncrement = () => {
     setQuantity(prevQuantity => prevQuantity + 1);
@@ -40,7 +42,10 @@ const ProductCard: React.FC<ProductCardProps> = ({ id, name, oldPrice, currentPr
                 </div>
                 <div className="favoriteIcon">
                   <button>
-                    <Image src={favoriteIcon} alt="Ícone de coração que tem a função de favoritar o produto" width={0} height={0} />
+                    <Image src={favorite? filledFavoriteIcon : favoriteIcon} 
+                    alt="Ícone de coração que tem a função de favoritar o produto" 
+                    onClick={()=>{setFavorite(!favorite)}}
+                    width={0} height={0} />
                   </button>
                 </div>
               </div>

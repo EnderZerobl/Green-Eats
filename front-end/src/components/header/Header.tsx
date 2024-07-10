@@ -3,12 +3,16 @@
 import './Header.css';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useEffect } from 'react';
-import searchIcon from "../../../public/search.svg";
-import marketIcon from "../../../public/market.svg";
-import profileIcon from "../../../public/profile.svg";
+import { useEffect, useState } from 'react';
+import searchIcon from "@public/search.svg";
+import marketIcon from "@public/market.svg";
+import profileIcon from "@public/profile.svg";
+import { useRouter } from 'next/navigation';
 
 export default function Header() {
+    const [ search, setSearch ] = useState("");
+
+    const router = useRouter();
 
     useEffect(() => {
         const searchIconContainer = document.querySelector('.searchIconContainer');
@@ -38,11 +42,19 @@ export default function Header() {
             <header>
                 <div className="topContentContainer">
                     <div className="logo">
-                        <Link href="/" className='logo__link'>Green Eats</Link>
+                        <Link href="/produtos" className='logo__link'>Green Eats</Link>
                     </div>
                     <div className="searchContainer">
-                        <input type="text" name="" id="" placeholder="Nome do produto" className="searchInput"/>
-                        <button className="searchIconContainer">
+                        <input type="text" name="" id="" placeholder="Nome do produto" 
+                        className="searchInput" value={search} onChange={e=>{
+                            setSearch(e.target.value)
+                        }}/>
+                        <button className="searchIconContainer"
+                        onClick={()=>{
+                            if (search) {
+                                router.push("/produtos?name="+search)
+                            }
+                        }}>
                             <Image src={searchIcon} width={0} height={0} alt="Ícone de pesquisar" />
                         </button>
                     </div>

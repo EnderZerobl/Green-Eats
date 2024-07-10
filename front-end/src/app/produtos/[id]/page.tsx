@@ -30,8 +30,8 @@ export default async function Page ({ params }: {
                     categoria={product.categoria}
                     tipo={product.tipo} preco={product.preco} />
                 </div>
-                <ProductInfoDropdown title="Descrição" content={product.descricaoId.toFixed()}/>
-                <ProductInfoDropdown title="Informações de armazenamento(Recomendado)" content={product.armazenId.toFixed()}/>
+                <ProductInfoDropdown title="Descrição" content={product.desc? product.desc : ""}/>
+                <ProductInfoDropdown title="Informações de armazenamento(Recomendado)" content={product.armazen? product.armazen : ""}/>
             </section>
             <ProductCarousel products={products} />
         </>

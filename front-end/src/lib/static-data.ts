@@ -13,15 +13,34 @@ export const categorysList = [
     },
     {
         name: "Green Mercearia",
-        types: []
+        types: [
+            "Açúcar e adoçantes",
+            "Biscoitos",
+            "Massas e molhos",
+            "Farinhas",
+            "Conservantes e elatados",
+            "Bolos e tortas",
+            "Aveias e grãos"
+        ]
     },
     {
         name: "Bebidas e Laticinios",
-        types: []
+        types: [
+            "Leite de vaca",
+            "Leite vegetal",
+            "Cafés, chás e achocolatados",
+            "Sucos concentrados"
+        ]
     },
     {
         name: "Ovos e Carnes",
-        types: []
+        types: [
+            "Ovos",
+            "Frango",
+            "Cortes de carne",
+            "Frios",
+            "Processados"
+        ]
     },
     {
         name: "Características",

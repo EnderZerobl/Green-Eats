@@ -1,5 +1,6 @@
 import { RequisitionParams, ResponseFromApi } from '@/lib/types';
 import axios from 'axios';
+import { info } from 'console';
 
 
 
@@ -10,15 +11,15 @@ const getAllProducts = async (): Promise<ResponseFromApi[]> => {
 };
 
 const getProductByName = async (name: string): Promise<ResponseFromApi[]> => {
-    const response = await axios(``)
+    const response = await axios(`http://localhost:3001/produtos/nomes/${name}`);
 
-    return [response.data]
+    return response.data
 }
 
-const getProductById = async (id: string): Promise<ResponseFromApi[]> => {
+const getProductById = async (id: string): Promise<ResponseFromApi> => {
     const response = await axios(`http://localhost:3001/produtos/${id}`);
 
-    return [response.data];
+    return response.data;
 }
 
 const getProductByType = async ({ type, category }: RequisitionParams): Promise<ResponseFromApi[]>  => {
@@ -33,17 +34,36 @@ const getProductByType = async ({ type, category }: RequisitionParams): Promise<
     }
 };
 
+const getInfo = async ({ id }:{
+    id: number;
+}): Promise<{
+    descricao:{
+        content: string
+    };
+    armazen: {
+        content: string
+    }
+}> => {
+    const response = await axios(`http://localhost:3001/produtos/armazen/${id}`)
+
+    return response.data
+}
+
 export async function getProducts ({
     name,
     type,
     category,
     id,
 }: RequisitionParams): Promise<ResponseFromApi[]> {
-    //if (name){
-    //    return (await getProductByName(name))
-    //};
+    if (name){
+        return (await getProductByName(name))
+    };
     if (id) {
-        return (await getProductById(id.toString()));
+        const response = await getProductById(id.toString())
+        const info = await getInfo({ id })
+        response.armazen = info.armazen.content
+        response.desc = info.descricao.content
+        return [response];
     };
     if ( type || category) {
         return (await getProductByType({ type, category }));

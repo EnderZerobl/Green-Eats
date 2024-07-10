@@ -46,3 +46,9 @@ body {
     background-color: var(--main-green);
     color: white;
 }
+
+.little-text {
+    margin-left: 25vw;
+    font-size: .8rem;
+    font-weight: 300;
+}

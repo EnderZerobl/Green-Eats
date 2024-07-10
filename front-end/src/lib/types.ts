@@ -5,7 +5,9 @@ export type ResponseFromApi = {
     tipo: string;
     imagemPath: string;
     descricaoId: number;
+    desc?: string;
     armazenId: number;
+    armazen?: string;
     vegano: boolean;
     sustentavel: boolean;
     semGluten: boolean;
