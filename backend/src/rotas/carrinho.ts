@@ -43,6 +43,8 @@ carro.get('/carrinho', async (req: Request, res: Response) => {
               preco: true,
               precoNovo: true,
               imagemPath: true,
+              promocao: true,
+              exclusivo:true
             }
           }
         }
