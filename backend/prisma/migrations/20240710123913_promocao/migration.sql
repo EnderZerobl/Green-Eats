@@ -1,5 +1,7 @@
--- CreateTable
-CREATE TABLE "Produto" (
+-- RedefineTables
+PRAGMA defer_foreign_keys=ON;
+PRAGMA foreign_keys=OFF;
+CREATE TABLE "new_Produto" (
     "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
     "nome" TEXT NOT NULL,
     "categoria" TEXT NOT NULL,
@@ -19,35 +21,19 @@ CREATE TABLE "Produto" (
     "agroflorestal" BOOLEAN NOT NULL DEFAULT false,
     "artesanal" BOOLEAN NOT NULL DEFAULT false,
     "semAdicaoDeAcucar" BOOLEAN NOT NULL DEFAULT false,
+    "promocao" BOOLEAN NOT NULL DEFAULT false,
+    "exclusivo" BOOLEAN NOT NULL DEFAULT false,
+    "estoque" INTEGER NOT NULL DEFAULT 0,
     "preco" REAL NOT NULL DEFAULT 0.0,
     "desconto" REAL NOT NULL DEFAULT 0.0,
     "precoNovo" REAL NOT NULL DEFAULT 0.0,
     CONSTRAINT "Produto_descricaoId_fkey" FOREIGN KEY ("descricaoId") REFERENCES "Des" ("id") ON DELETE SET NULL ON UPDATE CASCADE,
     CONSTRAINT "Produto_armazenId_fkey" FOREIGN KEY ("armazenId") REFERENCES "Post" ("id") ON DELETE SET NULL ON UPDATE CASCADE
 );
-
--- CreateTable
-CREATE TABLE "Des" (
-    "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-    "content" TEXT NOT NULL
-);
-
--- CreateTable
-CREATE TABLE "Post" (
-    "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-    "content" TEXT NOT NULL
-);
-
--- CreateTable
-CREATE TABLE "Carrinho" (
-    "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-    "quantidade" INTEGER NOT NULL,
-    "produtoId" INTEGER NOT NULL,
-    CONSTRAINT "Carrinho_produtoId_fkey" FOREIGN KEY ("produtoId") REFERENCES "Produto" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
-);
-
--- CreateIndex
+INSERT INTO "new_Produto" ("agroflorestal", "armazenId", "artesanal", "categoria", "desconto", "descricaoId", "id", "imagemPath", "nome", "organico", "preco", "precoNovo", "producaoArtesanal", "proximoAoVencimento", "seloIBD", "semAcucar", "semAdicaoDeAcucar", "semGluten", "semLactose", "sustentavel", "tipo", "vegano") SELECT "agroflorestal", "armazenId", "artesanal", "categoria", "desconto", "descricaoId", "id", "imagemPath", "nome", "organico", "preco", "precoNovo", "producaoArtesanal", "proximoAoVencimento", "seloIBD", "semAcucar", "semAdicaoDeAcucar", "semGluten", "semLactose", "sustentavel", "tipo", "vegano" FROM "Produto";
+DROP TABLE "Produto";
+ALTER TABLE "new_Produto" RENAME TO "Produto";
 CREATE UNIQUE INDEX "Produto_descricaoId_key" ON "Produto"("descricaoId");
-
--- CreateIndex
 CREATE UNIQUE INDEX "Produto_armazenId_key" ON "Produto"("armazenId");
+PRAGMA foreign_keys=ON;
+PRAGMA defer_foreign_keys=OFF;

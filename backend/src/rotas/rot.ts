@@ -28,7 +28,8 @@ router.post('/produtos', atualizar.single('image'), async (req: Request, res: Re
   const {
     nome, categoria, tipo, descricaoContent, armazenContent,
     vegano, sustentavel, semGluten, semLactose, organico, semAcucar,
-    producaoArtesanal, proximoAoVencimento, seloIBD, agroflorestal, artesanal, semAdicaoDeAcucar,
+    producaoArtesanal, proximoAoVencimento, seloIBD, agroflorestal, artesanal, semAdicaoDeAcucar, 
+    promocao,exclusivo,estoque,
     preco, desconto
   } = req.body;
 
@@ -70,6 +71,9 @@ router.post('/produtos', atualizar.single('image'), async (req: Request, res: Re
         agroflorestal: agroflorestal === 'true',
         artesanal: artesanal === 'true',
         semAdicaoDeAcucar: semAdicaoDeAcucar === 'true',
+        promocao: promocao === 'true',
+        exclusivo: exclusivo === 'true',
+        estoque,
         preco: preco,
         desconto: desconto,
         precoNovo: precoNovo
@@ -151,6 +155,7 @@ router.put('/produtos/:id', atualizar.single('image'), async (req: Request, res:
     nome, categoria, tipo, descricaoContent, armazenContent,
     vegano, sustentavel, semGluten, semLactose, organico, semAcucar,
     producaoArtesanal, proximoAoVencimento, seloIBD, agroflorestal, artesanal, semAdicaoDeAcucar,
+    promocao,exclusivo,estoque,
     preco, desconto
   } = req.body;
 
@@ -194,6 +199,9 @@ router.put('/produtos/:id', atualizar.single('image'), async (req: Request, res:
         armazen: armazenAtualizado ? { connect: { id: armazenAtualizado.id } } : undefined,
         vegano, sustentavel, semGluten, semLactose, organico, semAcucar,
         producaoArtesanal, proximoAoVencimento, seloIBD, agroflorestal, artesanal, semAdicaoDeAcucar,
+        promocao,
+        exclusivo,
+        estoque,
         preco, desconto, precoNovo
       }
     });
@@ -245,7 +253,7 @@ router.get('/banco', async(req:Request, res:Response) => {
 router.get('/produtos/busca/filtrados', async (req:Request, res:Response) =>{
   const {
     vegano, sustentavel, semGluten, semLactose, organico, semAcucar,
-    producaoArtesanal, proximoAoVencimento, seloIBD, agroflorestal, artesanal, semAdicaoDeAcucar
+    producaoArtesanal, proximoAoVencimento, seloIBD, agroflorestal, artesanal, semAdicaoDeAcucar,promocao,exclusivo,
   } = req.query;
 
   try{
@@ -263,6 +271,8 @@ router.get('/produtos/busca/filtrados', async (req:Request, res:Response) =>{
     if (agroflorestal !== undefined) filtrados.agroflorestal = agroflorestal === 'true';
     if (artesanal !== undefined) filtrados.artesanal = artesanal === 'true';
     if (semAdicaoDeAcucar !== undefined) filtrados.semAdicaoDeAcucar = semAdicaoDeAcucar === 'true';
+    if(promocao !== undefined) filtrados.promocao = promocao === 'true';
+    if(exclusivo !== undefined) filtrados.exclusivo = exclusivo == 'true';
 
     const produtos = await prisma.produto.findMany({where:filtrados})
     if(produtos.length > 0){
