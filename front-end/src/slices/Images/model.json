@@ -53,39 +53,6 @@
         }
       },
       "items": {}
-    },
-    {
-      "id": "discovery",
-      "name": "Conheça também",
-      "docURL": "...",
-      "version": "initial",
-      "description": "Default",
-      "imageUrl": "",
-      "primary": {
-        "imagem": {
-          "type": "Image",
-          "config": {
-            "label": "Imagem",
-            "constraint": {},
-            "thumbnails": []
-          }
-        },
-        "title": {
-          "type": "Text",
-          "config": {
-            "label": "Título",
-            "placeholder": ""
-          }
-        },
-        "text": {
-          "type": "Text",
-          "config": {
-            "label": "Texto",
-            "placeholder": ""
-          }
-        }
-      },
-      "items": {}
     }
   ]
 }

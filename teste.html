@@ -3,74 +3,49 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Teste de Cadastro de Produto</title>
+  <title>Upload de Imagem</title>
 </head>
 <body>
-  <h1>Cadastrar Novo Produto</h1>
-  <form id="formProduto">
-    <label for="nome">Nome:</label><br>
-    <input type="text" id="nome" name="nome" required><br><br>
-
-    <label for="categoria">Categoria:</label><br>
-    <input type="text" id="categoria" name="categoria" required><br><br>
-
-    <label for="tipo">Tipo:</label><br>
-    <input type="text" id="tipo" name="tipo" required><br><br>
-
-    <label for="descricaoContent">Descrição:</label><br>
-    <textarea id="descricaoContent" name="descricaoContent" rows="4" required></textarea><br><br>
-
-    <label for="armazenContent">Armazenamento:</label><br>
-    <textarea id="armazenContent" name="armazenContent" rows="4" required></textarea><br><br>
-
-    <label for="vegano">Vegano:</label>
-    <input type="checkbox" id="vegano" name="vegano"><br><br>
-
-    <label for="semGluten">Sem Glúten:</label>
-    <input type="checkbox" id="semGluten" name="semGluten"><br><br>
-
-    <label for="image">Imagem do Produto:</label><br>
-    <input type="file" id="image" name="image" accept="image/*"><br><br>
-
-    <label for="preco">Preço:</label><br>
-    <input type="number" id="preco" name="preco" min="0" step="0.01" required><br><br>
-
-    <label for="desconto">Desconto (%):</label><br>
-    <input type="number" id="desconto" name="desconto" min="0" max="100" step="1" value="0"><br><br>
-
-    <button type="submit">Cadastrar Produto</button>
+  <h1>Enviar Imagem</h1>
+  <form id="formImagem" enctype="multipart/form-data">
+    <input type="file" id="image" name="image" accept="image/*" required>
+    <button type="submit">Enviar</button>
   </form>
 
+  <hr>
+
+  <h2>Imagem Enviada</h2>
+  <div id="mensagem"></div>
+  <div id="imagemEnviada"></div>
+
   <script>
-    document.getElementById('formProduto').addEventListener('submit', async function(event) {
+    document.getElementById('formImagem').addEventListener('submit', async function(event) {
       event.preventDefault();
 
-      const formData = new FormData(this);
-      const jsonObject = {};
-      formData.forEach((value, key) => {
-        jsonObject[key] = value;
-      });
+      const formData = new FormData();
+      formData.append('image', document.getElementById('image').files[0]);
 
       try {
         const response = await fetch('http://localhost:3001/produtos', {
           method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify(jsonObject)
+          body: formData
         });
 
-        if (!response.ok) {
-          throw new Error('Erro ao cadastrar produto');
-        }
-
         const data = await response.json();
-        console.log('Produto cadastrado:', data.produto);
-        alert('Produto cadastrado com sucesso!');
-        this.reset();
+
+        if (response.ok) {
+          document.getElementById('mensagem').textContent = data.message;
+
+          const imageElement = document.createElement('img');
+          imageElement.src = `http://localhost:3001/produtos/${data.filename}`;
+          imageElement.style.maxWidth = '100%';
+          document.getElementById('imagemEnviada').innerHTML = '';
+          document.getElementById('imagemEnviada').appendChild(imageElement);
+        } else {
+          console.error('Erro ao enviar imagem:', data.error);
+        }
       } catch (error) {
-        console.error('Erro ao cadastrar produto:', error);
-        alert('Erro ao cadastrar produto. Verifique o console para mais detalhes.');
+        console.error('Erro ao enviar requisição:', error);
       }
     });
   </script>
