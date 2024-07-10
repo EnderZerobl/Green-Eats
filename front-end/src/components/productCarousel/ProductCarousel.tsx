@@ -3,6 +3,7 @@
 import React from 'react';
 import Slider from 'react-slick';
 import ProductCard from '../productCard/ProductCard';
+import ProductCardUnavailable from "../productCardUnavailable/ProductCardUnavailable";
 import "../productCarousel/productCarousel.css";
 import { NextArrow, PrevArrow } from '../arrowCarousel/Arrow';
 import { ResponseFromApi } from '@/lib/types';
@@ -57,7 +58,7 @@ const ProductCarousel: React.FC<{
       <Slider {...settings}>
         {products.map((product) => (
           <div key={product.id}>
-            <ProductCard
+            <ProductCardUnavailable
               id={product.id}
               name={product.nome}
               oldPrice={product.preco}
@@ -68,6 +69,8 @@ const ProductCarousel: React.FC<{
           </div>
         ))}
       </Slider>
+
+
     </div>
   );
 };
