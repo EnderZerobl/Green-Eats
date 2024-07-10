@@ -20,6 +20,9 @@ export type ResponseFromApi = {
     agroFlorestal: boolean;
     artesanal: boolean;
     semAdicaoDeAcucar: boolean;
+    promocao: boolean;
+    exclusivo: boolean;
+    estoque: number;
     preco: number;
     desconto: number;
     precoNovo: number;
@@ -44,6 +47,8 @@ export type FullParamsToCreate = {
     agroflorestal: boolean;
     artesanal: boolean;
     semAdicaoDeAcucar: boolean;
+    promocao: boolean;
+    estoque: number;
     preco: number;
     desconto: number;
 };
@@ -67,6 +72,8 @@ export type PartialParamsToCreate = {
     agroflorestal?: boolean;
     artesanal?: boolean;
     semAdicaoDeAcucar?: boolean;
+    promocao: boolean;
+    estoque: number;
     preco: number;
     desconto: number;
 };

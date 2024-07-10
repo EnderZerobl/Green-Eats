@@ -13,13 +13,15 @@ export default function AdminPage ({ type, data }: {
         imagemPath: string;
         desconto: number;
         preco: number;
-
+        categoria: string;
     }
 }) {
     const [ image, setImage ] = useState<string>(data? data.imagemPath : "");
     const [ imgFile, setImgFile ] = useState<File>()
-    const [ selectedCategory, setSelectedCategory ] = useState("")
-    const [ typesToSelect, setTypesToSelect ] = useState<string[]>([])
+    const [ selectedCategory, setSelectedCategory ] = useState(data? data.categoria : categorysList[0].name)
+    const [ typesToSelect, setTypesToSelect ] = useState<string[]>(categorysList.filter(elem=>(
+        elem.name === selectedCategory
+    ))[0].types)
 
     if(data) data.imagemPath = "";
     const submitProduct = (e:FormEvent<HTMLFormElement>)=>{
@@ -35,6 +37,8 @@ export default function AdminPage ({ type, data }: {
                 tipo: formData.get('tipo') as string,
                 descricaoContent: formData.get('descricao') as string,
                 armazenContent: formData.get('informacoes') as string,
+                promocao: (Boolean(formData.get('desconto'))),
+                estoque: parseInt(formData.get('estoque') as string),
                 imagemPath: imgFile,
             };
             if(type === "add"){
@@ -73,6 +77,16 @@ export default function AdminPage ({ type, data }: {
                      required/>
                 </div>
                 <div className="modal__form__right">
+                    <div className="modal__form__right__radio">
+                        <div className="modal__form__right__radio__container">
+                            <input type="radio" name="type-of-products" id="exclusive-products" className="modal__form__right__radio__container__input" />
+                            <label htmlFor="exclusive-products" className="modal__form__right__radio__container__label">Exclusivo Green Eats</label>
+                        </div>
+                        <div className="modal__form__right__radio__container">
+                            <input type="radio" name="type-of-products" id="all-products" className="modal__form__right__radio__container__input" />
+                            <label htmlFor="all-products" className="modal__form__right__radio__container__label">Todos os Produtos</label>
+                        </div>
+                    </div>
                     <label htmlFor="nome">Nome:</label>
                     <input type="text" id="nome" name="nome" placeholder="Nome do Produto"
                     defaultValue={data? data.nome : ""} required />
@@ -94,26 +108,36 @@ export default function AdminPage ({ type, data }: {
                                 defaultValue={data? data.preco: "0.00"} required/>
                             </div>
                         </div>
+                        <div className="modal__form__stock">
+                            <label htmlFor="desconto">Estoque:</label>
+                            <div className="modal__form__stock-input">
+                                <input type="number" id="estoque" name="estoque" min="0" max="100"
+                                defaultValue={data? data.desconto : 0} />
+                            </div>
+                        </div>
                     </div>
-                    
-                    <label htmlFor="categoria">Categoria:</label>
-                    <select id="categoria" name="categoria" onChange={e=>{
-                        setSelectedCategory(e.target.value);
-                        setTypesToSelect(categorysList.filter(elem=>elem.name===e.target.value)
-                                                      [0].types);
-                    }} required>
-            
-                        {categorysList.map(({name})=>(
-                            <option value={name} key={name}>{name}</option>
-                        ))}
-                    </select>
-    
-                    <label htmlFor="tipo">Tipo:</label>
-                    <select id="tipo" name="tipo" required>
-                        {typesToSelect.map((name)=>(
+                    <div className="modal__form__category">
+                        <label htmlFor="categoria">Categoria:</label>
+                        <select id="categoria" name="categoria" onChange={e=>{
+                            setSelectedCategory(e.target.value);
+                            setTypesToSelect(categorysList.filter(elem=>elem.name===e.target.value)
+                            [0].types);
+                        }} required>
+                        
+                            {categorysList.map(({name})=>(
                                 <option value={name} key={name}>{name}</option>
                             ))}
-                    </select>
+                        </select>
+                    </div>
+                            
+                    <div className="modal__form__type">
+                        <label htmlFor="tipo">Tipo:</label>
+                        <select id="tipo" name="tipo" required>
+                            {typesToSelect.map((name)=>(
+                                <option value={name} key={name}>{name}</option>
+                            ))}
+                        </select>
+                    </div>
     
                     <label htmlFor="descricao">Descrição do Produto:</label>
                     <textarea id="descricao" name="descricao" placeholder="Digite algo" required></textarea>
