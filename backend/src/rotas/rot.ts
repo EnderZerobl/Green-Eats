@@ -58,10 +58,21 @@ router.post('/produtos', atualizar.single('image'), async (req: Request, res: Re
         imagemPath,
         descricao: { connect: { id: novaDescricao.id } },
         armazen: { connect: { id: novoArmazen.id } },
-        vegano, sustentavel, semGluten, semLactose, organico, semAcucar,
-        producaoArtesanal, proximoAoVencimento, seloIBD, agroflorestal, artesanal, semAdicaoDeAcucar,
-        preco, desconto, 
-        precoNovo
+        vegano: vegano === 'true',
+        sustentavel: sustentavel === 'true',
+        semGluten: semGluten === 'true',
+        semLactose: semLactose === 'true',
+        organico: organico === 'true',
+        semAcucar: semAcucar === 'true',
+        producaoArtesanal: producaoArtesanal === 'true',
+        proximoAoVencimento: proximoAoVencimento === 'true',
+        seloIBD: seloIBD === 'true',
+        agroflorestal: agroflorestal === 'true',
+        artesanal: artesanal === 'true',
+        semAdicaoDeAcucar: semAdicaoDeAcucar === 'true',
+        preco: preco,
+        desconto: desconto,
+        precoNovo: precoNovo
       }
     });
 
@@ -70,6 +81,7 @@ router.post('/produtos', atualizar.single('image'), async (req: Request, res: Re
       produto: novoProduto
     });
   } catch (error) {
+    console.error(error);
     res.status(400).json({ error: 'Erro ao criar produto' });
   }
 });
@@ -335,6 +347,33 @@ router.get('/produtos/nomes/:nome',  async (req: Request, res: Response)=> {
       }
   } catch (error) {
       res.status(400).json({ error: 'Erro para achar Produto' });
+  }
+});
+
+// Rota para pegar descrição e as informações de armazenamento
+
+router.get('/produtos/armazen/:id', async (req: Request, res: Response) => {
+  const { id } = req.params;
+
+  try {
+    const produto = await prisma.produto.findUnique({
+      where: { id: parseInt(id) },
+      include: {
+        descricao: true,
+        armazen: true,
+      },
+    });
+
+    if (!produto) {
+      return res.status(404).json({ error: 'Produto não encontrado' });
+    }
+
+    res.status(200).json({
+      descricao: produto.descricao,
+      armazen: produto.armazen,
+    });
+  } catch (error) {
+    res.status(500).json({ error: 'Erro ao buscar detalhes do produto' });
   }
 });
 
