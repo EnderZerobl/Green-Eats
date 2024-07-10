@@ -7,7 +7,7 @@
 .productCart, .orderResume{
     display: flex;
     flex-direction: column;
-    width: 45%;
+    width: 50%;
 }
 
 .orderResumeTextContainer{
@@ -39,6 +39,7 @@
     font-weight: 700;
     font-size: 40px;
     text-align: center;
+    box-sizing: border-box;
 }
 
 .sectionTitle{
@@ -46,4 +47,26 @@
     font-size: 36px;
     margin-top: 80px;
     margin-bottom: 40px;
+}
+
+
+
+@media (max-width: 1000px){
+    .fullCart{
+        flex-direction: column;
+    }
+
+    .productCart{
+        justify-content: center;
+        align-items: center;
+    }
+
+    .productCart, .orderResume{
+        width: 100%;
+    }
+
+    .orderResume button{
+        font-size: 20px;
+    }
+    
 }

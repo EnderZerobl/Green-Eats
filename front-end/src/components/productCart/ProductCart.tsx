@@ -2,7 +2,7 @@ import appleProduct from "../../../public/appleProduct.svg"
 import favoriteIcon from "../../../public/favoriteIcon.svg"
 import trashIcon from "../../../public/trash.svg"
 import Image from "next/image"
-import "../productCart/productCart.css"
+import "../productCart/newProductCart.css"
 
 export default function ProductCart() {
     return(
