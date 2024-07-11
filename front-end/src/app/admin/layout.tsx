@@ -10,7 +10,6 @@ export default async function AdminLayout({
         <style>
         {`
             .AdminLayout {
-                position: fixed;
                 top: 0;
                 width: 100%;
                 height: 100vh;
@@ -18,7 +17,7 @@ export default async function AdminLayout({
                 z-index: 10;
             }
 
-            header, footer, .footer {
+            header, footer, .footer, .navContainer {
             display: none;
             }
         `}

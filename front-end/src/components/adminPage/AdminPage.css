@@ -24,7 +24,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-right: 20px;
+    margin: 0 20px;
 }
 
 .modal__form__image-preview {
@@ -42,13 +42,24 @@
     max-height: 100%;
 }
 
-.modal__form__image-button {
-    margin-top: 10px;
+.modal__form__image-button{
+    display: none;
+}
+
+.modal__form__image-label {
+    background-color: var(--main-green);
+    width: 100%;
+    padding: 1rem;
+    border-radius: 0;
+    margin-bottom: 2rem;
+    margin-top: 1rem;
+    color: white;
 }
 
 .modal__form__right {
     flex: 1;
     padding: 0 1rem;
+    min-width: 445px;
 }
 
 .modal__form__right label {
@@ -179,6 +190,7 @@
     margin: 0 auto;
     padding: 10px 20px;
     margin-top: 20px;
+    margin-bottom: 2rem;
 }
 
 .modal__form__submit-button:hover {

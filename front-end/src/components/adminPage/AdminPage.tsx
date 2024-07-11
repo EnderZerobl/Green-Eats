@@ -27,25 +27,27 @@ export default function AdminPage ({ type, data }: {
     const submitProduct = (e:FormEvent<HTMLFormElement>)=>{
         e.preventDefault();
         
+        if (image){
         const formData = new FormData(e.currentTarget);
-        if (imgFile){
-            const productData: PartialParamsToCreate = {
-                nome: formData.get('nome') as string,
-                desconto: parseInt(formData.get('desconto') as string),
-                preco: parseFloat(formData.get('preco') as string),
-                categoria: formData.get('categoria') as string,
-                tipo: formData.get('tipo') as string,
-                descricaoContent: formData.get('descricao') as string,
-                armazenContent: formData.get('informacoes') as string,
-                promocao: (Boolean(formData.get('desconto'))),
-                estoque: parseInt(formData.get('estoque') as string),
-                imagemPath: imgFile,
-            };
-            if(type === "add"){
-                createNewProduct(productData);
-            }
-        }
+        const formToSend = new FormData();
+        formToSend.append("nome", formData.get('nome') as string);
+        formToSend.append("categoria", formData.get('categoria') as string);
+        formToSend.append("tipo", formData.get('tipo') as string);
+        formToSend.append("descricaoContent", formData.get('descricao') as string);
+        formToSend.append("armazenContent", formData.get('informacoes') as string);
+        formToSend.append("vegano", 'false');
+        formToSend.append("preco", formData.get('preco') as string);
+        formToSend.append("desconto", formData.get('desconto') as string);
+        formToSend.append("exclusivo", formData.get('nome') as string);
+        formToSend.append("estoque", formData.get('estoque') as string);
+        formToSend.append("image", new Blob([formData.get('image') as File]));
+            alert(formToSend.get('nome'))
+          if(type === "add"){
+                createNewProduct(formToSend);
+        }  
 
+        }
+        
     }
 
     const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -72,8 +74,11 @@ export default function AdminPage ({ type, data }: {
                         <Image id="image-preview" src={image} alt="Preview"
                         width={500} height={500} />
                     </div>
+                    <label htmlFor="image" className='modal__form__image-label generic-button'>
+                        Enviar Imagem
+                    </label>
                     <input type="file" className="modal__form__image-button"
-                     name="image" id="image-button" onChange={handleImageChange}
+                     name="image" id="image" onChange={handleImageChange}
                      required/>
                 </div>
                 <div className="modal__form__right">
