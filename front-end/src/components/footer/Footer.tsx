@@ -8,6 +8,7 @@ import linkedinIcon from "@public/linkedin.svg";
 import twitterIcon from "@public/twitter.svg";
 import whatsappIcon from "@public/whatsapp.svg";
 import instagramIcon from "@public/instagram.svg";
+import arrowIcon from "@public/arrow.svg"
 import Link from "next/link";
 import Image from "next/image";
 
@@ -22,7 +23,11 @@ const FooterDropdown: React.FC<DropdownProps> = ({ title, desc }) => {
           <input type="checkbox" id={title} className="footer-dropdown__checkbox" />
           <label htmlFor={title} className="footer-dropdown__div">
             <h4 className="footer-dropdown__div__label">{title}</h4>
-            <span className="footer-dropdown__div__icon">{">"}</span>
+            <Image src={arrowIcon}
+            alt="Ícone de seta"
+            className="footer-dropdown__div__icon" 
+            width={20} height={20}
+            />
           </label>
           <p className="footer-dropdown__desc">{desc}
           </p>
