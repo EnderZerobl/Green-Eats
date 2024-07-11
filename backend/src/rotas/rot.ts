@@ -73,9 +73,9 @@ router.post('/produtos', atualizar.single('image'), async (req: Request, res: Re
         semAdicaoDeAcucar: semAdicaoDeAcucar === 'true',
         promocao: promocao === 'true',
         exclusivo: exclusivo === 'true',
-        estoque,
-        preco: preco,
-        desconto: desconto,
+        estoque: parseInt(estoque),
+        preco: parseFloat(preco),
+        desconto: parseFloat(desconto),
         precoNovo: precoNovo
       }
     });
