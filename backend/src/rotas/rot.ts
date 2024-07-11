@@ -389,6 +389,8 @@ router.get('/produtos/armazen/:id', async (req: Request, res: Response) => {
   }
 });
 
+//Rota para pegar a imagem
+
 router.get('/produtos/imagem/:filename', (req: Request, res: Response) => {
   const { filename } = req.params;
   const filePath = path.join(uploadDir, filename);
