@@ -49,7 +49,7 @@
 .modal__form__image-label {
     background-color: var(--main-green);
     width: 100%;
-    padding: 1rem;
+    padding: 0.5rem 1rem;
     border-radius: 0;
     margin-bottom: 2rem;
     margin-top: 1rem;
@@ -81,9 +81,9 @@
 
 .modal__form__right__radio {
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-around;
     height: 1.5rem;
-    width: 100%;
+    width: 40%;
 }
 
 .modal__form__right__radio__container {
@@ -177,20 +177,26 @@
     padding-left: 1rem;
 }
 
+.select-characteristics {
+    padding-left: 0;
+    width: 100%;
+}
+
 .modal__form__right input[type="submit"]:hover {
     background-color: #0056b3;
 }
 
 .modal__form__submit-button {
-    background-color: var(--main-green);
-    color: white;
-    border: none;
-    cursor: pointer;
     display: block;
-    margin: 0 auto;
+    background-color: var(--main-green);
+    width: 35%;
     padding: 10px 20px;
+    border: none;
+    margin: 0 auto;
     margin-top: 20px;
     margin-bottom: 2rem;
+    color: white;
+    cursor: pointer;
 }
 
 .modal__form__submit-button:hover {

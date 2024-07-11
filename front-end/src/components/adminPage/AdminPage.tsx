@@ -2,14 +2,14 @@
 import { FormEvent, useState } from 'react';
 import './AdminPage.css'
 import Image from 'next/image';
-import { createNewProduct } from '@/services/CreateOrChangeProducts';
-import { PartialParamsToCreate } from '@/lib/types';
-import { categorysList } from '@/lib/static-data';
+import { changeProduct, createNewProduct } from '@/services/CreateOrChangeProducts';
+import { categorysList, characteristics } from '@/lib/static-data';
 
 export default function AdminPage ({ type, data }: {
     type: "add" | "edit";
     data?: {
-        nome: string,
+        id: number;
+        nome: string;
         imagemPath: string;
         desconto: number;
         preco: number;
@@ -28,26 +28,27 @@ export default function AdminPage ({ type, data }: {
         e.preventDefault();
         
         if (image){
-        const formData = new FormData(e.currentTarget);
-        const formToSend = new FormData();
-        formToSend.append("nome", formData.get('nome') as string);
-        formToSend.append("categoria", formData.get('categoria') as string);
-        formToSend.append("tipo", formData.get('tipo') as string);
-        formToSend.append("descricaoContent", formData.get('descricao') as string);
-        formToSend.append("armazenContent", formData.get('informacoes') as string);
-        formToSend.append("vegano", 'false');
-        formToSend.append("preco", formData.get('preco') as string);
-        formToSend.append("desconto", formData.get('desconto') as string);
-        formToSend.append("exclusivo", formData.get('nome') as string);
-        formToSend.append("estoque", formData.get('estoque') as string);
-        formToSend.append("image", new Blob([formData.get('image') as File]));
-            alert(formToSend.get('nome'))
-          if(type === "add"){
-                createNewProduct(formToSend);
-        }  
+            const formData = new FormData(e.currentTarget);
+            const formToSend = new FormData();
+            formToSend.append("nome", formData.get('nome') as string);
+            formToSend.append("categoria", formData.get('categoria') as string);
+            formToSend.append("tipo", formData.get('tipo') as string);
+            formToSend.append("descricaoContent", formData.get('descricao') as string);
+            formToSend.append("armazenContent", formData.get('informacoes') as string);
+            formToSend.append("vegano", 'false');
+            formToSend.append("preco", formData.get('preco') as string);
+            formToSend.append("desconto", formData.get('desconto') as string);
+            formToSend.append("exclusivo", formData.get('nome') as string);
+            formToSend.append("estoque", formData.get('estoque') as string);
+            formToSend.append("image", new Blob([formData.get('image') as File]));
+                
 
+            if(type === "add"){
+                createNewProduct(formToSend);
+            } else if (type === "edit" && data) {
+                changeProduct(data.id, formToSend)
+            };
         }
-        
     }
 
     const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -82,16 +83,6 @@ export default function AdminPage ({ type, data }: {
                      required/>
                 </div>
                 <div className="modal__form__right">
-                    <div className="modal__form__right__radio">
-                        <div className="modal__form__right__radio__container">
-                            <input type="radio" name="type-of-products" id="exclusive-products" className="modal__form__right__radio__container__input" />
-                            <label htmlFor="exclusive-products" className="modal__form__right__radio__container__label">Exclusivo Green Eats</label>
-                        </div>
-                        <div className="modal__form__right__radio__container">
-                            <input type="radio" name="type-of-products" id="all-products" className="modal__form__right__radio__container__input" />
-                            <label htmlFor="all-products" className="modal__form__right__radio__container__label">Todos os Produtos</label>
-                        </div>
-                    </div>
                     <label htmlFor="nome">Nome:</label>
                     <input type="text" id="nome" name="nome" placeholder="Nome do Produto"
                     defaultValue={data? data.nome : ""} required />
@@ -143,6 +134,15 @@ export default function AdminPage ({ type, data }: {
                             ))}
                         </select>
                     </div>
+
+                    <div className="modal__form__type select-characteristics">
+                        <label htmlFor="caracteristica">Caracteristica:</label>
+                        <select id="caracteristica" name="caracteristica" required>
+                            {characteristics.map((name)=>(
+                                <option value={name} key={name}>{name}</option>
+                            ))}
+                        </select>
+                    </div>
     
                     <label htmlFor="descricao">Descrição do Produto:</label>
                     <textarea id="descricao" name="descricao" placeholder="Digite algo" required></textarea>
@@ -150,6 +150,16 @@ export default function AdminPage ({ type, data }: {
                     <label htmlFor="informacoes">Informações de armazenamento (Opcional):</label>
                     <textarea id="informacoes" name="informacoes" placeholder="Digite algo"></textarea>
                 </div>
+                </div>
+                <div className="modal__form__right__radio">
+                    <div className="modal__form__right__radio__container">
+                        <input type="radio" name="type-of-products" id="exclusive-products" className="modal__form__right__radio__container__input" />
+                        <label htmlFor="exclusive-products" className="modal__form__right__radio__container__label">Exclusivo Green Eats</label>
+                    </div>
+                    <div className="modal__form__right__radio__container">
+                        <input type="radio" name="type-of-products" id="all-products" className="modal__form__right__radio__container__input" />
+                        <label htmlFor="all-products" className="modal__form__right__radio__container__label">Todos os Produtos</label>
+                    </div>
                 </div>
                 <input type="submit" className="modal__form__submit-button" value="CRIAR PRODUTO" />
             </form>

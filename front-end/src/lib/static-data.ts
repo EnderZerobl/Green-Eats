@@ -43,11 +43,22 @@ export const categorysList = [
         ]
     },
     {
-        name: "Características",
-        types: []
-    },
-    {
         name: "Ordernar",
         types: ['a','a','a','a','a','a','a','a','a','a']
     }
 ]
+
+export const characteristics = [
+    "vegano",
+    "sustensavel",
+    "semGluten",
+    "semLactose",
+    "organico",
+    "semAcucar",
+    "producaoArtesanal",
+    "proximoAoVencimento",
+    "seloIBD",
+    "agroflorestal",
+    "artesanal",
+    "semAdicaoDeAcucar"
+] 
