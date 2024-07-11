@@ -5,8 +5,9 @@ import Image from 'next/image';
 import { changeProduct, createNewProduct } from '@/services/CreateOrChangeProducts';
 import { categorysList, characteristics } from '@/lib/static-data';
 
-export default function AdminPage ({ type, data }: {
+export default function AdminPage ({ type, close, data }: {
     type: "add" | "edit";
+    close: ()=>void;
     data?: {
         id: number;
         nome: string;
@@ -65,6 +66,10 @@ export default function AdminPage ({ type, data }: {
     }
 
     return (
+        <>
+        <div className="outside-modal"
+        onClick={close}></div>
+        <div className='modal-wrapper'>
         <div className="modal">
             <h1 className="modal__title">{type === "add" ? "Criação de Produto" : "Edição de Produto"}</h1>
             <form action="" onSubmit={submitProduct} method="post" className="modal__form flexer">
@@ -164,5 +169,7 @@ export default function AdminPage ({ type, data }: {
                 <input type="submit" className="modal__form__submit-button" value="CRIAR PRODUTO" />
             </form>
         </div>
+        </div>
+        </>
     );  
 };

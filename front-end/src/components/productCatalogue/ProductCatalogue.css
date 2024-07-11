@@ -8,10 +8,22 @@
     margin-bottom: -100vh;
 }
 
-.catalogue__title {
+.catalogue__head {
+    display: flex;
+    justify-content: space-between;
+}
+
+.catalogue__head__title {
     margin-bottom: 1rem;
     font-size: 2.5rem;
     font-weight: 500;
+}
+
+.catalogue__head__button {
+    background-color: var(--main-green);
+    padding: 0 .5rem;
+    color: white;
+    font-size: 1.5rem;
 }
 
 .catalogue__container {

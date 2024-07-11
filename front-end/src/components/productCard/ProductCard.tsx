@@ -6,21 +6,23 @@ import Image from 'next/image';
 import "../productCard/productCard.css";
 import favoriteIcon from "../../../public/favoriteIcon.svg";
 import filledFavoriteIcon from "@public/filledFavoriteIcon.svg"
+import pencilIcon from "@public/pencil.svg"
 import marketCarIcon from "../../../public/marketProductCard.svg";
 import Link from 'next/link';
+import { ResponseFromApi } from '@/lib/types';
 
 interface ProductCardProps {
-  id: number;
-  name: string;
-  oldPrice: number;
-  currentPrice: number;
-  discount: number;
-  imageUrl: string;
+  data: ResponseFromApi;
+  openModal: (data: ResponseFromApi)=>void;
 }
 
-const ProductCard: React.FC<ProductCardProps> = ({ id, name, oldPrice, currentPrice, discount, imageUrl }) => {
+const ProductCard: React.FC<ProductCardProps> = ({ data, openModal }) => {
   const [quantity, setQuantity] = useState(0);
   const [ favorite, setFavorite ] = useState(false);
+
+  const { id, nome:name, preco:oldPrice,
+     precoNovo:currentPrice, desconto:discount,
+     imagemPath:imageUrl } = data
 
   const handleIncrement = () => {
     setQuantity(prevQuantity => prevQuantity + 1);
@@ -41,6 +43,11 @@ const ProductCard: React.FC<ProductCardProps> = ({ id, name, oldPrice, currentPr
                   <span>-{discount}%</span>
                 </div>
                 <div className="favoriteIcon">
+                  <button onClick={()=>openModal(data)}>
+                    <Image src={pencilIcon}
+                    alt='Ícone de Lápis para edição do produto'
+                    width={50} height={50} />
+                  </button>
                   <button>
                     <Image src={favorite? filledFavoriteIcon : favoriteIcon} 
                     alt="Ícone de coração que tem a função de favoritar o produto" 
@@ -50,7 +57,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ id, name, oldPrice, currentPr
                 </div>
               </div>
               <Link href={"/produtos/"+id} className="productImage">
-                <Image src={imageUrl} alt="Imagem do produto a venda" width={286} height={196} />
+                <Image src={"/"} alt="Imagem do produto a venda" width={286} height={196} />
               </Link>
             </div>
             <div className="cardText">
