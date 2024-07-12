@@ -389,6 +389,8 @@ router.get('/produtos/armazen/:id', async (req: Request, res: Response) => {
   }
 });
 
+//Rota para pegar a imagem
+
 router.get('/produtos/imagem/:filename', (req: Request, res: Response) => {
   const { filename } = req.params;
   const filePath = path.join(uploadDir, filename);
@@ -399,5 +401,31 @@ router.get('/produtos/imagem/:filename', (req: Request, res: Response) => {
     }
   });
 });
+
+//Rota para pegar a imagem por ID
+
+router.get('/produtos/:id/imagem', async (req:Request, res:Response)=>{
+  const { id } = req.params;
+
+  try {
+    const produto = await prisma.produto.findUnique({
+      where: { id: parseInt(id, 10) }
+    });
+
+    if (!produto || !produto.imagemPath) {
+      return res.status(404).json({ error: 'Produto ou imagem não encontrado' });
+    }
+
+    const filePath = path.join(uploadDir, path.basename(produto.imagemPath));
+    res.sendFile(filePath, (err) => {
+      if (err) {
+        res.status(404).json({ error: 'Imagem não encontrada' });
+      }
+    });
+  }
+  catch(error){
+    res.status(500).json({error:"Imagem não encontrada"})
+  }
+})
 
 export default router;
