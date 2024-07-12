@@ -86,6 +86,13 @@ export type RequisitionParams = {
     id?: number;
 };
 
+export type UsableCart = {
+    id: number;
+    quantidade: number;
+    produtoId: number;
+    produto: ResponseFromApi;
+}
+
 export type HigherData = {
     "Green Horta": ResponseFromApi[];
     "Green Mercearia": ResponseFromApi[];

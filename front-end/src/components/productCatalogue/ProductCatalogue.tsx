@@ -2,6 +2,7 @@ import { ResponseFromApi } from '@/lib/types'
 import './ProductCatalogue.css'
 import ProductCard from '../productCard/ProductCard'
 import Link from 'next/link'
+import ProductCardUnavailable from '../productCardUnavailable/ProductCardUnavailable'
 
 function NotFoundMessage () {
     
@@ -21,8 +22,11 @@ export default function ProductCatalogue ({ data, toggleAddModal, toggleEditModa
     let products: JSX.Element[] = [];
     if (data.length){
         products = data.map((cardData)=>(
+            cardData.estoque?
             <ProductCard key={cardData.nome} data={cardData}
              openModal={(data: ResponseFromApi)=>{toggleEditModal(cardData)}} />
+            : <ProductCardUnavailable key={cardData.nome} data={cardData}
+            openModal={(data: ResponseFromApi)=>{toggleEditModal(cardData)}} />
         ));
     }
 

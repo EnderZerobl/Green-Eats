@@ -10,6 +10,7 @@ import pencilIcon from "@public/pencil.svg"
 import marketCarIcon from "../../../public/marketProductCard.svg";
 import Link from 'next/link';
 import { ResponseFromApi } from '@/lib/types';
+import { fetchCart } from '@/services/ManageCart';
 
 interface ProductCardProps {
   data: ResponseFromApi;
@@ -31,8 +32,6 @@ const ProductCard: React.FC<ProductCardProps> = ({ data, openModal }) => {
   const handleDecrement = () => {
     setQuantity(prevQuantity => Math.max(prevQuantity - 1, 0));
   };
-
-  console.log(imageUrl)
 
   return (
     <section className="sectionProductCard">
@@ -91,7 +90,10 @@ const ProductCard: React.FC<ProductCardProps> = ({ data, openModal }) => {
               <button onClick={handleIncrement}>+</button>
             </div>
             <div className="productPurchaseBuy">
-              <button>
+              <button onClick={()=>{fetchCart("post", {
+                id,
+                quantidade:quantity
+              })}}>
                 <Image src={marketCarIcon} width={0} height={0} alt="Ícone de adicionar ao carrinho" />
               </button>
             </div>
