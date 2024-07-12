@@ -8,7 +8,9 @@ import express from 'express'
 
 const router = Router();
 
+
 const uploadDir = path.join(__dirname, 'uploads');
+router.use('/uploads', express.static(uploadDir));
 
 
 const guardar = multer.diskStorage({
@@ -387,7 +389,17 @@ router.get('/produtos/armazen/:id', async (req: Request, res: Response) => {
   }
 });
 
+//Rota para pegar a imagem
 
-router.use('/uploads', express.static(uploadDir));
+router.get('/produtos/imagem/:filename', (req: Request, res: Response) => {
+  const { filename } = req.params;
+  const filePath = path.join(uploadDir, filename);
+
+  res.sendFile(filePath, (err) => {
+    if (err) {
+      res.status(404).json({ error: 'Imagem não encontrada' });
+    }
+  });
+});
 
 export default router;
