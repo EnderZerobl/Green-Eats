@@ -1,4 +1,3 @@
-// components/ProductCarousel.tsx
 'use client';
 import React from 'react';
 import Slider from 'react-slick';
@@ -8,17 +7,7 @@ import "../productCarousel/productCarousel.css";
 import { NextArrow, PrevArrow } from '../arrowCarousel/Arrow';
 import { ResponseFromApi } from '@/lib/types';
 
-//const products = [
-//  { id: 1, name: 'Maça gala importada Orgânica - 500g', oldPrice: 20.00, currentPrice: 16.90, discount: 20, imageUrl: "/appleProduct.svg" },
-//  { id: 2, name: 'Maça gala importada Orgânica - 500g', oldPrice: 20.00, currentPrice: 16.90, discount: 20, imageUrl: "/appleProduct.svg" },
-//  { id: 3, name: 'Maça gala importada Orgânica - 500g', oldPrice: 20.00, currentPrice: 16.90, discount: 20, imageUrl: "/appleProduct.svg" },
-//  { id: 4, name: 'Maça gala importada Orgânica - 500g', oldPrice: 20.00, currentPrice: 16.90, discount: 20, imageUrl: "/appleProduct.svg" },
-//  { id: 5, name: 'Maça gala importada Orgânica - 500g', oldPrice: 20.00, currentPrice: 16.90, discount: 20, imageUrl: "/appleProduct.svg" },
-//];
-
-const ProductCarousel: React.FC<{
-  products: ResponseFromApi[]
-}> = ({ products }) => {
+const ProductCarousel: React.FC<{ products: ResponseFromApi[] }> = ({ products }) => {
   const settings = {
     dots: true,
     infinite: true,
@@ -49,8 +38,18 @@ const ProductCarousel: React.FC<{
           slidesToScroll: 1,
         },
       },
+      {
+        breakpoint: 600,
+        settings:{
+          slidesToShow: 1,
+          slidesToScroll: 1,
+          nextArrow: undefined,
+          prevArrow: undefined,
+        }
+      },
     ],
   };
+
 
 
   return (

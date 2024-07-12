@@ -18,6 +18,26 @@
 .categorieCardContainer{
     display: flex;
     justify-content: space-between;
-    width: 90%;
+    width: 95%;
     flex-wrap: wrap;
 }
+
+@media (max-width: 1510px){
+    .categorieCardContainer{
+        width: 60%;
+    }
+}
+@media (max-width: 800px){
+    .categorieCardContainer{
+        width: 80%;
+    }
+}
+
+@media (max-width: 580px){
+    .categorieCardContainer{
+        width: 0;
+        justify-content: center;
+    }
+}
+
+

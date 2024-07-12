@@ -208,6 +208,8 @@ nav{
         justify-content: space-around;
         flex-direction: column;
         height: calc(100vh - 87px);
-        width: 100%;
+        width: 100vw;
     }
+
+    
 }

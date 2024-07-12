@@ -21,6 +21,9 @@ const ProductSection: React.FC<ProductSectionProps> = ({ title, products }) => {
         </div>
       </div>
       <ProductCarousel products={products} />
+      <div className="productLinkContainerMobile">
+        <Link href="/"><span>ver mais</span></Link>
+      </div>
     </section>
   );
 };

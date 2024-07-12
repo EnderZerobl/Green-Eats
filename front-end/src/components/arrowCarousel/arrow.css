@@ -18,9 +18,18 @@
     border: 2px solid var(--main-green);
     border-radius: 100%;
     box-sizing: content-box;
+
 }
 
 .productCarousel .slick-prev:before,
 .productCarousel .slick-next:before {
   content: '';
+}
+
+@media (max-width: 600px) {
+
+  .productCarousel .slick-prev,
+  .productCarousel .slick-next{
+    border: 0;
+  }
 }
