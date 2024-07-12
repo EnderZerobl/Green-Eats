@@ -90,5 +90,32 @@ carro.delete('/carrinho/:id', async (req: Request, res: Response) => {
     }
   });
 
+//Rota para pegar o Total a pagar
+
+carro.get('/carrinho/total', async (req: Request, res: Response) => {
+    try {
+      const carrinho = await prisma.carrinho.findMany({
+        include: {
+          produto: {
+            select: {
+              preco: true,
+              precoNovo: true,
+              promocao: true,
+            },
+          },
+        },
+      });
+  
+      const total = carrinho.reduce((acc, item) => {
+        const preco = item.produto.promocao ? item.produto.precoNovo : item.produto.preco;
+        return acc + preco * item.quantidade;
+      }, 0);
+  
+      res.status(200).json({ total });
+    } catch (error) {
+      res.status(500).json({ error: 'Erro ao calcular o total do carrinho' });
+    }
+  });
+
 
 export default carro;
