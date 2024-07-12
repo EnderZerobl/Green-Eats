@@ -22,12 +22,12 @@ export default async function Page ({ params }: {
             <section className="product-info page flexer">
                 <div className="product-info__hero">
                     <div className="product-info__hero__image">
-                        <Image src={appleImage} alt="imagem"
+                        <Image src={product.imagemPath as string} alt="imagem"
                          className="product-info__hero__image__element" width={500} height={500} />
                          <HeartIcon />
                     </div>
                     <SingleProductInfo nome={product.nome}
-                    categoria={product.categoria}
+                    categoria={product.categoria} imagemPath={product.imagemPath as string}
                     tipo={product.tipo} preco={product.preco} />
                 </div>
                 <ProductInfoDropdown title="Descrição" content={product.desc? product.desc : ""}/>

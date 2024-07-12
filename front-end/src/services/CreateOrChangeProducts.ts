@@ -14,7 +14,7 @@ const editProduct = async (id: number, data: FormData) => {
 }
 
 export async function createNewProduct (params: FormData) {
-
+    
     const response = createProduct(params)
 
     return response
@@ -23,6 +23,12 @@ export async function createNewProduct (params: FormData) {
 export async function changeProduct (id: number, params: FormData) {
 
     const response = editProduct(id, params);
+
+    return response
+}
+
+export async function deleteProduct (id: number) {
+    const response = await axios.delete(`http://localhost:3001/produtos/${id}`)
 
     return response
 }

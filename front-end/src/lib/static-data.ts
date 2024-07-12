@@ -41,10 +41,6 @@ export const categorysList = [
             "Frios",
             "Processados"
         ]
-    },
-    {
-        name: "Ordernar",
-        types: ['a','a','a','a','a','a','a','a','a','a']
     }
 ]
 

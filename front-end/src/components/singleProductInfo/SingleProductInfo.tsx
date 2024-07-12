@@ -4,11 +4,12 @@ import { ResponseFromApi } from "@/lib/types";
 import { useState } from "react";
 
 
-export default function SingleProductInfo ({ nome, categoria, tipo, preco }: {
+export default function SingleProductInfo ({ nome, categoria, tipo, preco, imagemPath }: {
     nome: string;
     categoria: string;
     tipo: string;
     preco: number;
+    imagemPath: string
 }){
     const [ quantity, setQuantity ] = useState(0);
 

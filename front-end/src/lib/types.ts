@@ -82,5 +82,13 @@ export type RequisitionParams = {
     name?: string;
     type?: string;
     category?: string;
+    characteristics?: string;
     id?: number;
 };
+
+export type HigherData = {
+    "Green Horta": ResponseFromApi[];
+    "Green Mercearia": ResponseFromApi[];
+    "Bebidas e Laticinios": ResponseFromApi[];
+    "Ovos e Carnes": ResponseFromApi[];
+}
