@@ -20,8 +20,10 @@ const getProductById = async (id: string): Promise<ResponseFromApi> => {
     return response.data;
 };
 
-const getProductByType = async ({ type, category }: RequisitionParams): Promise<ResponseFromApi[]> => {
-    const params = type ?
+const getProductByType = async ({ type, category, characteristics }: RequisitionParams): Promise<ResponseFromApi[]> => {
+    const params = characteristics?
+        `filtrados?${characteristics}=true`
+        :type ?
         `tipos?tipos=${type}`
         : `categorias?categorias=${category}`;
     try {
@@ -59,6 +61,7 @@ export async function getProducts({
     name,
     type,
     category,
+    characteristics,
     id,
 }: RequisitionParams): Promise<ResponseFromApi[]> {
 
@@ -83,12 +86,15 @@ export async function getProducts({
         return [response];
     };
 
-    if (type || category) {
-        const response = await getProductByType({ type, category });
+    if (type || category || characteristics) {
+        const response = await getProductByType({ type, category, characteristics });
 
         for (let product of response) {
+            const info = await getInfo({ id: product.id });
             const image = await getImage(product.id);
             product.imagemPath = image;
+            product.armazen = info.armazen.content;
+            product.desc = info.descricao.content;
         }
 
         return response;
@@ -97,8 +103,11 @@ export async function getProducts({
     const response = await getAllProducts();
 
     for (let product of response) {
+        const info = await getInfo({ id: product.id });
         const image = await getImage(product.id);
         product.imagemPath = image;
+        product.armazen = info.armazen.content;
+        product.desc = info.descricao.content;
     }
 
     return response;

@@ -41,9 +41,13 @@ const ProductCard: React.FC<ProductCardProps> = ({ data, openModal }) => {
           <div className="cardImageText">
             <div className="cardImage">
               <div className="headerCardImage">
-                <div className="discount">
-                  <span>-{discount}%</span>
-                </div>
+                {
+                  data.desconto?
+                  <div className="discount">
+                    <span>-{discount}%</span>
+                  </div>
+                  : <div></div>
+                }
                 <div className="favoriteIcon">
                   <button onClick={()=>openModal(data)}>
                     <Image src={pencilIcon}
@@ -69,9 +73,13 @@ const ProductCard: React.FC<ProductCardProps> = ({ data, openModal }) => {
             </div>
           </div>
           <div className="cardProductPrice">
-            <div className="oldPrice">
+            {
+              data.desconto?
+              <div className="oldPrice">
               <p>R$ {oldPrice.toFixed(2)}</p>
-            </div>
+              </div>
+              : <></>
+            }
             <div className="currentPrice">
               <p>R$ {currentPrice.toFixed(2)}</p>
             </div>

@@ -207,23 +207,25 @@
     width: 100%;
 }
 
-.modal__form__right input[type="submit"]:hover {
-    background-color: #0056b3;
+.modal__form__submit {
+    display: flex;
+    justify-content: space-evenly;
+    width: 100%;
+    padding: 0 5rem;
 }
 
-.modal__form__submit-button {
+.modal__form__submit__button {
     display: block;
     background-color: var(--main-green);
     width: 35%;
     padding: 10px 20px;
     border: none;
     margin: 0 auto;
-    margin-top: 20px;
     margin-bottom: 2rem;
     color: white;
     cursor: pointer;
 }
 
-.modal__form__submit-button:hover {
+.modal__form__submit__button:hover {
     background-color: var(--dark-green);
 }

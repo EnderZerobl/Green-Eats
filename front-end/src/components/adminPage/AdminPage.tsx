@@ -2,7 +2,7 @@
 import { FormEvent, useState } from 'react';
 import './AdminPage.css'
 import Image from 'next/image';
-import { changeProduct, createNewProduct } from '@/services/CreateOrChangeProducts';
+import { changeProduct, createNewProduct, deleteProduct } from '@/services/CreateOrChangeProducts';
 import { categorysList, characteristics } from '@/lib/static-data';
 
 export default function AdminPage ({ type, close, data }: {
@@ -11,14 +11,16 @@ export default function AdminPage ({ type, close, data }: {
     data?: {
         id: number;
         nome: string;
-        imagemPath: string;
+        imagemPath: string | File;
         desconto: number;
         preco: number;
         categoria: string;
+        armazen?: string;
+        desc?: string;
     }
 }) {
-    const [ image, setImage ] = useState<string>(data? "/"+data.imagemPath : "");
-    const [ imgFile, setImgFile ] = useState<File>()
+    const [ image, setImage ] = useState<string>(data? data.imagemPath as string : "");
+    const [ deleteItem, setDeleteItem ] = useState(false)
     const [ selectedCategory, setSelectedCategory ] = useState(data? data.categoria : categorysList[0].name)
     const [ typesToSelect, setTypesToSelect ] = useState<string[]>(categorysList.filter(elem=>(
         elem.name === selectedCategory
@@ -26,7 +28,7 @@ export default function AdminPage ({ type, close, data }: {
 
     if(data) data.imagemPath = "";
     const submitProduct = (e:FormEvent<HTMLFormElement>)=>{
-        e.preventDefault();
+         if (type === "edit" && deleteItem && data) deleteProduct(data.id)
         
         if (image){
             const formData = new FormData(e.currentTarget);
@@ -36,18 +38,17 @@ export default function AdminPage ({ type, close, data }: {
             formToSend.append("tipo", formData.get('tipo') as string);
             formToSend.append("descricaoContent", formData.get('descricao') as string);
             formToSend.append("armazenContent", formData.get('informacoes') as string);
-            formToSend.append("vegano", 'false');
+            formToSend.append(formData.get('caracteristicas') as string, 'true'); 
             formToSend.append("preco", formData.get('preco') as string);
             formToSend.append("desconto", formData.get('desconto') as string);
-            formToSend.append("exclusivo", formData.get('nome') as string);
+            formToSend.append("exclusivo", formData.get('type-of-products') as string);
             formToSend.append("estoque", formData.get('estoque') as string);
             formToSend.append("image", formData.get('image') as File);
-                
 
             if(type === "add"){
                 createNewProduct(formToSend);
-            } else if (type === "edit" && data) {
-                changeProduct(data.id, formToSend)
+            } else if (data) {
+                changeProduct(data.id, formToSend);
             };
         }
     }
@@ -83,9 +84,13 @@ export default function AdminPage ({ type, close, data }: {
                     <label htmlFor="image" className='modal__form__image-label generic-button'>
                         Enviar Imagem
                     </label>
+                    {image?
                     <input type="file" className="modal__form__image-button"
+                    name="image" id="image" onChange={handleImageChange} />
+                    :<input type="file" className="modal__form__image-button"
                      name="image" id="image" onChange={handleImageChange}
-                     required/>
+                     required/>}
+                    
                 </div>
                 <div className="modal__form__right">
                     <label htmlFor="nome">Nome:</label>
@@ -150,23 +155,36 @@ export default function AdminPage ({ type, close, data }: {
                     </div>
     
                     <label htmlFor="descricao">Descrição do Produto:</label>
-                    <textarea id="descricao" name="descricao" placeholder="Digite algo" required></textarea>
+                    <textarea id="descricao" name="descricao" placeholder="Digite algo" 
+                    defaultValue={data? data.desc : ""} required></textarea>
     
                     <label htmlFor="informacoes">Informações de armazenamento (Opcional):</label>
-                    <textarea id="informacoes" name="informacoes" placeholder="Digite algo"></textarea>
+                    <textarea id="informacoes" name="informacoes" placeholder="Digite algo"
+                    defaultValue={data? data.armazen : ""}></textarea>
                 </div>
                 </div>
                 <div className="modal__form__right__radio">
                     <div className="modal__form__right__radio__container">
-                        <input type="radio" name="type-of-products" id="exclusive-products" className="modal__form__right__radio__container__input" />
+                        <input type="radio" name="type-of-products" id="exclusive-products" className="modal__form__right__radio__container__input" value={"true"}/>
                         <label htmlFor="exclusive-products" className="modal__form__right__radio__container__label">Exclusivo Green Eats</label>
                     </div>
                     <div className="modal__form__right__radio__container">
-                        <input type="radio" name="type-of-products" id="all-products" className="modal__form__right__radio__container__input" />
+                        <input type="radio" name="type-of-products" id="all-products" className="modal__form__right__radio__container__input" value={"false"}/>
                         <label htmlFor="all-products" className="modal__form__right__radio__container__label">Todos os Produtos</label>
                     </div>
                 </div>
-                <input type="submit" className="modal__form__submit-button" value="CRIAR PRODUTO" />
+                <div className='modal__form__submit'>
+                    {type==="edit" &&
+                    <input type="submit" className="modal__form__submit__button"
+                    value="APAGAR PRODUTO" 
+                    onClick={()=>{setDeleteItem(true)}}/>}
+                    <input type="submit" className="modal__form__submit__button" 
+                    value={type==="add"?
+                        "CRIAR PRODUTO"
+                        :"EDITAR PRODUTO"}
+                    onClick={()=>{setDeleteItem(false)}} 
+                    />
+                </div>
             </form>
         </div>
         </div>

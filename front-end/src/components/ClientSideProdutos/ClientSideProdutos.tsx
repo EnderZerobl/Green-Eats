@@ -1,6 +1,6 @@
 'use client';
 
-import { ResponseFromApi, RequisitionParams } from "@/lib/types";
+import { ResponseFromApi, RequisitionParams, HigherData } from "@/lib/types";
 import { getProducts } from "@/services/GetProducts";
 import { useSearchParams } from "next/navigation";
 import { useState, useEffect } from "react";
@@ -8,11 +8,14 @@ import Filter from "../filter/Filter";
 import ProductCatalogue from "../productCatalogue/ProductCatalogue";
 import AdminPage from "../adminPage/AdminPage";
 
-export default function ClientSideProdutos ({}) {
+export default function ClientSideProdutos ({ higherData }: {
+    higherData: HigherData
+}) {
     'use client';
     const [ data, setData ] = useState<ResponseFromApi[]>([]);
     const [ category, setCategory ] = useState("");
     const [ type, setType ] = useState("");
+    const [ characteristics, setCharacteristics ] = useState("")
     const [ name, setName ] = useState("");
     const [ displayAddModal, setDisplayAddModal ] = useState(false);
     const [ displayEditModal, setDisplayEditModal ] = useState(false);
@@ -32,6 +35,7 @@ export default function ClientSideProdutos ({}) {
             } else {
                 setCategory("")
             };
+
             if(params.has('type')){
                 const newType = params.get('type') as string;
                 setType(newType);
@@ -39,6 +43,15 @@ export default function ClientSideProdutos ({}) {
             } else {
                 setType("")
             };
+
+            if (params.has("characteristic")) {
+                const newCharac = params.get("characteristic") as string;
+                setCharacteristics(newCharac);
+                requisitionParams.characteristics = newCharac
+            } else {
+                setName("")
+            }
+
             if(params.has('name')){
                 const newName = params.get('name') as string;
                 setName(newName)
@@ -46,11 +59,16 @@ export default function ClientSideProdutos ({}) {
             } else {
                 setName("")
             };
-            
-            const newData = await getProducts(requisitionParams);
-            setData(newData);
+
+            if (requisitionParams.type || requisitionParams.id || requisitionParams.name || !(requisitionParams.category)){
+                const newData = await getProducts(requisitionParams);
+                setData(newData);
+            } else {
+                //@ts-ignore
+                setData(higherData[requisitionParams.category])
+            }
         })()
-    }, [params]);
+    }, [params, higherData]);
     //const data = await getProducts({});
     return(
         <>
@@ -58,7 +76,7 @@ export default function ClientSideProdutos ({}) {
             category && ` / ${category}`}${
             type && ` / ${type}`}${
             name && ` / ${name}`}`}</span>
-            <Filter />
+            <Filter higherData={higherData} />
             <ProductCatalogue data={data} 
             toggleAddModal={()=>{setDisplayAddModal(true)}}
             toggleEditModal={(data: ResponseFromApi)=>{
