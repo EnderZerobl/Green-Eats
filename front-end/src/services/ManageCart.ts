@@ -2,25 +2,25 @@ import axios from "axios"
 
 
 const addToCart = async (produtoId: number, quantidade: number) => {
-    const response = await axios.post("http://localhost3001/carrinho", {produtoId, quantidade});
+    const response = await axios.post("http://localhost:3001/carrinho", {produtoId, quantidade});
 
     return response.data
 }
 
 const getCart = async ()=>{
-    const response = await axios(`http://localhost3001/carrinho`);
+    const response = await axios(`http://localhost:3001/carrinho`);
 
     return response.data
 }
 
 const editCart = async (id: number, quantidade: number)=>{
-    const response = await axios.put(`http://localhost3001/carrinho/${id}`, {quantidade});
+    const response = await axios.put(`http://localhost:3001/carrinho/${id}`, {quantidade});
 
     return response.data
 }
 
 const deleteCart = async (id: number) => {
-    const response = await axios.delete(`http://localhost3001/carrinho/${id}`);
+    const response = await axios.delete(`http://localhost:3001/carrinho/${id}`);
 
     return response.data;
 }

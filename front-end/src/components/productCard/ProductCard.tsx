@@ -1,7 +1,7 @@
 // components/ProductCard.tsx
 "use client"
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import "../productCard/productCard.css";
 import favoriteIcon from "../../../public/favoriteIcon.svg";
@@ -32,6 +32,8 @@ const ProductCard: React.FC<ProductCardProps> = ({ data, openModal }) => {
     setQuantity(prevQuantity => Math.max(prevQuantity - 1, 0));
   };
 
+  console.log(imageUrl)
+
   return (
     <section className="sectionProductCard">
       <div className="productCardContainer">
@@ -57,7 +59,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ data, openModal }) => {
                 </div>
               </div>
               <Link href={"/produtos/"+id} className="productImage">
-                <Image src={data.imagemPath.toString()} alt="Imagem do produto a venda" width={286} height={196} />
+                <Image src={imageUrl as string} alt="Imagem do produto a venda" width={286} height={196} />
               </Link>
             </div>
             <div className="cardText">
