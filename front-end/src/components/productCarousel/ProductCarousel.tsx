@@ -58,7 +58,7 @@ const ProductCarousel: React.FC<{
       <Slider {...settings}>
         {products.map((product) => (
           <div key={product.id}>
-            <ProductCardUnavailable
+            <ProductCard
               id={product.id}
               name={product.nome}
               oldPrice={product.preco}

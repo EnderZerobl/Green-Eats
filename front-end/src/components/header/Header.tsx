@@ -3,16 +3,38 @@
 import './Header.css';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import searchIcon from "@public/search.svg";
+import searchIconMobile from "@public/searchIconMobile.svg";
 import marketIcon from "@public/market.svg";
 import profileIcon from "@public/profile.svg";
+import menuBurguer from "@public/burguerMenu.svg"
 import { useRouter } from 'next/navigation';
 
 export default function Header() {
-    const [ search, setSearch ] = useState("");
+    const [search, setSearch] = useState("");
+    const [isSearchActive, setIsSearchActive] = useState(false);
+    const inputRef = useRef(null);
 
     const router = useRouter();
+
+    useEffect(() => {
+        const handleClickOutside = (event: MouseEvent) => {
+            if (inputRef.current && !(inputRef.current as any).contains(event.target)) {
+                setIsSearchActive(false);
+            }
+        };
+
+        if (isSearchActive) {
+            document.addEventListener('mousedown', handleClickOutside);
+        } else {
+            document.removeEventListener('mousedown', handleClickOutside);
+        }
+
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, [isSearchActive]);
 
     useEffect(() => {
         const searchIconContainer = document.querySelector('.searchIconContainer');
@@ -39,65 +61,115 @@ export default function Header() {
 
     return (
         <>
-            <header>
-                <div className="topContentContainer">
-                    <div className="logo">
-                        <Link href="/" className='logo__link'>Green Eats</Link>
+            <div className="headerDesktop">
+                <header>
+                    <div className="topContentContainer">
+                        <div className="logo">
+                            <Link href="/" className='logo__link'>Green Eats</Link>
+                        </div>
+                        <div className="searchContainer">
+                            <input type="text" placeholder="Nome do produto"
+                                className="searchInput" value={search} onChange={e => {
+                                    setSearch(e.target.value)
+                                }} />
+                            <button className="searchIconContainer"
+                                onClick={() => {
+                                    if (search) {
+                                        router.push("/produtos?name=" + search)
+                                    }
+                                }}>
+                                <Image src={searchIcon} width={24} height={24} alt="Ícone de pesquisar" />
+                            </button>
+                        </div>
+                        <div className="pagesContainer">
+                            <div className="pagesIconContainer">
+                                <Link href="/carrinho"><Image src={marketIcon} width={24} height={24} alt="Ícone de carrinho" /></Link>
+                            </div>
+                            <div className="pagesIconContainer">
+                                <Link href="/admin/add"><Image src={profileIcon} width={24} height={24} alt="Ícone de perfil" /></Link>
+                            </div>
+                        </div>
                     </div>
-                    <div className="searchContainer">
-                        <input type="text" name="" id="" placeholder="Nome do produto" 
-                        className="searchInput" value={search} onChange={e=>{
-                            setSearch(e.target.value)
-                        }}/>
-                        <button className="searchIconContainer"
-                        onClick={()=>{
-                            if (search) {
-                                router.push("/produtos?name="+search)
-                            }
-                        }}>
-                            <Image src={searchIcon} width={0} height={0} alt="Ícone de pesquisar" />
-                        </button>
+                </header>
+                <nav>
+                    <div className="navContainer">
+                        <div className="navTextContainer">
+                            <Link href="/produtos">
+                                <p>Promoções</p>
+                            </Link>
+                        </div>
+                        <div className="navTextContainer">
+                            <Link href="/produtos?category=Green+Horta">
+                                <p>Green Horta</p>
+                            </Link>
+                        </div>
+                        <div className="navTextContainer bigger">
+                            <Link href="/produtos?category=Green+Mercearia">
+                                <p>Green Mercearia</p>
+                            </Link>
+                        </div>
+                        <div className="navTextContainer bigger">
+                            <Link href="/produtos?category=Bebidas+e+Lacticinios">
+                                <p>Bebidas e Laticínios</p>
+                            </Link>
+                        </div>
+                        <div className="navTextContainer">
+                            <Link href="/produtos?category=Ovos+e+Carnes">
+                                <p>Ovos e Carnes</p>
+                            </Link>
+                        </div>
                     </div>
+                </nav>
+            </div>
 
-                    <div className="pagesContainer">
-                        <div className="pagesIconContainer">
-                            <Link href="/carrinho"><Image src={marketIcon} width={0} height={0} alt="Ícone de carrinho" /></Link>
-                        </div>
-                        <div className="pagesIconContainer">
-                            <Link href="/admin/add"><Image src={profileIcon} width={0} height={0} alt="Ícone de perfil" /></Link>
-                        </div>
+            <div className="headerMobile">
+                <header>
+                    <div className="topContentContainerMobile">
+                        {isSearchActive ? (
+                            <>
+                                <div className="searchContainerMobile">
+                                    <input
+                                        ref={inputRef}
+                                        type="text"
+                                        className="searchInput"
+                                        value={search}
+                                        onChange={e => setSearch(e.target.value)}
+                                        placeholder="Nome do produto"
+                                    />
+                                    <button className="searchIconContainer"
+                                        onClick={() => {
+                                            if (search) {
+                                                router.push("/produtos?name=" + search)
+                                            }
+                                        }}>
+                                        <Image src={searchIcon} width={24} height={24} alt="Ícone de pesquisar" />
+                                    </button>
+                                </div>
+                            </>
+                        ) : (
+                            <>
+                                <div className="leftActions">
+                                    <Image src={menuBurguer} width={25} height={25} alt="Menu burguer" />
+                                    <Image src={profileIcon} width={25} height={25} alt="Ícone de perfil" />
+                                </div>
+                                <div className="logoMobile">
+                                    <Link href="/" className='logo__link__mobile'>Green Eats</Link>
+                                </div>
+                                <div className="rightActions">
+                                    <Image
+                                        src={searchIconMobile}
+                                        width={25}
+                                        height={25}
+                                        alt="ícone de pesquisa"
+                                        onClick={() => setIsSearchActive(true)}
+                                    />
+                                    <Image src={marketIcon} width={25} height={25} alt="ícone de carrinho" />
+                                </div>
+                            </>
+                        )}
                     </div>
-                </div>
-            </header>
-            <nav>
-                <div className="navContainer">
-                    <div className="navTextContainer">
-                        <Link href="/produtos">
-                            <p>Promoções</p>
-                        </Link>
-                    </div>
-                    <div className="navTextContainer">
-                        <Link href="/produtos?category=Green+Horta">
-                            <p>Green Horta</p>
-                        </Link>
-                    </div>
-                    <div className="navTextContainer bigger">
-                        <Link href="/produtos?category=Green+Mercearia">
-                            <p>Green Mercearia</p>
-                        </Link>
-                    </div>
-                    <div className="navTextContainer bigger">
-                        <Link href="/produtos?category=Bebidas+e+Lacticinios">
-                            <p>Bebidas e Laticínios</p>
-                        </Link>
-                    </div>
-                    <div className="navTextContainer">
-                        <Link href="/produtos?category=Ovos+e+Carnes">
-                            <p>Ovos e Carnes</p>
-                        </Link>
-                    </div>
-                </div>
-            </nav>
+                </header>
+            </div>
         </>
     );
-};
+}
