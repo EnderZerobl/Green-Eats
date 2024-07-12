@@ -2,7 +2,9 @@ import "../fullCart/newFullCart.css"
 import ProductCart from "../productCart/ProductCart"
 
 
-export default function FullCart() {
+export default function FullCart({ shopCart }: {
+    shopCart: any
+}) {
     return(
         <>
             <section className="fullCart">
