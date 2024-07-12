@@ -14,13 +14,20 @@ import { useRouter } from 'next/navigation';
 export default function Header() {
     const [search, setSearch] = useState("");
     const [isSearchActive, setIsSearchActive] = useState(false);
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
     const inputRef = useRef(null);
+    const buttonRef = useRef(null);
 
     const router = useRouter();
 
     useEffect(() => {
         const handleClickOutside = (event: MouseEvent) => {
-            if (inputRef.current && !(inputRef.current as any).contains(event.target)) {
+            if (
+                inputRef.current &&
+                !(inputRef.current as any).contains(event.target) &&
+                buttonRef.current &&
+                !(buttonRef.current as any).contains(event.target)
+            ) {
                 setIsSearchActive(false);
             }
         };
@@ -136,7 +143,9 @@ export default function Header() {
                                         onChange={e => setSearch(e.target.value)}
                                         placeholder="Nome do produto"
                                     />
-                                    <button className="searchIconContainer"
+                                    <button
+                                        ref={buttonRef}
+                                        className="searchIconContainer"
                                         onClick={() => {
                                             if (search) {
                                                 router.push("/produtos?name=" + search)
@@ -149,7 +158,13 @@ export default function Header() {
                         ) : (
                             <>
                                 <div className="leftActions">
-                                    <Image src={menuBurguer} width={25} height={25} alt="Menu burguer" />
+                                    <Image
+                                        src={menuBurguer}
+                                        width={25}
+                                        height={25}
+                                        alt="Menu burguer"
+                                        onClick={() => setIsMenuOpen(!isMenuOpen)}
+                                    />
                                     <Image src={profileIcon} width={25} height={25} alt="Ícone de perfil" />
                                 </div>
                                 <div className="logoMobile">
@@ -170,6 +185,39 @@ export default function Header() {
                     </div>
                 </header>
             </div>
+            {isMenuOpen && (
+                    <div className="menuContainer">
+                        <nav>
+                            <div className="navContainerMenu">
+                                <div className="navTextContainer">
+                                    <Link href="/produtos">
+                                        <p>Promoções</p>
+                                    </Link>
+                                </div>
+                                <div className="navTextContainer">
+                                    <Link href="/produtos?category=Green+Horta">
+                                        <p>Green Horta</p>
+                                    </Link>
+                                </div>
+                                <div className="navTextContainer bigger">
+                                    <Link href="/produtos?category=Green+Mercearia">
+                                        <p>Green Mercearia</p>
+                                    </Link>
+                                </div>
+                                <div className="navTextContainer bigger">
+                                    <Link href="/produtos?category=Bebidas+e+Lacticinios">
+                                        <p>Bebidas e Laticínios</p>
+                                    </Link>
+                                </div>
+                                <div className="navTextContainer">
+                                    <Link href="/produtos?category=Ovos+e+Carnes">
+                                        <p>Ovos e Carnes</p>
+                                    </Link>
+                                </div>
+                            </div>
+                        </nav>
+                    </div>
+                )}
         </>
     );
 }

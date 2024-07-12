@@ -8,6 +8,7 @@ import favoriteIcon from "../../../public/favoriteIcon.svg";
 import filledFavoriteIcon from "@public/filledFavoriteIcon.svg"
 import marketCarIcon from "../../../public/marketProductCard.svg";
 import Link from 'next/link';
+import productImage from "@public/appleProduct.svg"
 
 interface ProductCardProps {
   id: number;
@@ -52,7 +53,7 @@ const ProductCardUnavailable: React.FC<ProductCardProps> = ({ id, name, oldPrice
                 </div>
               </div>
               <Link href={"/produtos/"+id} className="productImage">
-                <Image src={imageUrl.toString()} alt="Imagem do produto a venda" width={286} height={196} />
+                <Image src={productImage} alt="Imagem do produto a venda" width={286} height={196} />
               </Link>
             </div>
             <div className="cardText">

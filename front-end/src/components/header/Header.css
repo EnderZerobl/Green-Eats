@@ -124,6 +124,12 @@ nav{
     color: var(--dark-green);
 }
 
+.menuContainer{
+    display: none;
+}
+
+
+
 @media screen and (max-width: 1250px){
     .headerMobile{
         display: flex;
@@ -184,5 +190,24 @@ nav{
         height: 55px;
         border: 2px solid var(--main-green);
         text-indent: 16px;
+    }
+
+    .menuContainer{
+        display: flex;
+        align-items: center;
+        height: calc(100vh - 87px);
+    }
+    
+    .menuContainer nav{
+        padding: 0;
+    }
+    
+    .menuContainer .navContainerMenu{
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        flex-direction: column;
+        height: calc(100vh - 87px);
+        width: 100%;
     }
 }
