@@ -15,7 +15,7 @@ interface ProductCardProps {
   oldPrice: number;
   currentPrice: number;
   discount: number;
-  imageUrl: string;
+  imageUrl: string | File;
 }
 
 const ProductCardUnavailable: React.FC<ProductCardProps> = ({ id, name, oldPrice, currentPrice, discount, imageUrl }) => {
@@ -29,6 +29,8 @@ const ProductCardUnavailable: React.FC<ProductCardProps> = ({ id, name, oldPrice
   const handleDecrement = () => {
     setQuantity(prevQuantity => Math.max(prevQuantity - 1, 0));
   };
+  console.log(imageUrl);
+  console.log("a")
 
   return (
     <section className="sectionProductCard">
@@ -50,7 +52,7 @@ const ProductCardUnavailable: React.FC<ProductCardProps> = ({ id, name, oldPrice
                 </div>
               </div>
               <Link href={"/produtos/"+id} className="productImage">
-                <Image src={imageUrl} alt="Imagem do produto a venda" width={286} height={196} />
+                <Image src={imageUrl.toString()} alt="Imagem do produto a venda" width={286} height={196} />
               </Link>
             </div>
             <div className="cardText">

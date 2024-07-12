@@ -57,7 +57,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ data, openModal }) => {
                 </div>
               </div>
               <Link href={"/produtos/"+id} className="productImage">
-                <Image src={"/"} alt="Imagem do produto a venda" width={286} height={196} />
+                <Image src={data.imagemPath.toString()} alt="Imagem do produto a venda" width={286} height={196} />
               </Link>
             </div>
             <div className="cardText">
