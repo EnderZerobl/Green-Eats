@@ -1,3 +1,28 @@
+.outside-modal {
+    position: fixed;
+    top: 0;
+    background-color: transparent;
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    z-index: 35;
+}
+
+.modal-wrapper {
+    position: fixed;
+    top: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    z-index: 30;
+    background-color: rgba(0, 0, 0, .5);
+}
+
+.modal {
+    background-color: #f0f0f0;
+    z-index: 40;
+}
 
 .modal__title {
     margin: 1rem;
@@ -24,7 +49,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-right: 20px;
+    margin: 0 20px;
 }
 
 .modal__form__image-preview {
@@ -42,13 +67,24 @@
     max-height: 100%;
 }
 
-.modal__form__image-button {
-    margin-top: 10px;
+.modal__form__image-button{
+    display: none;
+}
+
+.modal__form__image-label {
+    background-color: var(--main-green);
+    width: 100%;
+    padding: 0.5rem 1rem;
+    border-radius: 0;
+    margin-bottom: 2rem;
+    margin-top: 1rem;
+    color: white;
 }
 
 .modal__form__right {
     flex: 1;
     padding: 0 1rem;
+    min-width: 445px;
 }
 
 .modal__form__right label {
@@ -70,9 +106,9 @@
 
 .modal__form__right__radio {
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-around;
     height: 1.5rem;
-    width: 100%;
+    width: 40%;
 }
 
 .modal__form__right__radio__container {
@@ -166,19 +202,26 @@
     padding-left: 1rem;
 }
 
+.select-characteristics {
+    padding-left: 0;
+    width: 100%;
+}
+
 .modal__form__right input[type="submit"]:hover {
     background-color: #0056b3;
 }
 
 .modal__form__submit-button {
-    background-color: var(--main-green);
-    color: white;
-    border: none;
-    cursor: pointer;
     display: block;
-    margin: 0 auto;
+    background-color: var(--main-green);
+    width: 35%;
     padding: 10px 20px;
+    border: none;
+    margin: 0 auto;
     margin-top: 20px;
+    margin-bottom: 2rem;
+    color: white;
+    cursor: pointer;
 }
 
 .modal__form__submit-button:hover {

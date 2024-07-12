@@ -1,3 +1,18 @@
+.favoriteIcon {
+    display: flex;
+
+}
+
+.favoriteIcon button {
+    width: 2rem;
+    padding: 0 .5rem;
+}
+
+.favoriteIcon button img {
+    object-fit: fill;
+    width: 100%;
+}
+
 .sectionProductCard{
     display: flex;
     justify-content: space-around;

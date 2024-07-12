@@ -6,6 +6,7 @@ import { useSearchParams } from "next/navigation";
 import { useState, useEffect } from "react";
 import Filter from "../filter/Filter";
 import ProductCatalogue from "../productCatalogue/ProductCatalogue";
+import AdminPage from "../adminPage/AdminPage";
 
 export default function ClientSideProdutos ({}) {
     'use client';
@@ -13,6 +14,9 @@ export default function ClientSideProdutos ({}) {
     const [ category, setCategory ] = useState("");
     const [ type, setType ] = useState("");
     const [ name, setName ] = useState("");
+    const [ displayAddModal, setDisplayAddModal ] = useState(false);
+    const [ displayEditModal, setDisplayEditModal ] = useState(false);
+    const [ dataToEdit, setDataToEdit ] = useState<ResponseFromApi[]>([])
     const params = useSearchParams();
 
     //atualização dos dados de acordo com os query params da url
@@ -55,7 +59,14 @@ export default function ClientSideProdutos ({}) {
             type && ` / ${type}`}${
             name && ` / ${name}`}`}</span>
             <Filter />
-            <ProductCatalogue data={data} />
+            <ProductCatalogue data={data} 
+            toggleAddModal={()=>{setDisplayAddModal(true)}}
+            toggleEditModal={(data: ResponseFromApi)=>{
+                setDataToEdit([data])
+                setDisplayEditModal(true)
+                }} />
+            {displayAddModal && <AdminPage type="add" close={()=>{setDisplayAddModal(false)}} />}
+            {displayEditModal && <AdminPage type="edit" data={dataToEdit[0]} close={()=>{setDisplayEditModal(false)}}/>}
         </>
     )
 }

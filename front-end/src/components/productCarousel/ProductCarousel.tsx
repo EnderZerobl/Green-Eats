@@ -64,7 +64,7 @@ const ProductCarousel: React.FC<{
               oldPrice={product.preco}
               currentPrice={product.precoNovo}
               discount={product.desconto}
-              imageUrl={"/appleProduct.svg"}
+              imageUrl={'/'+product.imagemPath}
             />
           </div>
         ))}

@@ -13,21 +13,27 @@ function NotFoundMessage () {
     )
 }
 
-export default function ProductCatalogue ({ data }: {
-    data: ResponseFromApi[]
+export default function ProductCatalogue ({ data, toggleAddModal, toggleEditModal }: {
+    data: ResponseFromApi[];
+    toggleAddModal: ()=>void;
+    toggleEditModal: (data: ResponseFromApi)=>void;
 }){
     let products: JSX.Element[] = [];
     if (data.length){
         products = data.map((cardData)=>(
-            <ProductCard key={cardData.nome} id={cardData.id} name={cardData.nome}
-            oldPrice={cardData.preco} currentPrice={cardData.precoNovo}
-            discount={cardData.desconto} imageUrl='/appleProduct.svg' />
+            <ProductCard key={cardData.nome} data={cardData}
+             openModal={(data: ResponseFromApi)=>{toggleEditModal(cardData)}} />
         ));
     }
 
     return (
         <section className="catalogue">
-            <h2 className="catalogue__title">Todos os Produtos</h2>
+            <div className='catalogue__head'>
+                <h2 className="catalogue__head__title">Todos os Produtos</h2>
+                <button onClick={()=>{toggleAddModal()}}
+                 className='catalogue__head__button generic-button'
+                >CRIAR PRODUTO</button>
+            </div>
             <div className="catalogue__container">
                 {products.length?
                 products
