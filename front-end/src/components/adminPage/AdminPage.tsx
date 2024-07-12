@@ -17,7 +17,7 @@ export default function AdminPage ({ type, close, data }: {
         categoria: string;
     }
 }) {
-    const [ image, setImage ] = useState<string>(data? data.imagemPath : "");
+    const [ image, setImage ] = useState<string>(data? "/"+data.imagemPath : "");
     const [ imgFile, setImgFile ] = useState<File>()
     const [ selectedCategory, setSelectedCategory ] = useState(data? data.categoria : categorysList[0].name)
     const [ typesToSelect, setTypesToSelect ] = useState<string[]>(categorysList.filter(elem=>(
@@ -41,7 +41,7 @@ export default function AdminPage ({ type, close, data }: {
             formToSend.append("desconto", formData.get('desconto') as string);
             formToSend.append("exclusivo", formData.get('nome') as string);
             formToSend.append("estoque", formData.get('estoque') as string);
-            formToSend.append("image", new Blob([formData.get('image') as File]));
+            formToSend.append("image", formData.get('image') as File);
                 
 
             if(type === "add"){
@@ -67,9 +67,9 @@ export default function AdminPage ({ type, close, data }: {
 
     return (
         <>
+        <div className='modal-wrapper'>
         <div className="outside-modal"
         onClick={close}></div>
-        <div className='modal-wrapper'>
         <div className="modal">
             <h1 className="modal__title">{type === "add" ? "Criação de Produto" : "Edição de Produto"}</h1>
             <form action="" onSubmit={submitProduct} method="post" className="modal__form flexer">

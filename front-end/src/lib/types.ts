@@ -3,7 +3,7 @@ export type ResponseFromApi = {
     nome: string;
     categoria: string;
     tipo: string;
-    imagemPath: string;
+    imagemPath: string | File;
     descricaoId: number;
     desc?: string;
     armazenId: number;
