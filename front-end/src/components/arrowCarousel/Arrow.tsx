@@ -11,7 +11,7 @@ export const NextArrow: React.FC<ArrowProps> = ({ className, style, onClick }) =
   return (
     <div
       className={className}
-      style={{ ...style, display: 'block' }}
+      style={{ ...style}}
       onClick={onClick}
     >
       <svg

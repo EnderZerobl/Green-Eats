@@ -24,13 +24,37 @@
     justify-content: flex-end;
 }
 
-.productSectionText a span{
+.productLinkContainerMobile{
+    display: none;
+}
+
+.productLinkContainer a span{
     font-weight: 500;
     font-size: 24px;
     color: var(--main-green);
     margin-bottom: 24px;
 }
 
-.productSectionText a span:hover{
+.productLinkContainer a span:hover{
     color: var(--dark-green)
+}
+
+@media (max-width: 800px){
+    .productLinkContainerMobile{
+        display: flex;
+        margin-top: 50px;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .productLinkContainer{
+        display: none;
+    }
+
+    .productLinkContainerMobile a span{
+        font-weight: 500;
+        font-size: 24px;
+        color: var(--main-green);
+        margin-bottom: 24px;
+    }
 }

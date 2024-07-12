@@ -6,6 +6,7 @@ import { PrismicPreview } from "@prismicio/next";
 import type { Metadata, ResolvingMetadata } from "next";
 import { Montserrat } from "next/font/google";
 import Footer from "@/components/footer/Footer";
+import FooterMobile from "@/components/footerMobile/FooterMobile";
 
 const montserrat = Montserrat({
   weight: ['300', '400', '500', '700'],
@@ -45,6 +46,7 @@ export default async function RootLayout({
         <Header />
         {children}
         <Footer />
+        <FooterMobile />
         <PrismicPreview repositoryName={repositoryName}/>
       </body>
     </html>
