@@ -73,9 +73,11 @@ export default function ClientSideProdutos ({ higherData }: {
                 setOrder("");
             }
 
-            if (requisitionParams.type || requisitionParams.id || requisitionParams.name || !(requisitionParams.category)){
+            if (requisitionParams.type || requisitionParams.id 
+                || requisitionParams.name || requisitionParams.order
+                || !(requisitionParams.category)){
                 let newData = await getProducts(requisitionParams);
-
+                    
                 if (params.has("order")) {
                     const ordenation = requisitionParams.order as string;
                     const index = staticOrder.indexOf(ordenation)
@@ -117,8 +119,15 @@ export default function ClientSideProdutos ({ higherData }: {
 
                 setData(newData);
             } else {
+                    let dataToUse = higherData
+                if (params.has("exclusive")) {
+                    dataToUse["Green Horta"] = dataToUse["Green Horta"].filter(prod => prod.exclusivo);
+                    dataToUse["Green Mercearia"] = dataToUse["Green Horta"].filter(prod => prod.exclusivo);
+                    dataToUse["Bebidas e Laticinios"] = dataToUse["Green Horta"].filter(prod => prod.exclusivo);
+                    dataToUse["Ovos e Carnes"] = dataToUse["Green Horta"].filter(prod => prod.exclusivo);
+                }
                 //@ts-ignore
-                setData(higherData[requisitionParams.category])
+                setData(dataToUse[requisitionParams.category])
             }
         })()
     }, [params, higherData]);

@@ -1,6 +1,7 @@
 .little-catalogue-text {
     display: flex;
     justify-content: space-between;
+    padding: 1rem;
     margin-left: 25vw;
     padding-left: 3rem;
     padding-right: 1rem;
@@ -20,9 +21,6 @@
         display: none;
     }
 
-    .little-catalogue-text {
-        margin-left: 30vw;
-    }
 }
 
 /* The filter container */
@@ -59,7 +57,9 @@
     }
 
     .little-catalogue-text {
-        display: none
+        display: none;
+        margin-left: 30vw
     }
+
 
 };

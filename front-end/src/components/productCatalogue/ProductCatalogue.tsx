@@ -8,7 +8,7 @@ function NotFoundMessage () {
     
     return(
         <>
-        <h2 className='not-found-message'>{`Não conseguimos achar o produto desejados :(`}</h2>
+        <h2 className='not-found-message'>{`Não conseguimos achar os produtos desejados :(`}</h2>
         <Link href={"/produtos"} className='clear-button generic-button'>LIMPAR BUSCA</Link>
         </>
     )

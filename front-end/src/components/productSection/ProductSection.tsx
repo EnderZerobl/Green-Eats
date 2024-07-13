@@ -16,7 +16,7 @@ const ProductSection: React.FC<ProductSectionProps> = ({ title, products }) => {
         <div className="productSectionText">
           <h1>{title}</h1>
           <div className="productLinkContainer">
-            <Link href="/"><span>ver mais</span></Link>
+            <Link href={"/produtos?category="+title}><span>ver mais</span></Link>
           </div>
         </div>
       </div>

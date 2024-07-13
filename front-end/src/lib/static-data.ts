@@ -42,7 +42,7 @@ export const categorysList = [
             "Processados"
         ]
     }
-]
+];
 
 export const characteristics = [
     "vegano",
@@ -57,7 +57,7 @@ export const characteristics = [
     "agroflorestal",
     "artesanal",
     "semAdicaoDeAcucar"
-] 
+];
 
 export const characteristicsToWrite = [
     "Vegano",
@@ -72,11 +72,26 @@ export const characteristicsToWrite = [
     "Agroflorestal",
     "Artesanal",
     "Sem Adição De Açúcar"
-]
+];
 
 export const order = [
     "Mais vendidos",
     "Menor preço",
     "Maior preço",
     "Relevância"
-]
+];
+
+export const mainTypesOfProducts = [
+    "Leite vegetal",
+    "Cogumelos",
+    "Ovos",
+    "Frango",
+    "Leite de vaca",
+    "Aveia e grãos",
+    "Frutas",
+    "Biscoitos",
+    "Cortes de carne",
+    "Farinhas",
+    "Sucos naturais",
+    "Legumes"    
+];
