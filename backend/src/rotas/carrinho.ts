@@ -116,8 +116,8 @@ carro.get('/carrinho/total', async (req: Request, res: Response) => {
       const { totalSemDesconto, totalComDesconto, Desconto } = carrinho.reduce(
         (acc, item) => {
           const preco = item.produto.preco;
-          const precoComDesconto = item.produto.promocao ? item.produto.precoNovo : item.produto.preco;
-          const desconto = item.produto.promocao ? item.produto.desconto : 0;
+          const precoComDesconto = item.produto.precoNovo;
+          const desconto = item.produto.desconto;
   
           acc.totalSemDesconto += preco * item.quantidade;
           acc.totalComDesconto += precoComDesconto * item.quantidade;
