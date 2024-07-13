@@ -7,6 +7,13 @@ footer.footerMobile{
         display: flex;
         align-items: center;
         justify-content: space-around;
+        position: fixed;
+        bottom: 0;
+        width: 100vw;
+        /* height: 60px; */
+        background-color: #f3f3f3;
+        border-top: 1 px solid #f3f3f3;
+        z-index: 1000;
     }
     
     .footerIconContainer a{
