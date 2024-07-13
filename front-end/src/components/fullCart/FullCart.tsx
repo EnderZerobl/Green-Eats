@@ -27,11 +27,11 @@ export default function FullCart({ shopCart, total }: {
                     </div>
                     <div className="orderResumeTextContainer">
                         <div className="orderResumeText"><p>Desconto</p></div>
-                        <div className="orderResumePrice"><p>R$ 16,90</p></div>
+                        <div className="orderResumePrice"><p>R$ {total.toFixed(2).replace(".", ",")}</p></div>
                     </div>
                     <div className="orderResumeTextContainer .strong">
                         <div className="orderResumeText"><p>Preço estimado:</p></div>
-                        <div className="orderResumePrice"><p><strong>R$ 16,90</strong></p></div>
+                        <div className="orderResumePrice"><p><strong>R$ {total.toFixed(2).replace(".", ",")}</strong></p></div>
                     </div>
                     <button>FINALIZAR PEDIDO</button>
 
