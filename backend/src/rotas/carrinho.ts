@@ -15,6 +15,12 @@ carro.post('/carrinho', async (req: Request, res: Response) => {
       if (!produto) {
         return res.status(404).json({ error: 'Produto não encontrado' });
       }
+
+      const Produtonocarrinho = await prisma.carrinho.findFirst({where: { produtoId }});
+
+      if(Produtonocarrinho){
+        return res.status(400).json({error: "Produto já adicionado"})
+      }
   
       const carrinhoItem = await prisma.carrinho.create({
         data: {
