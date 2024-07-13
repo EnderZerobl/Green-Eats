@@ -18,7 +18,6 @@ export const categorysList = [
             "Biscoitos",
             "Massas e molhos",
             "Farinhas",
-            "Conservantes e elatados",
             "Bolos e tortas",
             "Aveias e grãos"
         ]
@@ -58,3 +57,10 @@ export const characteristics = [
     "artesanal",
     "semAdicaoDeAcucar"
 ] 
+
+export const order = [
+    "Mais vendidos",
+    "Menor preço",
+    "Maio preço",
+    "Relevância"
+]

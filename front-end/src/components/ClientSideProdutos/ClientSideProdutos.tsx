@@ -7,6 +7,7 @@ import { useState, useEffect } from "react";
 import Filter from "../filter/Filter";
 import ProductCatalogue from "../productCatalogue/ProductCatalogue";
 import AdminPage from "../adminPage/AdminPage";
+import { order as staticOrder } from "@/lib/static-data";
 
 export default function ClientSideProdutos ({ higherData }: {
     higherData: HigherData
@@ -15,7 +16,8 @@ export default function ClientSideProdutos ({ higherData }: {
     const [ data, setData ] = useState<ResponseFromApi[]>([]);
     const [ category, setCategory ] = useState("");
     const [ type, setType ] = useState("");
-    const [ characteristics, setCharacteristics ] = useState("")
+    const [ characteristics, setCharacteristics ] = useState("");
+    const [ order, setOrder ] = useState("")
     const [ name, setName ] = useState("");
     const [ displayAddModal, setDisplayAddModal ] = useState(false);
     const [ displayEditModal, setDisplayEditModal ] = useState(false);
@@ -52,7 +54,7 @@ export default function ClientSideProdutos ({ higherData }: {
                 setName("")
             }
 
-            if(params.has('name')){
+            if (params.has('name')){
                 const newName = params.get('name') as string;
                 setName(newName)
                 requisitionParams.name = newName;
@@ -60,8 +62,48 @@ export default function ClientSideProdutos ({ higherData }: {
                 setName("")
             };
 
+            if (params.has("order")) {
+                const newOrder = params.get("order") as string;
+                setOrder(newOrder);
+                requisitionParams.order = newOrder;
+            } else {
+                setOrder("")
+            }
+
             if (requisitionParams.type || requisitionParams.id || requisitionParams.name || !(requisitionParams.category)){
-                const newData = await getProducts(requisitionParams);
+                let newData = await getProducts(requisitionParams);
+
+                if (params.has("order")) {
+                    const ordenation = params.get("order") as string;
+                    const index = staticOrder.indexOf(ordenation)
+
+                    switch (index) {
+                        case 0:
+                            newData = newData
+                            .filter(elem=>elem.estoque)
+                            .sort((elem, keep) => {
+                                return elem.estoque - keep.estoque
+                            });
+                        case 1:
+                            newData = newData
+                            .filter(elem=>elem.estoque)
+                            .sort((elem, keep) => {
+                                return elem.precoNovo - keep.precoNovo
+                            });
+                        case 2:
+                            newData = newData
+                            .filter(elem=>elem.estoque)
+                            .sort((elem, keep) => {
+                                return keep.precoNovo - elem.precoNovo
+                            });
+                        case 3:
+                            newData = newData
+                            .filter(elem=>elem.estoque)
+                            .reverse()
+
+                    }
+                }
+
                 setData(newData);
             } else {
                 //@ts-ignore
@@ -72,10 +114,10 @@ export default function ClientSideProdutos ({ higherData }: {
     //const data = await getProducts({});
     return(
         <>
-            <span className="little-text">{`Green Eats${
-            category && ` / ${category}`}${
-            type && ` / ${type}`}${
-            name && ` / ${name}`}`}</span>
+            <span className="little-text">{`Green Eats
+            ${category && ` / ${category}`}
+            ${type && ` / ${type}`}
+            ${name && ` / ${name}`}`}</span>
             <Filter higherData={higherData} />
             <ProductCatalogue data={data} 
             toggleAddModal={()=>{setDisplayAddModal(true)}}

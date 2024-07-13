@@ -9,6 +9,7 @@ export default function ServiceBlock () {
 
     return (
         <>
+        <div className='service-block'>
         <div className='service-container'>
             <div className="service-container__element">
                 <span className="service-container__element__icon">
@@ -35,6 +36,7 @@ export default function ServiceBlock () {
                     <span className="service-container__element__text__text">Seg a Sex das 08h as 18h via WhatsApp</span>
                 </div>
             </div>
+        </div>
         </div>
         <p className="text-below-container">Entrega rápida! Peça hoje e receba amanhã. Consulte informações</p>
         </>

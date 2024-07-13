@@ -15,6 +15,12 @@ carro.post('/carrinho', async (req: Request, res: Response) => {
       if (!produto) {
         return res.status(404).json({ error: 'Produto não encontrado' });
       }
+
+      const Produtonocarrinho = await prisma.carrinho.findFirst({where: { produtoId }});
+
+      if(Produtonocarrinho){
+        return res.status(400).json({error: "Produto já adicionado"})
+      }
   
       const carrinhoItem = await prisma.carrinho.create({
         data: {
@@ -99,6 +105,7 @@ carro.get('/carrinho/total', async (req: Request, res: Response) => {
           produto: {
             select: {
               preco: true,
+              desconto: true,
               precoNovo: true,
               promocao: true,
             },
@@ -106,12 +113,27 @@ carro.get('/carrinho/total', async (req: Request, res: Response) => {
         },
       });
   
-      const total = carrinho.reduce((acc, item) => {
-        const preco = item.produto.promocao ? item.produto.precoNovo : item.produto.preco;
-        return acc + preco * item.quantidade;
-      }, 0);
+      const { totalSemDesconto, totalComDesconto, Desconto } = carrinho.reduce(
+        (acc, item) => {
+          const preco = item.produto.preco;
+          const precoComDesconto = item.produto.precoNovo;
+          const desconto = item.produto.desconto;
   
-      res.status(200).json({ total });
+          acc.totalSemDesconto += preco * item.quantidade;
+          acc.totalComDesconto += precoComDesconto * item.quantidade;
+          acc.Desconto += (preco - precoComDesconto) * item.quantidade;
+  
+          return acc;
+        },
+        { totalSemDesconto: 0, totalComDesconto: 0, Desconto: 0 }
+      );
+  
+      res.status(200).json({
+        totalSemDesconto,
+        totalComDesconto,
+        Desconto,
+      });
+
     } catch (error) {
       res.status(500).json({ error: 'Erro ao calcular o total do carrinho' });
     }
