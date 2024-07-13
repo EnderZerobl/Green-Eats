@@ -1,13 +1,17 @@
 'use client';
-import React from 'react';
+import React, { useState } from 'react';
 import Slider from 'react-slick';
 import ProductCard from '../productCard/ProductCard';
 import ProductCardUnavailable from "../productCardUnavailable/ProductCardUnavailable";
 import "../productCarousel/productCarousel.css";
 import { NextArrow, PrevArrow } from '../arrowCarousel/Arrow';
 import { ResponseFromApi } from '@/lib/types';
+import AdminPage from '../adminPage/AdminPage';
 
 const ProductCarousel: React.FC<{ products: ResponseFromApi[] }> = ({ products }) => {
+  const [ displayEditModal, setDisplayEditModal ] = useState(false);
+  const [ dataToEdit, setDataToEdit ] = useState<ResponseFromApi[]>([]);
+
   const settings = {
     dots: true,
     infinite: true,
@@ -57,22 +61,26 @@ const ProductCarousel: React.FC<{ products: ResponseFromApi[] }> = ({ products }
       <Slider {...settings}>
         {products.map((product) => (
           <div key={product.id}>
-            <ProductCardUnavailable
-              id={product.id}
-              name={product.nome}
-              oldPrice={product.preco}
-              currentPrice={product.precoNovo}
-              discount={product.desconto}
-              imageUrl={(()=>{
-                console.log(typeof product.imagemPath)
-                //@ts-ignore
-                return product.imagemPath
-              })()}
-            />
+            {
+              product.estoque?
+              <ProductCard
+              data={product} openModal={(data: ResponseFromApi)=>{
+                setDataToEdit([data])
+                setDisplayEditModal(true)
+                }}
+              />
+              :<ProductCardUnavailable
+              data={product} openModal={(data: ResponseFromApi)=>{
+                setDataToEdit([data])
+                setDisplayEditModal(true)
+                }}
+              />
+            }
           </div>
         ))}
       </Slider>
 
+      {displayEditModal && <AdminPage type="edit" data={dataToEdit[0]} close={()=>{setDisplayEditModal(false)}}/>}
 
     </div>
   );

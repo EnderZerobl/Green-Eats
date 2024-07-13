@@ -13,6 +13,12 @@ const getCart = async ()=>{
     return response.data
 }
 
+const getTotal = async ()=>{
+    const response = await axios(`http://localhost:3001/carrinho/total`);
+
+    return response.data.total
+}
+
 const editCart = async (id: number, quantidade: number)=>{
     const response = await axios.put(`http://localhost:3001/carrinho/${id}`, {quantidade});
 
@@ -25,17 +31,22 @@ const deleteCart = async (id: number) => {
     return response.data;
 }
 
-export async function fetchCart (type: "get" | "put" | "post" | "delete",
+export async function fetchCart (type: "get" | "put" | "post" | "delete" | "total",
     data?: {
         id: number;
         quantidade: number;
     }
 ) {
+    if (type === "total") return await getTotal();
+
     if (type === "get") return await getCart();
+
     //@ts-ignore
     if (type === "post") return await addToCart(data.id, data.quantidade);
+
     //@ts-ignore
     if (type === "put") return await editCart(data.id, data.quantidade);
+
     //@ts-ignore
     return await deleteCart(data.id)
 }
