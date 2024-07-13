@@ -14,8 +14,9 @@ function NotFoundMessage () {
     )
 }
 
-export default function ProductCatalogue ({ data, toggleAddModal, toggleEditModal }: {
+export default function ProductCatalogue ({ data, catalogueQuantity, toggleAddModal, toggleEditModal }: {
     data: ResponseFromApi[];
+    catalogueQuantity: JSX.Element;
     toggleAddModal: ()=>void;
     toggleEditModal: (data: ResponseFromApi)=>void;
 }){
@@ -33,7 +34,10 @@ export default function ProductCatalogue ({ data, toggleAddModal, toggleEditModa
     return (
         <section className="catalogue">
             <div className='catalogue__head'>
-                <h2 className="catalogue__head__title">Todos os Produtos</h2>
+                <div className='catalogue__head__text'>
+                    <h2 className="catalogue__head__text__title">Todos os Produtos</h2>
+                    {catalogueQuantity}
+                </div>
                 <button onClick={()=>{toggleAddModal()}}
                  className='catalogue__head__button generic-button'
                 >CRIAR PRODUTO</button>

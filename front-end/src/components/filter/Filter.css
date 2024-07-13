@@ -7,6 +7,8 @@
     width: 25vw;
     overflow-y: scroll;
     padding: 2%;
+    padding-bottom: 4rem;
+    background-color: var(--background);
 }
 
 .filter::-webkit-scrollbar{
@@ -62,4 +64,30 @@
     padding: 0.1rem 0;
     user-select: none;
     cursor: pointer;
+}
+
+@media screen and (max-width: 1050px) {
+    .filter {
+        width: 30%;
+    }
+}
+
+@media screen and (max-width: 895px) {
+    .filter {
+        max-width: 0;
+        padding: 0;
+        z-index: 10;
+    }
+
+    .filter::-webkit-scrollbar-thumb {
+        display: none;
+    }
+
+    .filter__option__label {
+        padding-left: 1rem;
+    }
+
+    .filter__option__list {
+        padding-left: 1rem;
+    }
 }

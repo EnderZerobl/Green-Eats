@@ -55,9 +55,13 @@ const ProductCardUnavailable: React.FC<ProductCardProps> = ({ data, openModal })
             </div>
           </div>
           <div className="cardProductPrice">
-            <div className="oldPrice">
+            {
+              discount?
+              <div className="oldPrice">
               <p>R$ {oldPrice.toFixed(2)}</p>
-            </div>
+              </div>
+              : <></>
+            }
             <div className="currentPrice">
               <p>R$ {currentPrice.toFixed(2)}</p>
             </div>

@@ -8,6 +8,9 @@ import Filter from "../filter/Filter";
 import ProductCatalogue from "../productCatalogue/ProductCatalogue";
 import AdminPage from "../adminPage/AdminPage";
 import { order as staticOrder } from "@/lib/static-data";
+import "./ClientSideProdutos.css"
+import filterIcon from "@public/filterIcon.svg"
+import Image from "next/image";
 
 export default function ClientSideProdutos ({ higherData }: {
     higherData: HigherData
@@ -67,14 +70,14 @@ export default function ClientSideProdutos ({ higherData }: {
                 setOrder(newOrder);
                 requisitionParams.order = newOrder;
             } else {
-                setOrder("")
+                setOrder("");
             }
 
             if (requisitionParams.type || requisitionParams.id || requisitionParams.name || !(requisitionParams.category)){
                 let newData = await getProducts(requisitionParams);
 
                 if (params.has("order")) {
-                    const ordenation = params.get("order") as string;
+                    const ordenation = requisitionParams.order as string;
                     const index = staticOrder.indexOf(ordenation)
 
                     switch (index) {
@@ -84,24 +87,32 @@ export default function ClientSideProdutos ({ higherData }: {
                             .sort((elem, keep) => {
                                 return elem.estoque - keep.estoque
                             });
+                            break
                         case 1:
                             newData = newData
                             .filter(elem=>elem.estoque)
                             .sort((elem, keep) => {
                                 return elem.precoNovo - keep.precoNovo
                             });
+                            break
                         case 2:
                             newData = newData
                             .filter(elem=>elem.estoque)
                             .sort((elem, keep) => {
                                 return keep.precoNovo - elem.precoNovo
                             });
+                            break;
                         case 3:
                             newData = newData
                             .filter(elem=>elem.estoque)
                             .reverse()
+                            break;
 
                     }
+                }
+
+                if (params.has("exclusive")) {
+                    newData = newData.filter(prod => prod.exclusivo)
                 }
 
                 setData(newData);
@@ -111,15 +122,35 @@ export default function ClientSideProdutos ({ higherData }: {
             }
         })()
     }, [params, higherData]);
-    //const data = await getProducts({});
+
+    const catalogueQuantity = (
+        <span className="catalogue-quantity">
+            {data.length} Produtos
+        </span>
+    )
+
     return(
         <>
-            <span className="little-text">{`Green Eats
-            ${category && ` / ${category}`}
-            ${type && ` / ${type}`}
-            ${name && ` / ${name}`}`}</span>
+            <input type="checkbox" className="toggle-filter" id="toggle-filter" name="toggle-filter" />
+            <label htmlFor="toggle-filter" className="toggle-filter-label">
+                <i className="toggle-filter-label__image-container">
+                    <Image className="toggle-filter-label__image-container__image"
+                    src={filterIcon} alt="Ícone de filtro"
+                    width={16} height={16} />
+                </i>
+                <span> Filtro</span>
+            </label>
+            <div className="little-catalogue-text">
+                <span className="little-text">{`Green Eats
+                ${category && ` / ${category}`}
+                ${type && ` / ${type}`}
+                ${name && ` / ${name}`}`}
+                </span>
+
+                {catalogueQuantity}
+            </div>
             <Filter higherData={higherData} />
-            <ProductCatalogue data={data} 
+            <ProductCatalogue data={data} catalogueQuantity={catalogueQuantity}
             toggleAddModal={()=>{setDisplayAddModal(true)}}
             toggleEditModal={(data: ResponseFromApi)=>{
                 setDataToEdit([data])

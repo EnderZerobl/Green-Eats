@@ -18,6 +18,7 @@ export default function AdminPage ({ type, close, data }: {
         armazen?: string;
         desc?: string;
         estoque: number;
+        exclusivo: boolean;
     }
 }) {
     const [ image, setImage ] = useState<string>(data? data.imagemPath as string : "");
@@ -166,20 +167,36 @@ export default function AdminPage ({ type, close, data }: {
                 </div>
                 <div className="modal__form__right__radio">
                     <div className="modal__form__right__radio__container">
-                        <input type="radio" name="type-of-products" 
-                            id="exclusive-products" 
-                            className="modal__form__right__radio__container__input" 
-                            value={"true"} required
-                        />
+                        {
+                            data?.exclusivo?
+                            <input type="radio" name="type-of-products" 
+                                id="exclusive-products" 
+                                className="modal__form__right__radio__container__input" 
+                                value={"true"} required checked
+                            />
+                            :<input type="radio" name="type-of-products" 
+                                id="exclusive-products" 
+                                className="modal__form__right__radio__container__input" 
+                                value={"true"} required
+                            />
+                        }
 
                         <label htmlFor="exclusive-products" className="modal__form__right__radio__container__label">Exclusivo Green Eats</label>
                     </div>
                     <div className="modal__form__right__radio__container">
-                        <input type="radio" name="type-of-products" 
+                        {
+                            data?.exclusivo?
+                            <input type="radio" name="type-of-products" 
                             id="all-products" 
                             className="modal__form__right__radio__container__input" 
-                            value={"false"} required 
-                        />
+                            value={"false"} required
+                            />
+                            :<input type="radio" name="type-of-products" 
+                            id="all-products" 
+                            className="modal__form__right__radio__container__input" 
+                            value={"false"} required checked
+                            />
+                        }
 
                         <label htmlFor="all-products" className="modal__form__right__radio__container__label">Todos os Produtos</label>
                     </div>

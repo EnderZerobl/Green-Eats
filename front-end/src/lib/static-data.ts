@@ -61,6 +61,6 @@ export const characteristics = [
 export const order = [
     "Mais vendidos",
     "Menor preço",
-    "Maio preço",
+    "Maior preço",
     "Relevância"
 ]

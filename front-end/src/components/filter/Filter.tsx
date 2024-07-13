@@ -6,13 +6,14 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { HigherData, ResponseFromApi } from '@/lib/types';
 
-function FilterOption ({ category, subCategory, currentCategory, setCurrentCategory, componentParam, len }: {
+function FilterOption ({ category, subCategory, currentCategory, setCurrentCategory, componentParam, len, lengths }: {
     category: string;
     subCategory: string[];
     currentCategory: string | null;
     setCurrentCategory: (category: string | null) => void;
     componentParam: "category" | "characteristic" | "order";
     len?: number;
+    lengths?: number[];
 }) {
     const router = useRouter();
     const pathName = usePathname();
@@ -20,10 +21,18 @@ function FilterOption ({ category, subCategory, currentCategory, setCurrentCateg
     const [ isChecked, setIsChecked ] =  useState(Boolean(currentCategory));
 
     useEffect(()=>{
-        if ((!(searchParams.has("category") || searchParams.has("type"))) && componentParam === "category") {
+        if (componentParam === "category" 
+            && searchParams.get(componentParam) !== category
+         ) {
             setIsChecked(false);
+        } else if (componentParam !== "category"
+            && !searchParams.has(componentParam)
+         ) {
+            setIsChecked(false)
+        } else {
+            setIsChecked(true)
         };
-    }, [searchParams, pathName, componentParam])
+    }, [searchParams, componentParam, category])
 
     const updateSearchParams = (param: "name" | "category" | "type" | "characteristic" | "order" | "", value: string, isCategory: boolean) => {
         const current = new URLSearchParams(Array.from(searchParams.entries()));
@@ -46,10 +55,10 @@ function FilterOption ({ category, subCategory, currentCategory, setCurrentCateg
             }
         } else {
             if (isChecked && current.has(componentParam)){
-                current.delete(componentParam)
+                current.delete(componentParam);
             }
-            setIsChecked(!isChecked)
-        }
+            setIsChecked(!isChecked);
+        };
 
         const search = current.toString();
         const query = search ? `?${search}` : "";
@@ -79,7 +88,7 @@ function FilterOption ({ category, subCategory, currentCategory, setCurrentCateg
                         element, 
                         false)}}>
                         <div className="dot"></div>    
-                        {element}
+                        {element}{(componentParam==="category" && lengths !== undefined) ? (" (" + lengths[i] +")") : ""}
                     </li>
                 ))}
             </ul>
@@ -123,7 +132,7 @@ export default function Filter ({ higherData }: {
                 };
                 const search = current.toString();
                 const query = search ? `?${search}` : "";
-                router.push(`${pathName}${query}`)
+                router.push(`${pathName}${query}`);
             }} className='filter__title__select' 
             name="exclusive" id="exclusive">
                 <option className='filter__title__select__option' value="false">Todos os Produtos</option>
@@ -132,7 +141,14 @@ export default function Filter ({ higherData }: {
             {categorysList.map((element, i) => (
                 <FilterOption category={element.name} subCategory={element.types} 
                     key={i} currentCategory={currentCategory} setCurrentCategory={setCurrentCategory}
-                    len={higherData[element.name as ("Green Horta" | "Green Mercearia" | "Bebidas e Laticinios" | "Ovos e Carnes")].length} componentParam='category'/>
+                    len={higherData[element.name as ("Green Horta" | "Green Mercearia" | "Bebidas e Laticinios" | "Ovos e Carnes")].length} 
+                    componentParam='category' 
+                    lengths={element.types
+                        .map(elem=>{
+                            return higherData[element.name as ("Green Horta" | "Green Mercearia" | "Bebidas e Laticinios" | "Ovos e Carnes")]
+                            .filter(response=>response.tipo===elem).length
+                        })}
+                    />
             ))}
 
             <FilterOption category='Características' subCategory={characteristics}

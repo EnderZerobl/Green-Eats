@@ -101,7 +101,7 @@ export default function Header() {
                 <nav>
                     <div className="navContainer">
                         <div className="navTextContainer">
-                            <Link href="/produtos">
+                            <Link href="/produtos?order=Menor+preço">
                                 <p>Promoções</p>
                             </Link>
                         </div>
@@ -116,7 +116,7 @@ export default function Header() {
                             </Link>
                         </div>
                         <div className="navTextContainer bigger">
-                            <Link href="/produtos?category=Bebidas+e+Lacticinios">
+                            <Link href="/produtos?category=Bebidas+e+Laticinios">
                                 <p>Bebidas e Laticínios</p>
                             </Link>
                         </div>
@@ -193,7 +193,7 @@ export default function Header() {
                         <nav>
                             <div className="navContainerMenu">
                                 <div className="navTextContainer">
-                                    <Link href="/produtos">
+                                    <Link href="/produtos?order=Menor+preço">
                                         <p>Promoções</p>
                                     </Link>
                                 </div>
@@ -208,7 +208,7 @@ export default function Header() {
                                     </Link>
                                 </div>
                                 <div className="navTextContainer bigger">
-                                    <Link href="/produtos?category=Bebidas+e+Lacticinios">
+                                    <Link href="/produtos?category=Bebidas+e+Laticinios">
                                         <p>Bebidas e Laticínios</p>
                                     </Link>
                                 </div>
@@ -225,7 +225,7 @@ export default function Header() {
                 <nav className="navHeaderMobile">
                     <div className="navContainer">
                         <div className="navTextContainer">
-                            <Link href="/produtos">
+                            <Link href="/produtos?order=Menor+preço">
                                 <p>Promoções</p>
                             </Link>
                         </div>
@@ -240,7 +240,7 @@ export default function Header() {
                             </Link>
                         </div>
                         <div className="navTextContainer bigger">
-                            <Link href="/produtos?category=Bebidas+e+Lacticinios">
+                            <Link href="/produtos?category=Bebidas+e+Laticinios">
                                 <p>Bebidas e Laticínios</p>
                             </Link>
                         </div>

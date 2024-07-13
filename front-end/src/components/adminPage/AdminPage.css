@@ -19,6 +19,7 @@
     height: 100vh;
     z-index: 30;
     background-color: rgba(0, 0, 0, .5);
+    overflow-y: scroll;
 }
 
 .modal {
@@ -230,4 +231,23 @@
 
 .modal__form__submit__button:hover {
     background-color: var(--dark-green);
+}
+
+@media screen and (max-width: 895px) {
+    .modal-wrapper ~ .catalogue {
+        display: none;
+    }
+
+    .modal-wrapper ~ .filter {
+        display: none;
+    }
+
+    .modal {
+        position: absolute;
+        top: 0;        
+    }
+
+    .modal__form__submit__button {
+        margin-bottom: 5rem;
+    }
 }
