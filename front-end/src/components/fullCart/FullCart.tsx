@@ -12,8 +12,8 @@ export default function FullCart({ shopCart, total }: {
     };
 }) {
     const freeShippingThreshold = 256.00;
-    const amountNeeded = freeShippingThreshold - total;
-    const progressPercentage = (total / freeShippingThreshold) * 100;
+    const amountNeeded = freeShippingThreshold - total.totalComDesconto;
+    const progressPercentage = (total.totalComDesconto / freeShippingThreshold) * 100;
 
     return (
         <>

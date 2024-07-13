@@ -57,3 +57,10 @@ export const characteristics = [
     "artesanal",
     "semAdicaoDeAcucar"
 ] 
+
+export const order = [
+    "Mais vendidos",
+    "Menor preço",
+    "Maio preço",
+    "Relevância"
+]

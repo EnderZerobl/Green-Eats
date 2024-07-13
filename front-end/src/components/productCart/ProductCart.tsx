@@ -46,7 +46,9 @@ export default function ProductCart({data}: {
                         </div>
                         :<div></div>
                     }
-                        <Image src={produto.imagemPath as string} alt="Imagem do produto a venda" width={190} height={0} />
+                    <div className="productCartCardImageContainer">
+                        <Image src={produto.imagemPath as string} alt="Imagem do produto a venda" width={0} height={0} />
+                    </div>
                 </div>
                 <div className="productCartCardText">
                     <div className="productCartCardTextTitle"><h1>{produto.nome}</h1></div>

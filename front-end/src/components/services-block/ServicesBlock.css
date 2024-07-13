@@ -1,11 +1,23 @@
+.service-block {
+    overflow-x: scroll;
+}
+
+.service-block::-webkit-scrollbar {
+    background-color: transparent;
+}
+
+.service-block::-webkit-scrollbar-button {
+    display: none;
+}
+
 .service-container {
     display: flex;
     justify-content: space-evenly;
     align-items: center;
     background-color: var(--lighter-green);
-    width: 80%;
+    width: 1300px;
     padding: 1rem;
-    margin: 0 10% .5rem 10%;
+    margin: auto
 }
 
 .service-container__element:nth-child(2) {

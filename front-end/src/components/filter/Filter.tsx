@@ -1,7 +1,7 @@
 'use client';
 import './Filter.css';
 import './Filter-Animations.css';
-import { categorysList, characteristics } from '@/lib/static-data';
+import { categorysList, characteristics, order } from '@/lib/static-data';
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { HigherData, ResponseFromApi } from '@/lib/types';
@@ -11,21 +11,21 @@ function FilterOption ({ category, subCategory, currentCategory, setCurrentCateg
     subCategory: string[];
     currentCategory: string | null;
     setCurrentCategory: (category: string | null) => void;
-    componentParam: "category" | "characteristic";
+    componentParam: "category" | "characteristic" | "order";
     len?: number;
 }) {
     const router = useRouter();
     const pathName = usePathname();
     const searchParams = useSearchParams();
-    const [ isChecked, setIsChecked ] =  useState((currentCategory === category));
+    const [ isChecked, setIsChecked ] =  useState(Boolean(currentCategory));
 
     useEffect(()=>{
-        if ((!(searchParams.has("category") || searchParams.has("type"))) && componentParam !== "characteristic") {
+        if ((!(searchParams.has("category") || searchParams.has("type"))) && componentParam === "category") {
             setIsChecked(false);
         };
     }, [searchParams, pathName, componentParam])
 
-    const updateSearchParams = (param: "name" | "category" | "type" | "characteristic" | "", value: string, isCategory: boolean) => {
+    const updateSearchParams = (param: "name" | "category" | "type" | "characteristic" | "order" | "", value: string, isCategory: boolean) => {
         const current = new URLSearchParams(Array.from(searchParams.entries()));
 
         if (isCategory) {
@@ -45,8 +45,8 @@ function FilterOption ({ category, subCategory, currentCategory, setCurrentCateg
                 current.set(param, value);
             }
         } else {
-            if (isChecked && current.has("characteristic")){
-                current.delete("characteristic")
+            if (isChecked && current.has(componentParam)){
+                current.delete(componentParam)
             }
             setIsChecked(!isChecked)
         }
@@ -61,7 +61,11 @@ function FilterOption ({ category, subCategory, currentCategory, setCurrentCateg
             <input className="filter__option__category" type="checkbox"
                 id={`filter-category${category}`} 
                 checked={isChecked}
-                onChange={()=>{updateSearchParams(componentParam === "characteristic"? "" : "category", category, componentParam !== "characteristic")}} />
+                onChange={()=>{updateSearchParams((componentParam !== "category")? "" : "category",
+                category, 
+                componentParam === "category")}} 
+            />
+
             <label htmlFor={`filter-category${category}`} className="filter__option__label">
                 <h3 className="filter__option__category__title">{category}{componentParam==="category" ? (" ("+len+")") : ""}</h3>
                 <div className="filter__option__category__icon"></div>
@@ -69,7 +73,11 @@ function FilterOption ({ category, subCategory, currentCategory, setCurrentCateg
             <ul className="filter__option__list">
                 {subCategory.map((element, i) => (
                     <li key={i} className="filter__option__list__element"
-                        onClick={()=>{updateSearchParams(componentParam === "characteristic"? "characteristic" : "type", element, false)}}>
+                        onClick={()=>{updateSearchParams(componentParam === "category"?
+                            "type"
+                            :componentParam,
+                        element, 
+                        false)}}>
                         <div className="dot"></div>    
                         {element}
                     </li>
@@ -82,8 +90,9 @@ function FilterOption ({ category, subCategory, currentCategory, setCurrentCateg
 export default function Filter ({ higherData }: {
     higherData: HigherData
 }) {
-    const [currentCategory, setCurrentCategory] = useState<string | null>(null);
-    const [currentCharacteristic, setCurrentCharacteristic] = useState<string | null>(null);
+    const [ currentCategory, setCurrentCategory ] = useState<string | null>(null);
+    const [ currentCharacteristic, setCurrentCharacteristic ] = useState<string | null>(null);
+    const [ currentOrder, setCurrentOrder ] = useState<string | null>(null);
 
     useEffect(() => {
         const searchParams = new URLSearchParams(window.location.search);
@@ -92,6 +101,9 @@ export default function Filter ({ higherData }: {
         }
         if (searchParams.has("characteristic")) {
             setCurrentCharacteristic(searchParams.get("characteristic"));
+        }
+        if (searchParams.has("order")) {
+            setCurrentOrder(searchParams.get("order"))
         }
     }, []);
 
@@ -103,8 +115,14 @@ export default function Filter ({ higherData }: {
                     key={i} currentCategory={currentCategory} setCurrentCategory={setCurrentCategory}
                     len={higherData[element.name as ("Green Horta" | "Green Mercearia" | "Bebidas e Laticinios" | "Ovos e Carnes")].length} componentParam='category'/>
             ))}
+
             <FilterOption category='Características' subCategory={characteristics}
-            key={"características"} currentCategory={currentCharacteristic} setCurrentCategory={setCurrentCharacteristic} componentParam={"characteristic"}/>
+            key={"características"} currentCategory={currentCharacteristic} 
+            setCurrentCategory={setCurrentCharacteristic} componentParam={"characteristic"}/>
+
+            <FilterOption category={"Ordenar"} subCategory={order}
+            key={"Ordenar"} currentCategory={currentOrder}
+            setCurrentCategory={setCurrentOrder} componentParam={"order"} />
         </section>
     );
 }
