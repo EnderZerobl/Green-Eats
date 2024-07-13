@@ -99,6 +99,7 @@ carro.get('/carrinho/total', async (req: Request, res: Response) => {
           produto: {
             select: {
               preco: true,
+              desconto: true,
               precoNovo: true,
               promocao: true,
             },
@@ -106,12 +107,27 @@ carro.get('/carrinho/total', async (req: Request, res: Response) => {
         },
       });
   
-      const total = carrinho.reduce((acc, item) => {
-        const preco = item.produto.promocao ? item.produto.precoNovo : item.produto.preco;
-        return acc + preco * item.quantidade;
-      }, 0);
+      const { totalSemDesconto, totalComDesconto, Desconto } = carrinho.reduce(
+        (acc, item) => {
+          const preco = item.produto.preco;
+          const precoComDesconto = item.produto.promocao ? item.produto.precoNovo : item.produto.preco;
+          const desconto = item.produto.promocao ? item.produto.desconto : 0;
   
-      res.status(200).json({ total });
+          acc.totalSemDesconto += preco * item.quantidade;
+          acc.totalComDesconto += precoComDesconto * item.quantidade;
+          acc.Desconto += (preco - precoComDesconto) * item.quantidade;
+  
+          return acc;
+        },
+        { totalSemDesconto: 0, totalComDesconto: 0, Desconto: 0 }
+      );
+  
+      res.status(200).json({
+        totalSemDesconto,
+        totalComDesconto,
+        Desconto,
+      });
+
     } catch (error) {
       res.status(500).json({ error: 'Erro ao calcular o total do carrinho' });
     }
