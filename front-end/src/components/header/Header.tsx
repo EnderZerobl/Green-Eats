@@ -183,8 +183,11 @@ export default function Header() {
                             </>
                         )}
                     </div>
+                    
                 </header>
+                
             </div>
+            
             {isMenuOpen && (
                     <div className="menuContainer">
                         <nav>
@@ -218,6 +221,36 @@ export default function Header() {
                         </nav>
                     </div>
                 )}
+
+                <nav className="navHeaderMobile">
+                    <div className="navContainer">
+                        <div className="navTextContainer">
+                            <Link href="/produtos">
+                                <p>Promoções</p>
+                            </Link>
+                        </div>
+                        <div className="navTextContainer">
+                            <Link href="/produtos?category=Green+Horta">
+                                <p>Green Horta</p>
+                            </Link>
+                        </div>
+                        <div className="navTextContainer bigger">
+                            <Link href="/produtos?category=Green+Mercearia">
+                                <p>Green Mercearia</p>
+                            </Link>
+                        </div>
+                        <div className="navTextContainer bigger">
+                            <Link href="/produtos?category=Bebidas+e+Lacticinios">
+                                <p>Bebidas e Laticínios</p>
+                            </Link>
+                        </div>
+                        <div className="navTextContainer">
+                            <Link href="/produtos?category=Ovos+e+Carnes">
+                                <p>Ovos e Carnes</p>
+                            </Link>
+                        </div>
+                    </div>
+                </nav>
         </>
     );
 }

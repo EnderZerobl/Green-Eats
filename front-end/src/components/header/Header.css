@@ -4,11 +4,13 @@ header{
     justify-content: center;
 }
 
+
+
 .headerDesktop{
     display: block;
 }
 
-.headerMobile{
+.headerMobile, .navHeaderMobile{
     display: none;
 }
 
@@ -209,6 +211,26 @@ nav{
         flex-direction: column;
         height: calc(100vh - 87px);
         width: 100vw;
+    }
+
+    .navHeaderMobile{
+        display: flex;
+        overflow-x: scroll;
+        background-color: #FFFFFF;
+        padding: 0;
+    }
+
+    .navTextContainer{
+        width: 85px;
+    }
+
+    .navTextContainer.bigger{
+        width: 135px;
+    }
+
+    .navTextContainer p{
+        font-weight: 400;
+        font-size: 12px;
     }
 
     

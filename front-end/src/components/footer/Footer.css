@@ -70,3 +70,9 @@
     height: 100%;
     width: 100%;
 }
+
+@media (max-width: 850px) {
+    .footer__section__form__button{
+        width: 100%;
+    }
+}

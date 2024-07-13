@@ -17,6 +17,7 @@
     font-weight: 400;
     font-size: 30px;
     margin-bottom: 24px;
+    text-align: center;
 }
 
 .emptyCart button{
@@ -29,4 +30,21 @@
     text-align: center;
     font-weight: 700;
     font-size: 36px;
+}
+
+@media (max-width: 800px){
+    .emptyCart h1{
+        font-weight: 400;
+        font-size: 20px;
+    }
+
+    .emptyCart p{
+        font-size: 14px;
+    }
+
+    .emptyCart button{
+        width: 288px;
+        height: 38px;
+        font-size: 18px;
+    }
 }
