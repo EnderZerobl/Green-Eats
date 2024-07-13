@@ -1,0 +1,36 @@
+footer.footerMobile{
+    display: none;
+}
+
+@media (max-width: 850px){
+    footer.footerMobile{
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        position: fixed;
+        bottom: 0;
+        width: 100vw;
+        /* height: 60px; */
+        background-color: white;
+        border-top: 1 px solid white;
+        z-index: 1000;
+    }
+    
+    .footerIconContainer a{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+
+        width: 60px;
+        height: 60px;
+    }
+
+    .footerIconContainer a span{
+        font-weight: 400;
+        font-size: 12px;
+        margin-top: 8px;
+    }
+
+}
+

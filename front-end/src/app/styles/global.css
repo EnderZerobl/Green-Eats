@@ -1,0 +1,52 @@
+@import "~slick-carousel/slick/slick.css";
+@import "~slick-carousel/slick/slick-theme.css";
+
+:root {
+    --darkest-green: #1C4200;
+    --darker-green: #245600;
+    --dark-green: #316B00;
+    --strong-green: #448013;
+    --main-green: #5A952D;
+    --weak-green: #74AA4A;
+    --light-green: #91BD6B;
+    --lighter-green:#AFD191;
+    --lightest-green: #CFE4BB;
+    --black-green: #406A20;
+    --blacker-green: #274013;
+    --blackest-green: #0D1506;
+    --white-green: #74C03A;
+    --whiter-green: #8DEA47;
+    --background: #F1F1F1;
+}
+
+body {
+    background-color: var(--background);
+}
+
+.page {
+    width: 100%;
+}
+
+.flexer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.generic-button {
+    border: 2px solid var(--main-green);
+    background-color: white;
+    font-size: 2.5rem;
+    font-weight: bold;
+    text-align: center;
+    color: var(--main-green);
+}
+
+.generic-button:hover {
+    background-color: var(--main-green);
+    color: white;
+}
+
+.centralize {
+    text-align: center;
+}

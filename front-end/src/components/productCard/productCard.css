@@ -1,0 +1,136 @@
+.favoriteIcon {
+    display: flex;
+
+}
+
+.favoriteIcon button {
+    width: 2rem;
+    padding: 0 .5rem;
+}
+
+.favoriteIcon button img {
+    object-fit: fill;
+    width: 100%;
+}
+
+.sectionProductCard{
+    display: flex;
+    justify-content: space-around;
+}
+
+.productCard{
+    background-color: white;
+    width: 100%;
+    height: 589px;
+    padding: 0 1rem;
+    border-radius: 5px;
+}
+
+.cardImage{
+    width: 286px;
+    height: 295px;
+}
+
+.cardImageText{
+    width: 286px;
+    height: 369px;
+    margin: 24px auto;
+}
+
+.headerCardImage{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.discount{
+    width: 66px;
+    height: 40px;
+    padding: 8px;
+    background-color: var(--main-green);
+    margin-bottom: 9px;
+}
+
+.discount span{
+    font-weight: 600;
+    font-size: 20px;
+    color: white;
+}
+
+.cardText .productText{
+    font-weight: 500;
+    font-size: 24px;
+}
+
+.cardProductPrice{
+    width: 287px;
+    height: 32px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: start;
+}
+
+.cardProductPrice p{
+    font-weight: 600;
+    font-size: 26px;
+}
+
+.cardProductPrice .oldPrice{
+    margin-right: 16px;
+    color: #B0B0B0;
+    text-decoration: line-through;
+}
+
+.cardProductPrice .currentPrice{
+    color: var(--main-green)
+}
+
+.productImage__image {
+    object-fit: contain;
+}
+
+.productPurchase{
+    margin: 48px auto 0 auto;
+    width: 287px;
+    height: 44px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.productPurchase .productPurchaseCounter{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    font-size: 20px;
+}
+
+.productPurchase .productPurchaseCounter button{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 52px;
+    height: 44px;
+    border-radius: 2px, 0px, 0px, 2px;
+    background-color: #D2D2D2;
+}
+
+.productPurchase .productPurchaseCounter p{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 62px;
+    height: 44px;
+    border: 1px solid #D2D2D2;
+}
+
+.productPurchaseBuy{
+    width: 81px;
+    height: 44px;
+    padding: 6px;
+    background-color: var(--main-green);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

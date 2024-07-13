@@ -1,0 +1,29 @@
+.categorieCard{
+    width: 204px;
+    height: 204px;
+    border-radius: 5px;
+    background-color: var(--main-green);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+    margin-bottom: 12px;
+
+}
+
+.categorieCardImage{
+    height: 132px;
+    width: 204px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.categorieCardText p{
+    font-weight: 500;
+    font-size: 24px;
+    color: white;
+
+}

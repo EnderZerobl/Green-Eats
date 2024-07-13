@@ -1,0 +1,33 @@
+.filter__option__category {
+    display: none;
+  }
+  
+  .filter__option__label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+  }
+  
+  .filter__option__category__icon::before {
+    content: '+';
+    display: inline-block;
+    transition: transform 0.3s ease;
+  }
+  
+  .filter__option__category:checked + .filter__option__label .filter__option__category__icon::before {
+    content: '-';
+    transform: rotate(180deg);
+  }
+  
+  .filter__option__list {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease, opacity 0.3s ease;
+    opacity: 0;
+  }
+  
+  .filter__option__category:checked ~ .filter__option__list {
+    max-height: 500px; /* Adjust this value based on the height of the list */
+    opacity: 1;
+  }
+  

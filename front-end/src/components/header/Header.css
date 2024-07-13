@@ -1,0 +1,239 @@
+header{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #FFFFFF;
+}
+
+
+
+.headerDesktop{
+    display: block;
+}
+
+.headerMobile, .navHeaderMobile{
+    display: none;
+}
+
+.topContentContainer{
+    margin-top: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    height: 55px;
+    width: 90%;
+}
+
+.logo{
+    width: 318px;
+    cursor: pointer;
+}
+
+.logo__link{
+    color: var(--main-green);
+    font-weight: 600;
+    font-size: 40px;
+    text-align: center;
+}
+
+.logo__link:hover{
+    color: var(--dark-green)
+}
+
+.searchContainer{
+    display: flex;
+}
+
+.searchContainer input{
+    box-sizing: border-box;
+    width: 710px;
+    height: 55px;
+    border: 2px solid var(--main-green);
+    text-indent: 16px;
+}
+
+.searchContainer input:focus{
+    border: 2px solid var(--dark-green);
+}
+
+.searchContainer input::placeholder{
+    font-weight: 300;
+    font-size: 24px;
+}
+
+.searchIconContainer {
+    height: 55px;
+    width: 64px;
+    background-color: var(--main-green);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.searchIconContainer:hover{
+    background-color: var(--black-green);
+}
+
+.pagesContainer{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.pagesIconContainer{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 90px;
+    height: 50px;
+}
+
+nav{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem 0;
+    background-color: #FFFFFF;
+}
+
+.navContainer{
+    display: flex;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 90%;
+}
+
+.navTextContainer{
+    width: 204px;
+    height: 29px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.navTextContainer.bigger{
+    width: 318px;
+}
+
+.navTextContainer p{
+    font-weight: 400;
+    font-size: 24px;
+    color: var(--main-green);
+    text-align: center;
+}
+
+.navTextContainer p:hover{
+    color: var(--dark-green);
+}
+
+.menuContainer{
+    display: none;
+}
+
+
+
+@media screen and (max-width: 1250px){
+    .headerMobile{
+        display: flex;
+    }
+
+    .headerDesktop{
+        display: none;
+    }
+
+    .headerMobile header{
+        width: 100vw;
+        height: 87px;
+        background-color: #FFFFFF;
+    }
+
+    .headerMobile .topContentContainerMobile{
+        flex-direction: row;
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        width: 100%;
+    }
+
+    .headerMobile .topContentContainerMobile .leftActions, .headerMobile .topContentContainerMobile .rightActions{
+        width: 60px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .headerMobile .topContentContainerMobile{
+        cursor: pointer;
+    }
+
+    .logoMobile{
+        cursor: pointer;
+    }
+    
+    .logo__link__mobile{
+        color: var(--main-green);
+        font-weight: 600;
+        font-size: 25px;
+        text-align: center;
+    }
+    
+    .logo__link__mobile:hover{
+        color: var(--dark-green)
+    }
+
+    .searchContainerMobile{
+        display: flex;
+        width: 80vw;
+    }
+
+    .searchInput{
+        box-sizing: border-box;
+        width: 100%;
+        height: 55px;
+        border: 2px solid var(--main-green);
+        text-indent: 16px;
+    }
+
+    .menuContainer{
+        display: flex;
+        align-items: center;
+        height: calc(100vh - 87px);
+    }
+    
+    .menuContainer nav{
+        padding: 0;
+    }
+    
+    .menuContainer .navContainerMenu{
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        flex-direction: column;
+        height: calc(100vh - 87px);
+        width: 100vw;
+    }
+
+    .navHeaderMobile{
+        display: flex;
+        overflow-x: scroll;
+        background-color: #FFFFFF;
+        padding: 0;
+    }
+
+    .navTextContainer{
+        width: 85px;
+    }
+
+    .navTextContainer.bigger{
+        width: 135px;
+    }
+
+    .navTextContainer p{
+        font-weight: 400;
+        font-size: 12px;
+    }
+
+    
+}

@@ -1,0 +1,176 @@
+.productCartCard{
+    background-color: #FFFFFF;
+    display: flex;
+    
+    width: 660px;
+    height: 190px;
+    border-radius: 5px;
+
+    margin-bottom: 24px;
+}
+
+.productCartCardImage{
+    display: flex;
+    width: 50%;
+    justify-content: space-around
+}
+
+.productCartCardImageContainer{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.productCartCardImageContainer img{
+    max-width: 190px;
+    max-height: 190px;
+    width: 100%;
+    height: 70%;
+
+}
+
+.productCartCardText{
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    padding-left: 8px;
+    padding-right: 8px;
+}
+
+.productCartCardText h1{
+    width: 70%;
+    font-weight: 500;
+    font-size: 20px;
+}
+
+.productCartCardTextPrice {
+    display: flex;
+}
+
+.productCartCardTextPrice p{
+    font-weight: 600;
+    font-size: 26px;
+}
+
+.oldPrice{
+    margin-right: 16px;
+    color: #B0B0B0;
+    text-decoration: line-through;
+}
+
+.currentPrice{
+    color: var(--main-green)
+}
+
+.discountCart{
+    width: 66px;
+    height: 40px;
+    padding: 8px;
+    background-color: var(--main-green);
+    margin-top: 16px;
+}
+
+.discountCart span{
+    font-weight: 600;
+    color: white;
+}
+
+.cardProductPrice{
+    width: 287px;
+    height: 32px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: start;
+}
+.productCartCardTextActions{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-right: 1.5rem;
+}
+
+.productCartCardTextActions select {
+    border: 2px solid #E9E9E9;
+    background-color: #E9E9E9;
+    width: 100%;
+    text-align: center;
+    outline: none;
+}
+
+.producCartCardTextActionsContainer {
+    display: flex;
+    justify-content: space-around;
+    width: 70%;
+    padding: 2px;
+    border-radius: .5rem;
+    border-color: #E9E9E9;
+    background-color: #E9E9E9;
+    overflow: hidden;
+}
+
+.productCartCardTextActionsIcons {
+    display: flex;
+    justify-content: space-between;
+    width: 20%;
+}
+
+.productCartCardTextActionsContainerLabel {
+    display: flex;
+    align-items: center;
+}
+
+@media (max-width: 1500px){
+    .productCartCard{
+        display: flex;
+        position: relative;
+        
+        width: 100%;
+        border-radius: 5px;
+    
+        margin-bottom: 24px;
+    }
+
+    .productCartCardImage{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .productCartCardImageContainer img{
+        width: 80%;
+        height: 80%;
+
+        margin-top: 0;
+        position: relative;
+    }
+
+    .productCartCardText h1 {
+        width: 70%;
+        font-weight: 500;
+    }
+
+    .productCartCardTextPrice p{
+        font-weight: 600;
+    }
+    
+    .productCartCardText{
+        padding: 0;
+    }
+
+    .discountCart{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: absolute;
+        z-index: 1;
+        top: 0;
+        left: 0;
+        margin-left: 8px;
+    }
+
+    .discountCart span{
+        font-size: 12px;
+    }
+    
+}

@@ -1,0 +1,7 @@
+section.productList{
+    width: 90%;
+    align-items: center;
+    justify-content: space-between;
+    display: flex;
+    margin: 0 auto;
+}

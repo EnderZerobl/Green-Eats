@@ -1,0 +1,73 @@
+{
+  "format": "page",
+  "id": "data",
+  "label": "Imagens e Descontos",
+  "repeatable": false,
+  "status": true,
+  "json": {
+    "Main": {
+      "discounts": {
+        "type": "Group",
+        "config": {
+          "label": "Descontos",
+          "repeat": true,
+          "fields": {
+            "percentage": {
+              "type": "Number",
+              "config": {
+                "label": "Porcentagem",
+                "placeholder": ""
+              }
+            },
+            "category": {
+              "type": "Select",
+              "config": {
+                "label": "Categoria",
+                "placeholder": "",
+                "options": ["1", "2"]
+              }
+            }
+          }
+        }
+      },
+      "slices": {
+        "type": "Slices",
+        "fieldset": "Slice Zone",
+        "config": {
+          "choices": {
+            "hero_image": {
+              "type": "SharedSlice"
+            }
+          }
+        }
+      }
+    },
+    "SEO & Metadata": {
+      "meta_title": {
+        "config": {
+          "label": "Meta Title",
+          "placeholder": "A title of the page used for social media and search engines"
+        },
+        "type": "Text"
+      },
+      "meta_description": {
+        "config": {
+          "label": "Meta Description",
+          "placeholder": "A brief summary of the page"
+        },
+        "type": "Text"
+      },
+      "meta_image": {
+        "config": {
+          "constraint": {
+            "height": 1260,
+            "width": 2400
+          },
+          "label": "Meta Image",
+          "thumbnails": []
+        },
+        "type": "Image"
+      }
+    }
+  }
+}
