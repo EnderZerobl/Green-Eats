@@ -27,6 +27,13 @@
     font-weight: 500;
 }
 
+.filter__title__select {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border-radius: 4px;
+}
+
 .filter__option__label {
     display: flex;
     justify-content: space-between;

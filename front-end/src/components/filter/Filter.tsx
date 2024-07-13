@@ -93,6 +93,10 @@ export default function Filter ({ higherData }: {
     const [ currentCategory, setCurrentCategory ] = useState<string | null>(null);
     const [ currentCharacteristic, setCurrentCharacteristic ] = useState<string | null>(null);
     const [ currentOrder, setCurrentOrder ] = useState<string | null>(null);
+    
+    const router = useRouter();
+    const pathName = usePathname();
+    const searchParams = useSearchParams();
 
     useEffect(() => {
         const searchParams = new URLSearchParams(window.location.search);
@@ -110,6 +114,21 @@ export default function Filter ({ higherData }: {
     return(
         <section className="filter">
             <h3 className="filter__title">Filtrar</h3>
+            <select onChange={e=>{
+                const current = new URLSearchParams(Array.from(searchParams.entries()));
+                if (e.target.value === 'true') {
+                    current.set("exclusive", "true");
+                } else{
+                    if (current.has("exclusive")) current.delete("exclusive");
+                };
+                const search = current.toString();
+                const query = search ? `?${search}` : "";
+                router.push(`${pathName}${query}`)
+            }} className='filter__title__select' 
+            name="exclusive" id="exclusive">
+                <option className='filter__title__select__option' value="false">Todos os Produtos</option>
+                <option className='filter__title__select__option' value="true">Exclusivo Green Eats</option>
+            </select>
             {categorysList.map((element, i) => (
                 <FilterOption category={element.name} subCategory={element.types} 
                     key={i} currentCategory={currentCategory} setCurrentCategory={setCurrentCategory}
