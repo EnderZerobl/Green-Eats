@@ -90,10 +90,10 @@ export default function Header() {
                         </div>
                         <div className="pagesContainer">
                             <div className="pagesIconContainer">
-                                <Link href="/carrinho"><Image src={marketIcon} width={24} height={24} alt="Ícone de carrinho" /></Link>
+                                <Link href="/carrinho"><Image src={marketIcon} width={0} height={0} alt="Ícone de carrinho" /></Link>
                             </div>
                             <div className="pagesIconContainer">
-                                <Link href="/admin/add"><Image src={profileIcon} width={24} height={24} alt="Ícone de perfil" /></Link>
+                                <Link href="/admin/add"><Image src={profileIcon} width={0} height={0} alt="Ícone de perfil" /></Link>
                             </div>
                         </div>
                     </div>
@@ -165,7 +165,7 @@ export default function Header() {
                                         alt="Menu burguer"
                                         onClick={() => setIsMenuOpen(!isMenuOpen)}
                                     />
-                                    <Image src={profileIcon} width={25} height={25} alt="Ícone de perfil" />
+                                    <Link href="/admin/add">  <Image src={profileIcon} width={25} height={25} alt="Ícone de perfil" /> </Link>
                                 </div>
                                 <div className="logoMobile">
                                     <Link href="/" className='logo__link__mobile'>Green Eats</Link>
@@ -178,7 +178,7 @@ export default function Header() {
                                         alt="ícone de pesquisa"
                                         onClick={() => setIsSearchActive(true)}
                                     />
-                                    <Image src={marketIcon} width={25} height={25} alt="ícone de carrinho" />
+                                    <Link href="/carrinho">  <Image src={marketIcon} width={25} height={25} alt="ícone de carrinho" /> </Link>
                                 </div>
                             </>
                         )}

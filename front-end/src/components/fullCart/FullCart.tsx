@@ -1,7 +1,7 @@
+import React, { useEffect, useState } from 'react';
 import { UsableCart } from "@/lib/types";
 import "../fullCart/newFullCart.css";
 import ProductCart from "../productCart/ProductCart";
-
 
 export default function FullCart({ shopCart, total }: {
     shopCart: UsableCart[];
@@ -11,15 +11,19 @@ export default function FullCart({ shopCart, total }: {
         Desconto: number
     };
 }) {
-    return(
+    const freeShippingThreshold = 256.00;
+    const amountNeeded = freeShippingThreshold - total;
+    const progressPercentage = (total / freeShippingThreshold) * 100;
+
+    return (
         <>
             <section className="fullCart">
                 <section className="productCart">
                     <h1 className="sectionTitle">Seu carrinho</h1>
                     {
-                        shopCart.map(product=>(
+                        shopCart.map(product => (
                             <ProductCart key={product.id}
-                            data={product}/>
+                                data={product} />
                         ))
                     }
                 </section>
@@ -38,10 +42,14 @@ export default function FullCart({ shopCart, total }: {
                         <div className="orderResumePrice"><p><strong>R$ {total.totalComDesconto.toFixed(2).replace(".", ",")}</strong></p></div>
                     </div>
                     <button>FINALIZAR PEDIDO</button>
-
+                    <div className="shipping-info">
+                        <p>Faltam <span className="amount-needed">R$ {amountNeeded.toFixed(2).replace(".", ",")}</span> para ganhar <span>Frete Grátis</span></p>
+                        <div className="progress-bar">
+                            <div className="progress" style={{ width: `${progressPercentage}%` }}></div>
+                        </div>
+                    </div>
                 </section>
             </section>
-            
         </>
-    )
+    );
 };
