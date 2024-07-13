@@ -3,7 +3,7 @@ import { FormEvent, useState } from 'react';
 import './AdminPage.css'
 import Image from 'next/image';
 import { changeProduct, createNewProduct, deleteProduct } from '@/services/CreateOrChangeProducts';
-import { categorysList, characteristics } from '@/lib/static-data';
+import { categorysList, characteristics, characteristicsToWrite } from '@/lib/static-data';
 
 export default function AdminPage ({ type, close, data }: {
     type: "add" | "edit";
@@ -30,7 +30,10 @@ export default function AdminPage ({ type, close, data }: {
 
     if(data) data.imagemPath = "";
     const submitProduct = (e:FormEvent<HTMLFormElement>)=>{
-         if (type === "edit" && deleteItem && data) deleteProduct(data.id)
+         if (type === "edit" && deleteItem && data) {
+            deleteProduct(data.id)
+            return
+        }
 
         if (image){
             const formData = new FormData(e.currentTarget);
@@ -119,7 +122,7 @@ export default function AdminPage ({ type, close, data }: {
                         <div className="modal__form__stock">
                             <label htmlFor="desconto">Estoque:</label>
                             <div className="modal__form__stock-input">
-                                <input type="number" id="estoque" name="estoque" min="0" max="100"
+                                <input type="number" id="estoque" name="estoque" min="0"
                                 defaultValue={data? data.estoque : 0} />
                             </div>
                         </div>
@@ -150,8 +153,10 @@ export default function AdminPage ({ type, close, data }: {
                     <div className="modal__form__type select-characteristics">
                         <label htmlFor="caracteristica">Caracteristica:</label>
                         <select id="caracteristica" name="caracteristica" required>
-                            {characteristics.map((name)=>(
-                                <option value={name} key={name}>{name}</option>
+                            {characteristics.map((name, i)=>(
+                                <option value={name} key={name}>{
+                                    characteristicsToWrite[i]
+                                }</option>
                             ))}
                         </select>
                     </div>
@@ -172,7 +177,7 @@ export default function AdminPage ({ type, close, data }: {
                             <input type="radio" name="type-of-products" 
                                 id="exclusive-products" 
                                 className="modal__form__right__radio__container__input" 
-                                value={"true"} required checked
+                                value={"true"} required defaultChecked
                             />
                             :<input type="radio" name="type-of-products" 
                                 id="exclusive-products" 
@@ -194,7 +199,7 @@ export default function AdminPage ({ type, close, data }: {
                             :<input type="radio" name="type-of-products" 
                             id="all-products" 
                             className="modal__form__right__radio__container__input" 
-                            value={"false"} required checked
+                            value={"false"} required defaultChecked
                             />
                         }
 

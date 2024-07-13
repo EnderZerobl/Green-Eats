@@ -11,8 +11,8 @@ footer.footerMobile{
         bottom: 0;
         width: 100vw;
         /* height: 60px; */
-        background-color: #f3f3f3;
-        border-top: 1 px solid #f3f3f3;
+        background-color: white;
+        border-top: 1 px solid white;
         z-index: 1000;
     }
     

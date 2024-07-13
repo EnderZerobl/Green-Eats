@@ -1,7 +1,7 @@
 'use client';
 import './Filter.css';
 import './Filter-Animations.css';
-import { categorysList, characteristics, order } from '@/lib/static-data';
+import { categorysList, characteristics, characteristicsToWrite, order } from '@/lib/static-data';
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { HigherData, ResponseFromApi } from '@/lib/types';
@@ -88,7 +88,12 @@ function FilterOption ({ category, subCategory, currentCategory, setCurrentCateg
                         element, 
                         false)}}>
                         <div className="dot"></div>    
-                        {element}{(componentParam==="category" && lengths !== undefined) ? (" (" + lengths[i] +")") : ""}
+                        {
+                            componentParam === "characteristic"?
+                            characteristicsToWrite[i]
+                            :element
+                        }
+                        {(componentParam==="category" && lengths !== undefined) ? (" (" + lengths[i] +")") : ""}
                     </li>
                 ))}
             </ul>

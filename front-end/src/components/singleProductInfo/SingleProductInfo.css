@@ -1,8 +1,12 @@
 .singleProductInfo {
     width: 50%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
-.singleProductInfo__category {
+.singleProductInfo__category a {
     margin-bottom: .5rem;
     color: gray;
 }
@@ -11,11 +15,12 @@
     height: 5rem;
     font-size: 2.5rem;
     font-weight: 500;
+    margin-bottom: 4rem;
 }
 
 .singleProductInfo__price {
     display: block;
-    margin-bottom: 2rem;
+    margin-bottom: 4rem;
     color: var(--main-green);
     font-size: 1.8rem;
     font-weight: 500;
@@ -57,7 +62,7 @@
 .singleProductInfo__button {
     background-color: var(--main-green);
     padding: .5rem;
-    width: 85%;
+    width: 100%;
     cursor: pointer;
     color: white;
     font-size: 1.7rem;
@@ -66,4 +71,24 @@
 
 .singleProductInfo__button:hover {
     background-color: var(--dark-green);
+}
+
+@media screen and (max-width: 900px) {
+    .singleProductInfo {
+        width: 90%;
+    }
+
+    .singleProductInfo__quantity {
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .singleProductInfo__quantity__counter {
+        width: 100%;
+    }
+
+    .singleProductInfo__quantity__counter__button, .singleProductInfo__quantity__counter__number {
+        height: 2.5rem;
+        width: 33%;
+    }
 }

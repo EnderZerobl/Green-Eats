@@ -28,7 +28,8 @@ export const categorysList = [
             "Leite de vaca",
             "Leite vegetal",
             "Cafés, chás e achocolatados",
-            "Sucos concentrados"
+            "Sucos naturais",
+            "Água"
         ]
     },
     {
@@ -45,7 +46,7 @@ export const categorysList = [
 
 export const characteristics = [
     "vegano",
-    "sustensavel",
+    "sustentavel",
     "semGluten",
     "semLactose",
     "organico",
@@ -57,6 +58,21 @@ export const characteristics = [
     "artesanal",
     "semAdicaoDeAcucar"
 ] 
+
+export const characteristicsToWrite = [
+    "Vegano",
+    "Sustentável",
+    "Sem Glúten",
+    "Sem Lactose",
+    "Orgânico",
+    "Sem Açúcar",
+    "Produção Artesanal",
+    "Próximo Ao Vencimento",
+    "Selo IBD",
+    "Agroflorestal",
+    "Artesanal",
+    "Sem Adição De Açúcar"
+]
 
 export const order = [
     "Mais vendidos",
