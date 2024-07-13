@@ -72,3 +72,24 @@
 .prev {
     left: 1rem;
 }
+
+@media (max-width: 800px){
+
+    .hero{
+        justify-content: center;
+    }
+
+    .hero__content{
+        margin-left: 0;
+    }
+
+    .hero__content__text span{
+        font-size: 25px;
+    }
+
+    a.hero__content__button{
+        font-size: 20px;
+    }
+
+    
+}
