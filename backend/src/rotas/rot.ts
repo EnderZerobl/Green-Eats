@@ -199,12 +199,24 @@ router.put('/produtos/:id', atualizar.single('image'), async (req: Request, res:
         imagemPath,
         descricao: descricaoAtualizada ? { connect: { id: descricaoAtualizada.id } } : undefined,
         armazen: armazenAtualizado ? { connect: { id: armazenAtualizado.id } } : undefined,
-        vegano, sustentavel, semGluten, semLactose, organico, semAcucar,
-        producaoArtesanal, proximoAoVencimento, seloIBD, agroflorestal, artesanal, semAdicaoDeAcucar,
-        promocao,
-        exclusivo,
-        estoque,
-        preco, desconto, precoNovo
+        vegano: vegano === 'true',
+        sustentavel: sustentavel === 'true',
+        semGluten: semGluten === 'true',
+        semLactose: semLactose === 'true',
+        organico: organico === 'true',
+        semAcucar: semAcucar === 'true',
+        producaoArtesanal: producaoArtesanal === 'true',
+        proximoAoVencimento: proximoAoVencimento === 'true',
+        seloIBD: seloIBD === 'true',
+        agroflorestal: agroflorestal === 'true',
+        artesanal: artesanal === 'true',
+        semAdicaoDeAcucar: semAdicaoDeAcucar === 'true',
+        promocao: promocao === 'true',
+        exclusivo: exclusivo === 'true',
+        estoque: parseInt(estoque),
+        preco: parseFloat(preco),
+        desconto: parseFloat(desconto),
+        precoNovo: precoNovo
       }
     });
 
