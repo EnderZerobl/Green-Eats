@@ -5,7 +5,11 @@ import ProductCart from "../productCart/ProductCart";
 
 export default function FullCart({ shopCart, total }: {
     shopCart: UsableCart[];
-    total: number;
+    total: {
+        totalComDesconto: number;
+        totalSemDesconto: number;
+        Desconto: number
+    };
 }) {
     return(
         <>
@@ -23,15 +27,15 @@ export default function FullCart({ shopCart, total }: {
                     <h1 className="sectionTitle">Resumo do pedido</h1>
                     <div className="orderResumeTextContainer">
                         <div className="orderResumeText"><p>Produtos</p></div>
-                        <div className="orderResumePrice"><p>R$ {total.toFixed(2).replace(".", ",")}</p></div>
+                        <div className="orderResumePrice"><p>R$ {total.totalSemDesconto.toFixed(2).replace(".", ",")}</p></div>
                     </div>
                     <div className="orderResumeTextContainer">
                         <div className="orderResumeText"><p>Desconto</p></div>
-                        <div className="orderResumePrice"><p>R$ {total.toFixed(2).replace(".", ",")}</p></div>
+                        <div className="orderResumePrice"><p>R$ {total.Desconto.toFixed(2).replace(".", ",")}</p></div>
                     </div>
                     <div className="orderResumeTextContainer .strong">
                         <div className="orderResumeText"><p>Preço estimado:</p></div>
-                        <div className="orderResumePrice"><p><strong>R$ {total.toFixed(2).replace(".", ",")}</strong></p></div>
+                        <div className="orderResumePrice"><p><strong>R$ {total.totalComDesconto.toFixed(2).replace(".", ",")}</strong></p></div>
                     </div>
                     <button>FINALIZAR PEDIDO</button>
 

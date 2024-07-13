@@ -26,10 +26,10 @@ const ProductCard: React.FC<ProductCardProps> = ({ data, openModal }) => {
 
   const { id, nome:name, preco:oldPrice,
      precoNovo:currentPrice, desconto:discount,
-     imagemPath:imageUrl } = data
+     imagemPath:imageUrl, estoque } = data
 
   const handleIncrement = () => {
-    setQuantity(prevQuantity => prevQuantity + 1);
+    setQuantity(prevQuantity => Math.min(prevQuantity + 1, estoque));
   };
 
   const handleDecrement = () => {
@@ -93,12 +93,15 @@ const ProductCard: React.FC<ProductCardProps> = ({ data, openModal }) => {
               <button onClick={handleIncrement}>+</button>
             </div>
             <div className="productPurchaseBuy">
-              <button onClick={()=>{
-                fetchCart("post", {
-                  id,
-                  quantidade:quantity
-                })
-                router.refresh()
+              <button
+              onClick={()=>{
+                if (quantity){
+                  fetchCart("post", {
+                    id,
+                    quantidade:quantity
+                  });
+                  router.refresh();
+                }
               }}>
                 <Image src={marketCarIcon} width={0} height={0} alt="Ícone de adicionar ao carrinho" />
               </button>

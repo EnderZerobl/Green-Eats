@@ -3,9 +3,10 @@ import favoriteIcon from "../../../public/favoriteIcon.svg";
 import trashIcon from "../../../public/trash.svg";
 import Image from "next/image";
 import "../productCart/newProductCart.css";
-import { ResponseFromApi, UsableCart } from "@/lib/types";
+import { UsableCart } from "@/lib/types";
 import { fetchCart } from "@/services/ManageCart";
 import { useRouter } from "next/navigation";
+import { ChangeEventHandler } from "react";
 
 export default function ProductCart({data}: {
     data: UsableCart;
@@ -22,6 +23,16 @@ export default function ProductCart({data}: {
             <option value={i} selected>Quantidade: {i}</option>
             :<option value={i}>Quantidade: {i}</option>
         )
+    };
+
+    const handleQuantityChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+        if (parseInt(e.target.value) !== quantidade) {
+            fetchCart("put", {
+                id,
+                quantidade: parseInt(e.target.value)
+            })
+            router.refresh();
+        }
     }
 
     return(
@@ -48,7 +59,8 @@ export default function ProductCart({data}: {
                         <div className="currentPrice"><p> R$ {produto.precoNovo.toFixed(2).replace(".", ",")} </p></div>
                     </div>
                     <div className="productCartCardTextActions">
-                        <select name="" id="">
+                        <select onChange={handleQuantityChange}
+                         name="" id="">
                             {options}
                         </select>
                         <button><Image src={favoriteIcon} alt="ícone de favorito" width={24} height={22.4} /></button>

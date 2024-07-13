@@ -16,7 +16,7 @@ const getCart = async ()=>{
 const getTotal = async ()=>{
     const response = await axios(`http://localhost:3001/carrinho/total`);
 
-    return response.data.total
+    return response.data
 }
 
 const editCart = async (id: number, quantidade: number)=>{

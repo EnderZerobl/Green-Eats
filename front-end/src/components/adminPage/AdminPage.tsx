@@ -17,6 +17,7 @@ export default function AdminPage ({ type, close, data }: {
         categoria: string;
         armazen?: string;
         desc?: string;
+        estoque: number;
     }
 }) {
     const [ image, setImage ] = useState<string>(data? data.imagemPath as string : "");
@@ -118,7 +119,7 @@ export default function AdminPage ({ type, close, data }: {
                             <label htmlFor="desconto">Estoque:</label>
                             <div className="modal__form__stock-input">
                                 <input type="number" id="estoque" name="estoque" min="0" max="100"
-                                defaultValue={data? data.desconto : 0} />
+                                defaultValue={data? data.estoque : 0} />
                             </div>
                         </div>
                     </div>

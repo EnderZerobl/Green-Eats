@@ -26,7 +26,7 @@ export default async function page() {
     <>
     {
       shopCart.length?
-      <FullCart shopCart={shopCart} total={cartTotal as number} />
+      <FullCart shopCart={shopCart} total={cartTotal} />
       : <EmptyCart />
     }
     <ProductCarousel products={carrouselProducts} />

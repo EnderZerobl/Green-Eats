@@ -18,7 +18,6 @@ export const categorysList = [
             "Biscoitos",
             "Massas e molhos",
             "Farinhas",
-            "Conservantes e elatados",
             "Bolos e tortas",
             "Aveias e grãos"
         ]
