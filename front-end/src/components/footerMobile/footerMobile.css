@@ -9,7 +9,7 @@ footer.footerMobile{
         justify-content: space-around;
     }
     
-    .footerIconContainer{
+    .footerIconContainer a{
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -18,5 +18,12 @@ footer.footerMobile{
         width: 60px;
         height: 60px;
     }
+
+    .footerIconContainer a span{
+        font-weight: 400;
+        font-size: 12px;
+        margin-top: 8px;
+    }
+
 }
 

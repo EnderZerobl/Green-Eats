@@ -15,9 +15,18 @@
     justify-content: space-around
 }
 
-.productCartCardImage img{
-    margin-top: 16px;
-    
+.productCartCardImageContainer{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.productCartCardImageContainer img{
+    max-width: 190px;
+    max-height: 190px;
+    width: 100%;
+    height: 70%;
+
 }
 
 .productCartCardText{
@@ -82,19 +91,26 @@
 @media (max-width: 1500px){
     .productCartCard{
         display: flex;
+        position: relative;
         
-        width: 90%;
+        width: 100%;
         border-radius: 5px;
     
         margin-bottom: 24px;
     }
 
-    .productCartCardImage img{
-        width: 90%;
-        height: 100%;
+    .productCartCardImage{
+        display: flex;
+        align-items: center;
+        
+    }
+
+    .productCartCardImageContainer img{
+        width: 80%;
+        height: 80%;
 
         margin-top: 0;
-        margin-right: 10px;
+        position: relative;
     }
 
     .productCartCardText h1 {
@@ -113,23 +129,18 @@
     }
 
     .discountCart{
-        width: 50%;
-        height: 15%;
-        padding: 8px;
-        background-color: var(--main-green);
-        margin-top: 4px;
         display: flex;
         align-items: center;
         justify-content: center;
-        margin-left: 4px;
+        position: absolute;
+        z-index: 1;
+        top: 0;
+        left: 0;
+        margin-left: 8px;
     }
 
     .discountCart span{
         font-size: 12px;
-    }
-
-    .productCartCardTextActions{
-        justify-content: space-around;
     }
     
 }

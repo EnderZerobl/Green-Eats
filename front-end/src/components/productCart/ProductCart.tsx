@@ -24,7 +24,9 @@ export default function ProductCart({data}: {
                     <div className="discountCart">
                         <span>- 20%</span>
                     </div>
-                        <Image src={produto.imagemPath as string} alt="Imagem do produto a venda" width={190} height={0} />
+                    <div className="productCartCardImageContainer">
+                        <Image src={produto.imagemPath as string} alt="Imagem do produto a venda" width={0} height={0} />
+                    </div>
                 </div>
                 <div className="productCartCardText">
                     <div className="productCartCardTextTitle"><h1>Maça gala importada Orgânica - 500g</h1></div>
