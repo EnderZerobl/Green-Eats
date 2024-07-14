@@ -6,20 +6,7 @@
   transform: translateY(-50%);
 }
 
-.productCarousel .slick-prev {
-  color: var(--main-green);
-  border: 2px solid var(--main-green);
-  border-radius: 100%;
-  box-sizing: content-box;
-}
 
-.productCarousel .slick-next {
-    color: var(--main-green);
-    border: 2px solid var(--main-green);
-    border-radius: 100%;
-    box-sizing: content-box;
-
-}
 
 .productCarousel .slick-prev:before,
 .productCarousel .slick-next:before {

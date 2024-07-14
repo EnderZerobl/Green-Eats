@@ -50,3 +50,11 @@ body {
 .centralize {
     text-align: center;
 }
+
+.gray p {
+    color: #868686;
+}
+
+img {
+    object-fit: contain;
+}
