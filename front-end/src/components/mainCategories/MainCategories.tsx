@@ -36,7 +36,7 @@ export default function MainCategories() {
     return(
         <>
             <section className="mainCategories">
-                <h1>Principais tipos</h1>
+                <h1>Mais pesquisados</h1>
                 <div className="categorieCardContainer">
                     {
                         mainTypesOfProducts.map((prodType, i)=>{

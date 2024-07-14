@@ -62,6 +62,7 @@
     .catalogue {
         width: 70vw;
         margin-left: 30vw;
+        top: 0;
     }
 
     .catalogue__head__text__title {

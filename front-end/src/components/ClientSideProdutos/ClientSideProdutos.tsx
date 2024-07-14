@@ -25,6 +25,8 @@ export default function ClientSideProdutos ({ higherData }: {
     const [ displayAddModal, setDisplayAddModal ] = useState(false);
     const [ displayEditModal, setDisplayEditModal ] = useState(false);
     const [ dataToEdit, setDataToEdit ] = useState<ResponseFromApi[]>([])
+    const [ checked, setChecked ] = useState(false);
+
     const params = useSearchParams();
 
     //atualização dos dados de acordo com os query params da url
@@ -114,17 +116,30 @@ export default function ClientSideProdutos ({ higherData }: {
                 }
 
                 if (params.has("exclusive")) {
-                    newData = newData.filter(prod => prod.exclusivo)
+                    const exclusivity = params.get("exclusive")
+                    if(exclusivity === 'true'){
+                        newData = newData.filter(prod => prod.exclusivo)
+                    } else {
+                        newData = newData.filter(prod => prod.desconto);
+                    }
                 }
 
                 setData(newData);
             } else {
                     let dataToUse = higherData
                 if (params.has("exclusive")) {
-                    dataToUse["Green Horta"] = dataToUse["Green Horta"].filter(prod => prod.exclusivo);
-                    dataToUse["Green Mercearia"] = dataToUse["Green Horta"].filter(prod => prod.exclusivo);
-                    dataToUse["Bebidas e Laticinios"] = dataToUse["Green Horta"].filter(prod => prod.exclusivo);
-                    dataToUse["Ovos e Carnes"] = dataToUse["Green Horta"].filter(prod => prod.exclusivo);
+                    const exclusivity = params.get("exclusive")
+                    if(exclusivity === 'true'){
+                        dataToUse["Green Horta"] = dataToUse["Green Horta"].filter(prod => prod.exclusivo);
+                        dataToUse["Green Mercearia"] = dataToUse["Green Horta"].filter(prod => prod.exclusivo);
+                        dataToUse["Bebidas e Laticinios"] = dataToUse["Green Horta"].filter(prod => prod.exclusivo);
+                        dataToUse["Ovos e Carnes"] = dataToUse["Green Horta"].filter(prod => prod.exclusivo);
+                    } else {
+                        dataToUse["Green Horta"] = dataToUse["Green Horta"].filter(prod => prod.desconto);
+                        dataToUse["Green Mercearia"] = dataToUse["Green Horta"].filter(prod => prod.desconto);
+                        dataToUse["Bebidas e Laticinios"] = dataToUse["Green Horta"].filter(prod => prod.desconto);
+                        dataToUse["Ovos e Carnes"] = dataToUse["Green Horta"].filter(prod => prod.desconto);
+                    }
                 }
                 //@ts-ignore
                 setData(dataToUse[requisitionParams.category])
@@ -140,7 +155,8 @@ export default function ClientSideProdutos ({ higherData }: {
 
     return(
         <>
-            <input type="checkbox" className="toggle-filter" id="toggle-filter" name="toggle-filter" />
+            <input type="checkbox" className="toggle-filter" id="toggle-filter" 
+            name="toggle-filter" checked={checked} onClick={()=>setChecked(true)} />
             <label htmlFor="toggle-filter" className="toggle-filter-label">
                 <i className="toggle-filter-label__image-container">
                     <Image className="toggle-filter-label__image-container__image"
@@ -158,7 +174,7 @@ export default function ClientSideProdutos ({ higherData }: {
 
                 {catalogueQuantity}
             </div>
-            <Filter higherData={higherData} />
+            <Filter higherData={higherData} close={()=>setChecked(false)} />
             <ProductCatalogue data={data} catalogueQuantity={catalogueQuantity}
             toggleAddModal={()=>{setDisplayAddModal(true)}}
             toggleEditModal={(data: ResponseFromApi)=>{

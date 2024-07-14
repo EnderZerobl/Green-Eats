@@ -101,8 +101,9 @@ function FilterOption ({ category, subCategory, currentCategory, setCurrentCateg
     );
 }
 
-export default function Filter ({ higherData }: {
-    higherData: HigherData
+export default function Filter ({ higherData, close }: {
+    higherData: HigherData;
+    close: ()=>void
 }) {
     const [ currentCategory, setCurrentCategory ] = useState<string | null>(null);
     const [ currentCharacteristic, setCurrentCharacteristic ] = useState<string | null>(null);
@@ -126,12 +127,14 @@ export default function Filter ({ higherData }: {
     }, []);
 
     return(
+        <>
+        <button className="filter-outside" onClick={()=>{close()}}></button>
         <section className="filter">
             <h3 className="filter__title">Filtrar</h3>
             <select onChange={e=>{
                 const current = new URLSearchParams(Array.from(searchParams.entries()));
-                if (e.target.value === 'true') {
-                    current.set("exclusive", "true");
+                if (e.target.value !== 'false') {
+                    current.set("exclusive", e.target.value);
                 } else{
                     if (current.has("exclusive")) current.delete("exclusive");
                 };
@@ -139,9 +142,11 @@ export default function Filter ({ higherData }: {
                 const query = search ? `?${search}` : "";
                 router.push(`${pathName}${query}`);
             }} className='filter__title__select' 
-            name="exclusive" id="exclusive">
+            name="exclusive" id="exclusive"
+            defaultValue={searchParams.has("exclusive").toString()}>
                 <option className='filter__title__select__option' value="false">Todos os Produtos</option>
                 <option className='filter__title__select__option' value="true">Exclusivo Green Eats</option>
+                <option className='filter__title__select__option' value="promo">Promoções</option>
             </select>
             {categorysList.map((element, i) => (
                 <FilterOption category={element.name} subCategory={element.types} 
@@ -164,5 +169,6 @@ export default function Filter ({ higherData }: {
             key={"Ordenar"} currentCategory={currentOrder}
             setCurrentCategory={setCurrentOrder} componentParam={"order"} />
         </section>
+        </>
     );
 }

@@ -1,6 +1,7 @@
 import "./discovery.css"
 import { createClient } from "@/prismicio";
 import Image from "next/image";
+import Link from "next/link";
 
 
 export default async function Discovery () {
@@ -9,6 +10,7 @@ export default async function Discovery () {
     return (
         <section className="discovery-section">
             <h2 className="discovery-section__title">Conheça também</h2>
+            <Link href={"/produtos?exclusive=true"}>
             <div className="discovery-section__content">
                 <Image
                 className='discovery-section__content__image'
@@ -28,6 +30,7 @@ export default async function Discovery () {
                     </p>
                 </div>
             </div>
+            </Link>
         </section>
     )
 }

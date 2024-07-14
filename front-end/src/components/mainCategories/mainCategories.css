@@ -6,6 +6,7 @@
     flex-direction: column;
     margin: 0 auto;
     margin-top: 200px;
+    margin-bottom: 10rem;
 }
 
 .mainCategories h1{
@@ -24,7 +25,7 @@
 
 @media (max-width: 1510px){
     .categorieCardContainer{
-        width: 60%;
+        width: 80%;
     }
 }
 @media (max-width: 800px){
