@@ -20,8 +20,10 @@ export default function ProductCart({data}: {
     for(let i = 1; i<=produto.estoque; i++) {
         options.push(
             quantidade===i?
-            <option value={i} selected>Quantidade: {i}</option>
-            :<option value={i}>Quantidade: {i}</option>
+            <>
+                <option className="" value={i} defaultChecked>{i}</option></>
+            :<>
+                <option className="" value={i}>{i}</option></>
         )
     };
 
@@ -61,17 +63,22 @@ export default function ProductCart({data}: {
                         <div className="currentPrice"><p> R$ {produto.precoNovo.toFixed(2).replace(".", ",")} </p></div>
                     </div>
                     <div className="productCartCardTextActions">
-                        <select onChange={handleQuantityChange}
-                         name="" id="">
-                            {options}
-                        </select>
-                        <button><Image src={favoriteIcon} alt="ícone de favorito" width={24} height={22.4} /></button>
-                        <button onClick={()=>{
-                            fetchCart("delete", {id:data.id, quantidade:0})
-                            router.refresh();
+                        <div className="producCartCardTextActionsContainer">
+                            <span className="productCartCardTextActionsContainerLabel">Quantidade:</span> 
+                            <select onChange={handleQuantityChange}
+                             name="" id="">
+                                {options}
+                            </select>
+                        </div>
+                        <div className="productCartCardTextActionsIcons">
+                            <button><Image src={favoriteIcon} alt="ícone de favorito" width={24} height={22.4} /></button>
+                            <button onClick={()=>{
+                                fetchCart("delete", {id, quantidade:0})
+                                router.refresh();
                             }}>
-                                <Image src={trashIcon} alt="Ícone de lixeira para remover produto do carrinho" width={0} height={0} />
-                        </button>
+                                    <Image src={trashIcon} alt="Ícone de lixeira para remover produto do carrinho" width={0} height={0} />
+                            </button>
+                        </div>
                         
                     </div>
                 </div>

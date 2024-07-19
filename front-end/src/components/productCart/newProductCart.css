@@ -86,6 +86,38 @@
 .productCartCardTextActions{
     display: flex;
     justify-content: space-between;
+    align-items: center;
+    padding-right: 1.5rem;
+}
+
+.productCartCardTextActions select {
+    border: 2px solid #E9E9E9;
+    background-color: #E9E9E9;
+    width: 100%;
+    text-align: center;
+    outline: none;
+}
+
+.producCartCardTextActionsContainer {
+    display: flex;
+    justify-content: space-around;
+    width: 70%;
+    padding: 2px;
+    border-radius: .5rem;
+    border-color: #E9E9E9;
+    background-color: #E9E9E9;
+    overflow: hidden;
+}
+
+.productCartCardTextActionsIcons {
+    display: flex;
+    justify-content: space-between;
+    width: 20%;
+}
+
+.productCartCardTextActionsContainerLabel {
+    display: flex;
+    align-items: center;
 }
 
 @media (max-width: 1500px){
@@ -102,7 +134,7 @@
     .productCartCardImage{
         display: flex;
         align-items: center;
-        
+        justify-content: center;
     }
 
     .productCartCardImageContainer img{
@@ -116,12 +148,10 @@
     .productCartCardText h1 {
         width: 70%;
         font-weight: 500;
-        font-size: 12px;
     }
 
     .productCartCardTextPrice p{
         font-weight: 600;
-        font-size: 12px;
     }
     
     .productCartCardText{

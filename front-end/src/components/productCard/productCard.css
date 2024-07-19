@@ -85,6 +85,10 @@
     color: var(--main-green)
 }
 
+.productImage__image {
+    object-fit: contain;
+}
+
 .productPurchase{
     margin: 48px auto 0 auto;
     width: 287px;

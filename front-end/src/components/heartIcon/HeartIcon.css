@@ -1,5 +1,7 @@
 .heart-icon {
     position: relative;
-    bottom: 36vh;
-    left: 36vw;
+    left: 90%;
+    z-index: 10;
+    margin-top: 5%;
 }
+

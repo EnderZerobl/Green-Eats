@@ -7,6 +7,12 @@
     width: 25vw;
     overflow-y: scroll;
     padding: 2%;
+    padding-bottom: 4rem;
+    background-color: var(--background);
+}
+
+.filter-outside {
+    display: none;
 }
 
 .filter::-webkit-scrollbar{
@@ -25,6 +31,13 @@
     margin-bottom: 1rem;
     font-size: 2.5rem;
     font-weight: 500;
+}
+
+.filter__title__select {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border-radius: 4px;
 }
 
 .filter__option__label {
@@ -55,4 +68,43 @@
     padding: 0.1rem 0;
     user-select: none;
     cursor: pointer;
+}
+
+@media screen and (max-width: 1050px) {
+    .filter {
+        width: 30%;
+    }
+}
+
+@media screen and (max-width: 895px) {
+    .filter {
+        position: fixed;
+        top: 0;
+        max-width: 0;
+        padding: 0;
+        z-index: 10;
+    }
+
+    .filter::-webkit-scrollbar-thumb {
+        display: none;
+    }
+
+    .filter__option__label {
+        padding-left: 1rem;
+    }
+
+    .filter__option__list {
+        padding-left: 1rem;
+    }
+
+    .toggle-filter:checked ~ .filter-outside {
+        display: inline;
+        position: fixed;
+        top: 0;
+        width: 100vw;
+        height: 100vh;
+        background-color: black;
+        opacity: 30%;
+        z-index: 9;
+    }
 }

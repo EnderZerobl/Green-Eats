@@ -6,6 +6,7 @@ import MainCategories from "@/components/mainCategories/MainCategories"
 import ServiceBlock from "@/components/services-block/ServicesBlock"
 import { getProducts } from "@/services/GetProducts";
 import { createClient } from "@/prismicio";
+import { categorysList, characteristics } from "@/lib/static-data";
 
 export default async function Home() {
   //primeiramente o Hero pegará os dados do prismic para que possa exibir.
@@ -20,9 +21,13 @@ export default async function Home() {
     <main>
       <Hero page={page}/>
       <ServiceBlock />
-      <ProductSection title="Green Horta" products={products}/>
-      <ProductSection title="Green Mercearia" products={products}/>
-      <ProductSection title="Bebidas e Laticinios" products={products}/>
+      {categorysList.map(async singleProduct=>{
+        return (
+          <ProductSection key={singleProduct.name}
+           title={singleProduct.name} 
+           products={await getProducts({category:singleProduct.name})}/>
+        )
+      })}
 
       <MainCategories />
 

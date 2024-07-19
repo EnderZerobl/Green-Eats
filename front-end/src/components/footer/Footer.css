@@ -72,7 +72,15 @@
 }
 
 @media (max-width: 850px) {
+    .footer {
+        margin-bottom: 60px;
+    }
+    
     .footer__section__form__button{
         width: 100%;
+    }
+
+    .real-footer__social {
+        width: 80%;
     }
 }

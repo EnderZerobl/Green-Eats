@@ -22,16 +22,20 @@ export default async function Page ({ params }: {
             <section className="product-info page flexer">
                 <div className="product-info__hero">
                     <div className="product-info__hero__image">
+                        <HeartIcon />
                         <Image src={product.imagemPath as string} alt="imagem"
                          className="product-info__hero__image__element" width={500} height={500} />
-                         <HeartIcon />
                     </div>
-                    <SingleProductInfo nome={product.nome}
+                    <SingleProductInfo id={product.id} nome={product.nome}
                     categoria={product.categoria} imagemPath={product.imagemPath as string}
-                    tipo={product.tipo} preco={product.preco} />
+                    tipo={product.tipo} preco={product.preco} exclusivo={product.exclusivo} />
                 </div>
                 <ProductInfoDropdown title="Descrição" content={product.desc? product.desc : ""}/>
-                <ProductInfoDropdown title="Informações de armazenamento(Recomendado)" content={product.armazen? product.armazen : ""}/>
+                {
+                    product.armazen?
+                    <ProductInfoDropdown title="Informações de armazenamento(Recomendado)" content={product.armazen}/>
+                    :<></>
+                }
             </section>
             <ProductCarousel products={products} />
         </>

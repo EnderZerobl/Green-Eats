@@ -2,8 +2,8 @@
     position: fixed;
     top: 0;
     background-color: transparent;
-    width: 100%;
-    height: 100%;
+    width: 100vw;
+    height: 100vh;
     position: fixed;
     z-index: 35;
 }
@@ -11,12 +11,15 @@
 .modal-wrapper {
     position: fixed;
     top: 0;
+    left: 0;
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 100%;
+    width: 100vw;
+    height: 100vh;
     z-index: 30;
     background-color: rgba(0, 0, 0, .5);
+    overflow-y: scroll;
 }
 
 .modal {
@@ -55,7 +58,7 @@
 .modal__form__image-preview {
     width: 100%;
     height: 300px;
-    background-color: #f0f0f0;
+    background-color: #FFFFFF;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -228,4 +231,23 @@
 
 .modal__form__submit__button:hover {
     background-color: var(--dark-green);
+}
+
+@media screen and (max-width: 895px) {
+    .modal-wrapper ~ .catalogue {
+        display: none;
+    }
+
+    .modal-wrapper ~ .filter {
+        display: none;
+    }
+
+    .modal {
+        position: absolute;
+        top: 0;        
+    }
+
+    .modal__form__submit__button {
+        margin-bottom: 5rem;
+    }
 }

@@ -47,8 +47,14 @@ body {
     color: white;
 }
 
-.little-text {
-    margin-left: 25vw;
-    font-size: .8rem;
-    font-weight: 300;
+.centralize {
+    text-align: center;
+}
+
+.gray p {
+    color: #868686;
+}
+
+img {
+    object-fit: contain;
 }
